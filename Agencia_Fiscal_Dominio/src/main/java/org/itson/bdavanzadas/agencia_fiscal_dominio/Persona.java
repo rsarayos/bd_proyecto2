@@ -13,42 +13,54 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
- * @author alex_
+ * Clase que representa a una persona en el sistema.
+ * Una persona tiene atributos como RFC, nombres, apellidos, fecha de nacimiento, teléfono, CURP, entre otros.
+ * Además, puede estar asociada a trámites y vehículos.
+ * 
  */
 @Entity
 @Table(name = "personas")
 public class Persona implements Serializable {
 
+    // RFC (Registro Federal de Contribuyentes) de la persona.
     @Id
     @Column(name = "rfc", length = 13)
     private String rfc;
 
+    // Nombres de la persona.
     @Column(name = "nombres", nullable = false, length = 100)
     private String nombres;
 
+    // Apellido paterno de la persona.
     @Column(name = "apellidoPaterno", nullable = false, length = 50)
     private String apellidoPaterno;
 
+    // Apellido materno de la persona.
     @Column(name = "apellidoMaterno", length = 50)
     private String apellidoMaterno;
 
+    // Fecha de nacimiento de la persona
     @Column(name = "fechaNacimiento", nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar fechaNacimiento;
 
+    // Telefono de la persona
     @Column(name = "telefono", nullable = false, length = 15)
     private String telefono;
 
+    // CURP (Clave Única de Registro de Población) de la persona.
     @Column(name = "curp", nullable = false, length = 18, unique = true)
     private String curp;
 
+    // Indica si la persona es discapacitada o no
     @Column(name = "isDiscapacitado")
     private Boolean isDiscapacitado;
     
+    // Lista de tramites relacionados a la persona
     @OneToMany(mappedBy = "persona", cascade = CascadeType.PERSIST)
     private List<Tramite> tramites;
 
+    // Lista de vehiculos relacionados a la persona
     @OneToMany(mappedBy = "persona", cascade = CascadeType.PERSIST)
     private List<Vehiculo> vehiculos;
     
@@ -102,6 +114,20 @@ public class Persona implements Serializable {
         this.isDiscapacitado = isDiscapacitado;
     }
 
+    /**
+     * Constructor que nos permite crear una persona con todos los atributos, incluyendo las listas de trámites y vehículos.
+     *
+     * @param rfc RFC de la persona.
+     * @param nombres Nombres de la persona.
+     * @param apellidoPaterno Apellido Paterno de la persona.
+     * @param apellidoMaterno Apellido Materno de la persona.
+     * @param fechaNacimiento Fecha de nacimiento de la persona.
+     * @param telefono Telefono de la persona
+     * @param curp CURP de la persona
+     * @param isDiscapacitado true si la persona es discapacitada, false en caso contrario.
+     * @param tramites Lista de trámites asociados a la persona.
+     * @param vehiculos Lista de vehículos asociados a la persona.
+     */
     public Persona(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String curp, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
         this.rfc = rfc;
         this.nombres = nombres;
@@ -263,18 +289,40 @@ public class Persona implements Serializable {
         this.isDiscapacitado = isDiscapacitado;
     }
 
+    /**
+     * Permite obtener la lista de tramites relacionados a la
+     * persona.
+     *
+     * @return tramites de la persona.
+     */
     public List<Tramite> getTramites() {
         return tramites;
     }
 
+    /**
+     * Permite establecer la lista de tramites de la persona.
+     *
+     * @param tramites lista de tramites relacionados a la persona.
+     */
     public void setTramites(List<Tramite> tramites) {
         this.tramites = tramites;
     }
 
+    /**
+     * Permite obtener la lista de vehiculos relacionados a la
+     * persona.
+     *
+     * @return vehiculos de la persona.
+     */
     public List<Vehiculo> getVehiculos() {
         return vehiculos;
     }
 
+    /**
+     * Permite establecer la lista de vehiculos de la persona.
+     *
+     * @param vehiculos lista de vehiculos relacionados a la persona.
+     */
     public void setVehiculos(List<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
     }
