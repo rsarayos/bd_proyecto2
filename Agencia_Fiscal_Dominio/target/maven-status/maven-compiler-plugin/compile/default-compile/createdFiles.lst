@@ -1,2 +1,10 @@
-org\itson\bdavanzadas\agencia_fiscal_dominio\Agencia_Fiscal_Dominio.class
+org\itson\bdavanzadas\agencia_fiscal_dominio\Tramite.class
+org\itson\bdavanzadas\agencia_fiscal_dominio\Costos.class
+org\itson\bdavanzadas\agencia_fiscal_dominio\Vehiculo.class
+org\itson\bdavanzadas\agencia_fiscal_dominio\TipoLicencia.class
+org\itson\bdavanzadas\agencia_fiscal_dominio\Licencia.class
+org\itson\bdavanzadas\agencia_fiscal_dominio\Placa.class
+org\itson\bdavanzadas\agencia_fiscal_dominio\Costos$1.class
 org\itson\bdavanzadas\agencia_fiscal_dominio\Persona.class
+org\itson\bdavanzadas\agencia_fiscal_dominio\Automovil.class
+pruebas\Pruebas.class

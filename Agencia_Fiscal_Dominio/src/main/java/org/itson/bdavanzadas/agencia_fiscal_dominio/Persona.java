@@ -2,9 +2,12 @@ package org.itson.bdavanzadas.agencia_fiscal_dominio;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,7 +21,7 @@ import javax.persistence.TemporalType;
 public class Persona implements Serializable {
 
     @Id
-    @Column(name = "rfc")
+    @Column(name = "rfc", length = 13)
     private String rfc;
 
     @Column(name = "nombres", nullable = false, length = 100)
@@ -42,7 +45,13 @@ public class Persona implements Serializable {
 
     @Column(name = "isDiscapacitado")
     private Boolean isDiscapacitado;
+    
+    @OneToMany(mappedBy = "persona", cascade = CascadeType.PERSIST)
+    private List<Tramite> tramites;
 
+    @OneToMany(mappedBy = "persona", cascade = CascadeType.PERSIST)
+    private List<Vehiculo> vehiculos;
+    
     /**
      * Constructor por defecto.
      */
@@ -91,6 +100,19 @@ public class Persona implements Serializable {
         this.telefono = telefono;
         this.curp = curp;
         this.isDiscapacitado = isDiscapacitado;
+    }
+
+    public Persona(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String curp, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
+        this.rfc = rfc;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fechaNacimiento = fechaNacimiento;
+        this.telefono = telefono;
+        this.curp = curp;
+        this.isDiscapacitado = isDiscapacitado;
+        this.tramites = tramites;
+        this.vehiculos = vehiculos;
     }
 
     /**
@@ -239,6 +261,22 @@ public class Persona implements Serializable {
      */
     public void setIsDiscapacitado(Boolean isDiscapacitado) {
         this.isDiscapacitado = isDiscapacitado;
+    }
+
+    public List<Tramite> getTramites() {
+        return tramites;
+    }
+
+    public void setTramites(List<Tramite> tramites) {
+        this.tramites = tramites;
+    }
+
+    public List<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public void setVehiculos(List<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
     }
 
     /**
