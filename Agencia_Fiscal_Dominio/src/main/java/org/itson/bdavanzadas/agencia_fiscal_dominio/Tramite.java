@@ -7,6 +7,7 @@ package org.itson.bdavanzadas.agencia_fiscal_dominio;
 import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +27,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "tramite")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tipo")
 public class Tramite implements Serializable {
 
     // Identificador único del trámite.

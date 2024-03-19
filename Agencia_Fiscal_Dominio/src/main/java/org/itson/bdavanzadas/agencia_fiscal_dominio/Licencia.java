@@ -4,6 +4,7 @@
  */
 package org.itson.bdavanzadas.agencia_fiscal_dominio;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "licencia")
-public class Licencia extends Tramite {
+public class Licencia extends Tramite implements Serializable {
     
     // Fecha de vencimiento de la licencia.
     @Column(name="fecha_vencimiento", nullable = false)

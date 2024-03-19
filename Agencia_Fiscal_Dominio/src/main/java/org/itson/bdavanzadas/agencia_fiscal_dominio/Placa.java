@@ -4,6 +4,7 @@
  */
 package org.itson.bdavanzadas.agencia_fiscal_dominio;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "placa")
-public class Placa extends Tramite {
+public class Placa extends Tramite implements Serializable {
 
     // Número de placa asociado a la placa.
     @Column(name = "numero_placa")

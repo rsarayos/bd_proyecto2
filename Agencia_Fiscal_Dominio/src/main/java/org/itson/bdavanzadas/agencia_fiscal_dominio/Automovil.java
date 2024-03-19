@@ -4,6 +4,7 @@
  */
 package org.itson.bdavanzadas.agencia_fiscal_dominio;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -13,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "automovil")
-public class Automovil extends Vehiculo {
+public class Automovil extends Vehiculo implements Serializable{
 
     /**
      * Constructor por defecto.
