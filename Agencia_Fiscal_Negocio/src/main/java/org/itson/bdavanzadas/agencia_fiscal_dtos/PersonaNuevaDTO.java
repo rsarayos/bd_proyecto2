@@ -1,4 +1,4 @@
-package org.itson.bdavanzadas.agencia_fiscal_persistencia.dtos;
+package org.itson.bdavanzadas.agencia_fiscal_dtos;
 
 import java.util.Calendar;
 
