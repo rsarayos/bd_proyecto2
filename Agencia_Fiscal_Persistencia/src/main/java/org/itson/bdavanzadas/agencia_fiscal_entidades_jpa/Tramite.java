@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.bdavanzadas.agencia_fiscal_entidades_jpa;
 
 import java.io.Serializable;
@@ -21,11 +17,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Clase que representa un trámite en el sistema.
- * Los trámites pueden estar asociados a una persona y tienen atributos como fecha de trámite y costo.
+ * Clase que representa un trámite en el sistema. Los trámites pueden estar
+ * asociados a una persona y tienen atributos como fecha de trámite y costo.
  */
 @Entity
-@Table(name = "tramite")
+@Table(name = "tramites")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo")
 public class Tramite implements Serializable {
@@ -35,16 +31,16 @@ public class Tramite implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tramite")
     private Long id;
-    
+
     // Fecha en la que se realizó el trámite.
-    @Column(name="fecha_tramite", nullable = false)
+    @Column(name = "fecha_tramite", nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar fechaTramite;
-    
+
     // Costo del trámite.
     @Column(name = "costo", nullable = false)
     private Float costo;
-    
+
     // Persona asociada al trámite.
     @ManyToOne
     @JoinColumn(name = "rfc_persona", nullable = false)
@@ -57,7 +53,8 @@ public class Tramite implements Serializable {
     }
 
     /**
-     * Constructor que nos permite crear un trámite con los atributos necesarios.
+     * Constructor que nos permite crear un trámite con los atributos
+     * necesarios.
      *
      * @param fechaTramite Fecha en la que se realizó el trámite.
      * @param costo Costo del trámite.
@@ -68,7 +65,7 @@ public class Tramite implements Serializable {
         this.costo = costo;
         this.persona = persona;
     }
-    
+
     /**
      * Obtiene el identificador único del trámite.
      *
@@ -173,13 +170,21 @@ public class Tramite implements Serializable {
     }
 
     /**
-     * Devuelve una cadena que representa a esta instancia de Tramite, mostrando solo el ID.
+     * Devuelve una cadena que representa a esta instancia de Tramite, mostrando
+     * solo el ID.
      *
      * @return Una cadena que representa a esta instancia de Tramite.
      */
     @Override
     public String toString() {
-        return "org.itson.bdavanzadas.agencia_fiscal_dominio.Tramite[ id=" + id + " ]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tramite{");
+        sb.append("id=").append(id);
+        sb.append(", fechaTramite=").append(fechaTramite);
+        sb.append(", costo=").append(costo);
+        sb.append(", persona=").append(persona);
+        sb.append('}');
+        return sb.toString();
     }
-    
+
 }

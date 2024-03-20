@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.bdavanzadas.agencia_fiscal_entidades_jpa;
 
 import java.io.Serializable;
@@ -13,22 +9,22 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Clase que representa una placa en el sistema.
- * Una placa es un tipo específico de trámite con un número de placa y estado asociados.
+ * Clase que representa una placa en el sistema. Una placa es un tipo específico
+ * de trámite con un número de placa y estado asociados.
  */
 @Entity
-@Table(name = "placa")
+@Table(name = "placas")
 public class Placa extends Tramite implements Serializable {
 
     // Número de placa asociado a la placa.
     @Column(name = "numero_placa")
     private String numeroPlaca;
-    
+
     // Fecha en la que se recibió la placa.
-    @Column(name="fecha_recepcion", nullable = false)
+    @Column(name = "fecha_recepcion", nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar fechaRecepcion;
-    
+
     // Vigencia de la placa.
     @Column(name = "estado")
     private Boolean estado;
@@ -55,7 +51,7 @@ public class Placa extends Tramite implements Serializable {
         this.fechaRecepcion = fechaRecepcion;
         this.estado = estado;
     }
-    
+
     /**
      * Obtiene el número de placa asociado a la placa.
      *
@@ -142,13 +138,20 @@ public class Placa extends Tramite implements Serializable {
     }
 
     /**
-     * Devuelve una cadena que representa a esta instancia de Placa, mostrando solo el número de placa.
+     * Devuelve una cadena que representa a esta instancia de Placa, mostrando
+     * solo el número de placa.
      *
      * @return Una cadena que representa a esta instancia de Placa.
      */
     @Override
     public String toString() {
-        return "org.itson.bdavanzadas.agencia_fiscal_dominio.Placa[ id=" + numeroPlaca + " ]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Placa{");
+        sb.append("numeroPlaca=").append(numeroPlaca);
+        sb.append(", fechaRecepcion=").append(fechaRecepcion);
+        sb.append(", estado=").append(estado);
+        sb.append('}');
+        return sb.toString();
     }
-    
+
 }

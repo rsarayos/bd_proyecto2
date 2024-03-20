@@ -13,10 +13,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Clase que representa a una persona en el sistema.
- * Una persona tiene atributos como RFC, nombres, apellidos, fecha de nacimiento, teléfono, CURP, entre otros.
- * Además, puede estar asociada a trámites y vehículos.
- * 
+ * Clase que representa a una persona en el sistema. Una persona tiene atributos
+ * como RFC, nombres, apellidos, fecha de nacimiento, teléfono, CURP, entre
+ * otros. Además, puede estar asociada a trámites y vehículos.
+ *
  */
 @Entity
 @Table(name = "personas")
@@ -55,7 +55,7 @@ public class Persona implements Serializable {
     // Indica si la persona es discapacitada o no
     @Column(name = "isDiscapacitado")
     private Boolean isDiscapacitado;
-    
+
     // Lista de tramites relacionados a la persona
     @OneToMany(mappedBy = "persona", cascade = CascadeType.PERSIST)
     private List<Tramite> tramites;
@@ -63,7 +63,7 @@ public class Persona implements Serializable {
     // Lista de vehiculos relacionados a la persona
     @OneToMany(mappedBy = "persona", cascade = CascadeType.PERSIST)
     private List<Vehiculo> vehiculos;
-    
+
     /**
      * Constructor por defecto.
      */
@@ -115,7 +115,8 @@ public class Persona implements Serializable {
     }
 
     /**
-     * Constructor que nos permite crear una persona con todos los atributos, incluyendo las listas de trámites y vehículos.
+     * Constructor que nos permite crear una persona con todos los atributos,
+     * incluyendo las listas de trámites y vehículos.
      *
      * @param rfc RFC de la persona.
      * @param nombres Nombres de la persona.
@@ -124,7 +125,8 @@ public class Persona implements Serializable {
      * @param fechaNacimiento Fecha de nacimiento de la persona.
      * @param telefono Telefono de la persona
      * @param curp CURP de la persona
-     * @param isDiscapacitado true si la persona es discapacitada, false en caso contrario.
+     * @param isDiscapacitado true si la persona es discapacitada, false en caso
+     * contrario.
      * @param tramites Lista de trámites asociados a la persona.
      * @param vehiculos Lista de vehículos asociados a la persona.
      */
@@ -290,8 +292,7 @@ public class Persona implements Serializable {
     }
 
     /**
-     * Permite obtener la lista de tramites relacionados a la
-     * persona.
+     * Permite obtener la lista de tramites relacionados a la persona.
      *
      * @return tramites de la persona.
      */
@@ -309,8 +310,7 @@ public class Persona implements Serializable {
     }
 
     /**
-     * Permite obtener la lista de vehiculos relacionados a la
-     * persona.
+     * Permite obtener la lista de vehiculos relacionados a la persona.
      *
      * @return vehiculos de la persona.
      */
@@ -365,7 +365,20 @@ public class Persona implements Serializable {
      */
     @Override
     public String toString() {
-        return "org.itson.bdavanzadas.fiscalbddominio.Persona[ rfc=" + rfc + " ]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Persona{");
+        sb.append("rfc=").append(rfc);
+        sb.append(", nombres=").append(nombres);
+        sb.append(", apellidoPaterno=").append(apellidoPaterno);
+        sb.append(", apellidoMaterno=").append(apellidoMaterno);
+        sb.append(", fechaNacimiento=").append(fechaNacimiento);
+        sb.append(", telefono=").append(telefono);
+        sb.append(", curp=").append(curp);
+        sb.append(", isDiscapacitado=").append(isDiscapacitado);
+        sb.append(", tramites=").append(tramites);
+        sb.append(", vehiculos=").append(vehiculos);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

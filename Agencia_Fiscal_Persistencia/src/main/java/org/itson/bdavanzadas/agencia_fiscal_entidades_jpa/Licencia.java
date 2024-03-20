@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.bdavanzadas.agencia_fiscal_entidades_jpa;
 
 import java.io.Serializable;
@@ -13,15 +9,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Clase que representa una licencia en el sistema.
- * Una licencia es un tipo específico de trámite con una fecha de vencimiento adicional.
+ * Clase que representa una licencia en el sistema. Una licencia es un tipo
+ * específico de trámite con una fecha de vencimiento adicional.
  */
 @Entity
-@Table(name = "licencia")
+@Table(name = "licencias")
 public class Licencia extends Tramite implements Serializable {
-    
+
     // Fecha de vencimiento de la licencia.
-    @Column(name="fecha_vencimiento", nullable = false)
+    @Column(name = "fecha_vencimiento", nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar fechaVencimiento;
 
@@ -32,7 +28,8 @@ public class Licencia extends Tramite implements Serializable {
     }
 
     /**
-     * Constructor que nos permite crear una licencia con los atributos necesarios.
+     * Constructor que nos permite crear una licencia con los atributos
+     * necesarios.
      *
      * @param fechaVencimiento Fecha de vencimiento de la licencia.
      * @param fechaTramite Fecha en la que se realizó el trámite.
@@ -94,13 +91,18 @@ public class Licencia extends Tramite implements Serializable {
     }
 
     /**
-     * Devuelve una cadena que representa a esta instancia de Licencia, mostrando solo el ID.
+     * Devuelve una cadena que representa a esta instancia de Licencia,
+     * mostrando solo el ID.
      *
      * @return Una cadena que representa a esta instancia de Licencia.
      */
     @Override
     public String toString() {
-        return "org.itson.bdavanzadas.agencia_fiscal_dominio.Licencia[ id=" + this.getId() + " ]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Licencia{");
+        sb.append("fechaVencimiento=").append(fechaVencimiento);
+        sb.append('}');
+        return sb.toString();
     }
-    
+
 }

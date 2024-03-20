@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.bdavanzadas.agencia_fiscal_entidades_jpa;
 
 import java.io.Serializable;
@@ -13,7 +9,7 @@ import javax.persistence.Table;
  * Un automóvil es un tipo específico de vehículo.
  */
 @Entity
-@Table(name = "automovil")
+@Table(name = "automoviles")
 public class Automovil extends Vehiculo implements Serializable{
 
     /**

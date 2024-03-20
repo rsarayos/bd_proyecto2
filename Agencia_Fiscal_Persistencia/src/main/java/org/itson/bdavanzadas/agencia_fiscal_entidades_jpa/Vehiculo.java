@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.bdavanzadas.agencia_fiscal_entidades_jpa;
 
 import java.io.Serializable;
@@ -15,11 +11,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Clase que representa un vehículo en el sistema.
- * Un vehículo puede ser asociado a una persona y tiene atributos como número de serie, color, modelo, línea, marca y estado.
+ * Clase que representa un vehículo en el sistema. Un vehículo puede ser
+ * asociado a una persona y tiene atributos como número de serie, color, modelo,
+ * línea, marca y estado.
  */
 @Entity
-@Table(name = "vehiculo")
+@Table(name = "vehiculos")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Vehiculo implements Serializable {
 
@@ -27,27 +24,27 @@ public class Vehiculo implements Serializable {
     @Id
     @Column(name = "numero_serie", length = 17)
     private String numeroSerie;
-    
+
     // Color del vehículo.
     @Column(name = "color", nullable = false, length = 30)
     private String color;
-    
+
     // Modelo del vehículo.
     @Column(name = "modelo", nullable = false, length = 50)
     private String modelo;
-    
+
     // Línea del vehículo.
     @Column(name = "linea", nullable = false, length = 50)
     private String linea;
-    
+
     // Marca del vehículo.
     @Column(name = "marca", nullable = false, length = 50)
     private String marca;
-    
+
     // Estado del vehículo.
     @Column(name = "estado", nullable = false)
     private Boolean estado;
-    
+
     // Persona asociada al vehículo.
     @ManyToOne
     @JoinColumn(name = "rfc_persona", nullable = false)
@@ -60,7 +57,8 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     * Constructor que nos permite crear un vehículo con los atributos necesarios.
+     * Constructor que nos permite crear un vehículo con los atributos
+     * necesarios.
      *
      * @param numeroSerie Número de serie del vehículo.
      * @param color Color del vehículo.
@@ -79,7 +77,7 @@ public class Vehiculo implements Serializable {
         this.estado = estado;
         this.persona = persona;
     }
-
+    
     /**
      * Obtiene el número de serie del vehículo.
      *
@@ -169,7 +167,7 @@ public class Vehiculo implements Serializable {
     public void setMarca(String marca) {
         this.marca = marca;
     }
-    
+
     /**
      * Obtiene el estado del vehículo.
      *
@@ -220,13 +218,24 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     * Devuelve una cadena que representa a esta instancia de Vehiculo, mostrando solo el número de serie.
+     * Devuelve una cadena que representa a esta instancia de Vehiculo,
+     * mostrando solo el número de serie.
      *
      * @return Una cadena que representa a esta instancia de Vehiculo.
      */
     @Override
     public String toString() {
-        return "org.itson.bdavanzadas.agencia_fiscal_dominio.Vehiculo[ id=" + numeroSerie + " ]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Vehiculo{");
+        sb.append("numeroSerie=").append(numeroSerie);
+        sb.append(", color=").append(color);
+        sb.append(", modelo=").append(modelo);
+        sb.append(", linea=").append(linea);
+        sb.append(", marca=").append(marca);
+        sb.append(", estado=").append(estado);
+        sb.append(", persona=").append(persona);
+        sb.append('}');
+        return sb.toString();
     }
-    
+
 }

@@ -5,10 +5,6 @@ import java.util.List;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Tramite;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 
-/**
- *
- * @author victo
- */
 public class PersonaNuevaDTO {
 
     private String rfc;
@@ -18,7 +14,7 @@ public class PersonaNuevaDTO {
     private Calendar fechaNacimiento;
     private String telefono;
     private String curp;
-    private boolean Discapacitado;
+    private Boolean Discapacitado;
     private List<Tramite> tramites;
     private List<Vehiculo> vehiculos;
 
@@ -38,7 +34,7 @@ public class PersonaNuevaDTO {
      * @param tramites lista de tramites de la persona
      * @param vehiculos lista de vehiculos de la persona
      */
-    public PersonaNuevaDTO(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String curp, boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
+    public PersonaNuevaDTO(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String curp, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
         this.rfc = rfc;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -121,18 +117,26 @@ public class PersonaNuevaDTO {
      *
      * @return true si es discapacitada, false en caso contrario.
      */
-    public boolean isDiscapacitado() {
+    public Boolean isDiscapacitado() {
         return Discapacitado;
     }
 
+    /**
+     * Permite obtener una lista con los trámites que haya realizado la persona
+     *
+     * @return Una lista con los trámites que haya realizado la persona
+     */
     public List<Tramite> getTramites() {
         return tramites;
     }
 
+    /**
+     * Permite obtener una lista con todos los vehículos que tenga la persona
+     *
+     * @return Una lista con todos los vehículos que tenga la persona
+     */
     public List<Vehiculo> getVehiculos() {
         return vehiculos;
     }
-    
-    
 
 }
