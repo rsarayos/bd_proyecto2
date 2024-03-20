@@ -1,1 +1,2 @@
-org\itson\bdavanzadas\agencia_fiscal_persistencia\dtos\PersonaNuevaDTO.class
+org\itson\bdavanzadas\agencia_fiscal_dtos\LicenciaNuevaDTO.class
+org\itson\bdavanzadas\agencia_fiscal_dtos\PersonaNuevaDTO.class

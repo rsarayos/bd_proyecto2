@@ -1,6 +1,9 @@
 package org.itson.bdavanzadas.agencia_fiscal_dtos;
 
 import java.util.Calendar;
+import java.util.List;
+import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Tramite;
+import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 
 /**
  *
@@ -16,6 +19,8 @@ public class PersonaNuevaDTO {
     private String telefono;
     private String curp;
     private boolean Discapacitado;
+    private List<Tramite> tramites;
+    private List<Vehiculo> vehiculos;
 
     /**
      * Constructor que nos permite crear un objeto DTO de persona con todos los
@@ -30,8 +35,10 @@ public class PersonaNuevaDTO {
      * @param curp CURP de la persona
      * @param isDiscapacitado true si la persona es discapacitada, false en caso
      * contrario.
+     * @param tramites lista de tramites de la persona
+     * @param vehiculos lista de vehiculos de la persona
      */
-    public PersonaNuevaDTO(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String curp, boolean isDiscapacitado) {
+    public PersonaNuevaDTO(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String curp, boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
         this.rfc = rfc;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -40,6 +47,8 @@ public class PersonaNuevaDTO {
         this.telefono = telefono;
         this.curp = curp;
         this.Discapacitado = isDiscapacitado;
+        this.tramites = tramites;
+        this.vehiculos = vehiculos;
     }
 
     /**
@@ -115,5 +124,15 @@ public class PersonaNuevaDTO {
     public boolean isDiscapacitado() {
         return Discapacitado;
     }
+
+    public List<Tramite> getTramites() {
+        return tramites;
+    }
+
+    public List<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+    
+    
 
 }
