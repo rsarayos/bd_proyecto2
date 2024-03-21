@@ -77,6 +77,7 @@ public class PantallaInicio extends javax.swing.JFrame {
         btnModuloTramites.setForeground(new java.awt.Color(255, 255, 255));
         btnModuloTramites.setText("MÓDULO DE TRÁMITES");
         btnModuloTramites.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnModuloTramites.setFocusPainted(false);
         btnModuloTramites.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModuloTramitesActionPerformed(evt);
@@ -88,6 +89,7 @@ public class PantallaInicio extends javax.swing.JFrame {
         btnContribuyentes.setForeground(new java.awt.Color(255, 255, 255));
         btnContribuyentes.setText("CONTRIBUYENTES");
         btnContribuyentes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnContribuyentes.setFocusPainted(false);
         btnContribuyentes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnContribuyentesActionPerformed(evt);
@@ -99,6 +101,7 @@ public class PantallaInicio extends javax.swing.JFrame {
         btnModuloReportes.setForeground(new java.awt.Color(255, 255, 255));
         btnModuloReportes.setText("MÓDULO DE REPORTES");
         btnModuloReportes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnModuloReportes.setFocusPainted(false);
         btnModuloReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModuloReportesActionPerformed(evt);
@@ -110,6 +113,7 @@ public class PantallaInicio extends javax.swing.JFrame {
         btnModuloConsultas.setForeground(new java.awt.Color(255, 255, 255));
         btnModuloConsultas.setText("MÓDULO DE CONSULTAS");
         btnModuloConsultas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnModuloConsultas.setFocusPainted(false);
         btnModuloConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModuloConsultasActionPerformed(evt);

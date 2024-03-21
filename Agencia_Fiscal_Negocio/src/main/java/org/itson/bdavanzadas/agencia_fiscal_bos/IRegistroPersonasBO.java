@@ -2,7 +2,7 @@
 
 package org.itson.bdavanzadas.agencia_fiscal_bos;
 
-import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
 /**
  *
@@ -10,5 +10,5 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
  */
 public interface IRegistroPersonasBO {
     
-    public void agregarPersonas();
+    public void agregarPersonas() throws NegociosException;
 }

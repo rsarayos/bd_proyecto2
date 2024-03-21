@@ -95,7 +95,7 @@ public class PersonaDAO implements IPersonaDAO {
             entityManager.getTransaction().commit();
             logger.log(Level.INFO, "Se agregó la lista de personas correctamente");
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "No se pudo agregar la lista de personas", e);
+            throw new PersistenciaException("No se pudieron regitrar las personas en la BD.");
         } finally {
             entityManager.close();
         }

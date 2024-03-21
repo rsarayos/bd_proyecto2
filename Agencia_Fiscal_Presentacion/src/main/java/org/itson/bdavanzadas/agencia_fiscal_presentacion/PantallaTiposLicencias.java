@@ -1,11 +1,18 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.LicenciaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Costos;
 
 public class PantallaTiposLicencias extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaTiposLicencias
+     * @param parent
+     * @param modal
      */
     public PantallaTiposLicencias(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -41,6 +48,7 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
         btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
 
@@ -76,6 +84,7 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("CANCELAR");
         btnCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCancelar.setFocusPainted(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -208,6 +217,7 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
         btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
         btnAceptar.setText("ACEPTAR");
         btnAceptar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAceptar.setFocusPainted(false);
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptarActionPerformed(evt);
@@ -313,6 +323,14 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
         txtCosto.setText("$ 1,200.00");
     }//GEN-LAST:event_rbtTresAniosActionPerformed
 
+//    private void registrarLicencia(){
+//        if (rbtUnAnio.isSelected()) {
+//            Calendar fechaVencimiento = new GregorianCalendar();
+//            fechaVencimiento.add(Calendar.YEAR, 1);
+//            LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(), Costos.COSTO_NORMAL_UN_ANIO, persona, true);
+//        }
+//    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
@@ -337,4 +355,5 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbtUnAnio;
     private javax.swing.JTextField txtCosto;
     // End of variables declaration//GEN-END:variables
+    private PersonaNuevaDTO persona;
 }
