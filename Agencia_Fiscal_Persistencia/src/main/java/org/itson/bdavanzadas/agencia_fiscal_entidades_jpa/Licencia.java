@@ -20,6 +20,10 @@ public class Licencia extends Tramite implements Serializable {
     @Column(name = "fecha_vencimiento", nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar fechaVencimiento;
+    
+    // Vigencia de la licencia
+    @Column(name = "estado")
+    private Boolean estado;
 
     /**
      * Constructor por defecto.
@@ -35,10 +39,12 @@ public class Licencia extends Tramite implements Serializable {
      * @param fechaTramite Fecha en la que se realizó el trámite.
      * @param costo Costo del trámite.
      * @param persona Persona asociada al trámite.
+     * @param estado vigencia de la licencia
      */
-    public Licencia(Calendar fechaVencimiento, Calendar fechaTramite, Float costo, Persona persona) {
+    public Licencia(Calendar fechaVencimiento, Calendar fechaTramite, Float costo, Persona persona, Boolean estado) {
         super(fechaTramite, costo, persona);
         this.fechaVencimiento = fechaVencimiento;
+        this.estado = estado;
     }
 
     /**
@@ -57,6 +63,14 @@ public class Licencia extends Tramite implements Serializable {
      */
     public void setFechaVencimiento(Calendar fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
     /**

@@ -74,12 +74,12 @@ public class Pruebas {
         
         Vehiculo vehiculo = new Automovil("12345678901234567", "Rojo", "Civic", "Sedán", "Honda", true, persona);
         
-        Licencia tramite = new Licencia(fechaVencimiento, fechaTramite, 100.0f, persona);
-        Licencia tramite3 = new Licencia(fechaVencimiento, fechaTramite, 250.0f, persona);
+        Licencia tramite = new Licencia(fechaVencimiento, fechaTramite, 100.0f, persona, true);
+        Licencia tramite3 = new Licencia(fechaVencimiento, fechaTramite, 250.0f, persona, true);
         Placa tramite2 = new Placa("ABC123", fechaRecepcion, true, fechaTramite, 100.0f, persona);
         Placa tramite4 = new Placa("ABC123", fechaRecepcion, true, fechaTramite, 150.0f, persona);
         
-        Licencia tramite6 = new Licencia(fechaVencimiento, fechaTramite, 45.0f, persona);
+        Licencia tramite6 = new Licencia(fechaVencimiento, fechaTramite, 45.0f, persona, true);
         
         
         List<Vehiculo> vehiculos = new LinkedList<>();
