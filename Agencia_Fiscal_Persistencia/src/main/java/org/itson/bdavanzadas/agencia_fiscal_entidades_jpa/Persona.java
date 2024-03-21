@@ -73,7 +73,10 @@ public class Persona implements Serializable {
     public Persona() {
     }
 
-
+    public Persona(String rfc) {
+        this.rfc = rfc;
+    }
+    
     /**
      * Constructor que nos permite crear una persona con todos los atributos.
      *

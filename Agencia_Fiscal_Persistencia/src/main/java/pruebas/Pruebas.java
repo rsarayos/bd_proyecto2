@@ -111,19 +111,19 @@ public class Pruebas {
         
         // prueba para consultar tipo de tramite (por licencia)
         
-//        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-//        CriteriaQuery<Licencia> criteria = builder.createQuery(Licencia.class);
-//        Root<Licencia> root = criteria.from(Licencia.class);
-//        criteria.select(root).where(
-//                builder.and(
-//                        builder.equal(root.type(), Licencia.class),
-//                        builder.like(root.get("persona").get("rfc"), persona.getRfc())
-//                )
-//        );
-//        TypedQuery<Licencia> query = entityManager.createQuery(criteria);
-//        List<Licencia> licencias = query.getResultList();
-//        
-//        entityManager.close();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Licencia> criteria = builder.createQuery(Licencia.class);
+        Root<Licencia> root = criteria.from(Licencia.class);
+        criteria.select(root).where(
+                builder.and(
+                        builder.equal(root.type(), Licencia.class),
+                        builder.like(root.get("persona").get("rfc"), persona.getRfc())
+                )
+        );
+        TypedQuery<Licencia> query = entityManager.createQuery(criteria);
+        List<Licencia> licencias = query.getResultList();
+        
+        entityManager.close();
 //        
 //        for (Tramite mite : licencias) {
 //            System.out.println(mite.toString());

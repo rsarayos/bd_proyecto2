@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Tramite;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
+import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOException;
 
 public class PersonaNuevaDTO {
 
@@ -12,7 +13,7 @@ public class PersonaNuevaDTO {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private Calendar fechaNacimiento;
-    private String telefono;
+    private byte[] telefono;
     private String curp;
     private Boolean Discapacitado;
     private List<Tramite> tramites;
@@ -34,7 +35,7 @@ public class PersonaNuevaDTO {
      * @param tramites lista de tramites de la persona
      * @param vehiculos lista de vehiculos de la persona
      */
-    public PersonaNuevaDTO(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String curp, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
+    public PersonaNuevaDTO(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, String curp, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
         this.rfc = rfc;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -98,7 +99,7 @@ public class PersonaNuevaDTO {
      *
      * @return Teléfono de la persona.
      */
-    public String getTelefono() {
+    public byte[] getTelefono() {
         return telefono;
     }
 
@@ -137,6 +138,11 @@ public class PersonaNuevaDTO {
      */
     public List<Vehiculo> getVehiculos() {
         return vehiculos;
+    }
+
+    public boolean esValido() throws ValidacionDTOException{
+        // en este caso todos estan hardcoreados, por lo cual son validos
+        return true;
     }
 
 }
