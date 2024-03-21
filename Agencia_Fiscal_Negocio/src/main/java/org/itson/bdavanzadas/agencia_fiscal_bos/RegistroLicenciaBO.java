@@ -15,8 +15,9 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosExceptio
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOException;
 
 /**
- *
- * @author alex_
+ * La clase RegistroLicenciaBO implementa la interfaz IRegistroLicenciaBO y proporciona métodos para realizar operaciones 
+ * con Licencia.
+ * 
  */
 public class RegistroLicenciaBO implements IRegistroLicenciaBO{
 
@@ -24,11 +25,20 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
     private final ILicenciaDAO licenciaDAO;
     static final Logger logger = Logger.getLogger(RegistroLicenciaBO.class.getName());
 
+    /**
+     * Constructor de la clase RegistroLicenciaBO que recibe un objeto IConexion e inicializa la conexion
+     * con IlicenciaDAO
+     *
+     * @param conexion Objeto IConexion utilizado para obtener conexiones a la base de datos.
+     */
     public RegistroLicenciaBO(IConexion conexion) {
         this.conexion = conexion;
         this.licenciaDAO = new LicenciaDAO(this.conexion);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Licencia registrarLicencia(LicenciaNuevaDTO licenciaNueva) throws NegociosException {
         Licencia licencia = null;
@@ -56,6 +66,9 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Licencia> obtenerLicencias(PersonaNuevaDTO personaNueva) throws NegociosException {
         List<Licencia> licencias = null;
@@ -79,6 +92,9 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Licencia obtenerLicencia(Long id) throws NegociosException {
         Licencia licencia = null;
@@ -90,6 +106,9 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
         return licencia;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Licencia modificarVigencia(Long id) throws NegociosException {
         Licencia licencia = null;

@@ -65,10 +65,20 @@ public class Licencia extends Tramite implements Serializable {
         this.fechaVencimiento = fechaVencimiento;
     }
 
+    /**
+     * Obtiene el estado de la licencia.
+     *
+     * @return estado de la licencia.
+     */
     public Boolean getEstado() {
         return estado;
     }
 
+    /**
+     * Establece el estado de la licencia.
+     *
+     * @param estado Estado de la licencia.
+     */
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }

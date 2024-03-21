@@ -13,21 +13,27 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Licencia;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
+/**
+ * La clase LicenciaDAO implementa la interfaz ILicenciaDAO y proporciona métodos para realizar operaciones 
+ * relacionadas con la entidad Licencia en la base de datos.
+ * 
+ */
 public class LicenciaDAO implements ILicenciaDAO {
 
     private final IConexion conexion;
     static final Logger logger = Logger.getLogger(LicenciaDAO.class.getName());
 
+    /**
+     * Constructor de la clase LicenciaDAO que recibe un objeto IConexion.
+     *
+     * @param conexion Objeto IConexion utilizado para obtener conexiones a la base de datos.
+     */
     public LicenciaDAO(IConexion conexion) {
         this.conexion = conexion;
     }
 
     /**
-     * Método que permite agregar una licencia
-     *
-     * @param licenciaNueva Objeto licencia a agregar
-     * @return Objeto licencia agregado
-     * @throws PersistenciaException
+     * {@inheritDoc}
      */
     @Override
     public Licencia agregarLicencia(Licencia licenciaNueva) throws PersistenciaException {
@@ -48,6 +54,9 @@ public class LicenciaDAO implements ILicenciaDAO {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Licencia> obtenerLicencias(Persona persona) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
@@ -72,6 +81,9 @@ public class LicenciaDAO implements ILicenciaDAO {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Licencia obtenerLicencia(Long id) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
@@ -87,6 +99,9 @@ public class LicenciaDAO implements ILicenciaDAO {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Licencia modificarVigencia(Long id) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
