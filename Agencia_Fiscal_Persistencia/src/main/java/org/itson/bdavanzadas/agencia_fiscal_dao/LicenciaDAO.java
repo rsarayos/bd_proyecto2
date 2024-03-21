@@ -88,19 +88,19 @@ public class LicenciaDAO implements ILicenciaDAO {
     }
 
     @Override
-    public Licencia modificarVigencia(Licencia licencia) throws PersistenciaException {
+    public Licencia modificarVigencia(Long id) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
         try {
             entityManager.getTransaction().begin();
 
             String jpqlUpdate = "UPDATE Licencia l SET l.estado = false WHERE l.id = :licenciaId";
             Query queryUpdate = entityManager.createQuery(jpqlUpdate);
-            queryUpdate.setParameter("licenciaId", licencia.getId());
+            queryUpdate.setParameter("licenciaId", id);
             int updatedCount = queryUpdate.executeUpdate();
             if (updatedCount > 0) {
                 String jpqlSelect = "SELECT l FROM Licencia l WHERE l.id = :licenciaId";
                 Query querySelect = entityManager.createQuery(jpqlSelect);
-                querySelect.setParameter("licenciaId", licencia.getId());
+                querySelect.setParameter("licenciaId", id);
                 List<Licencia> licenciasModificadas = querySelect.getResultList();
                 return licenciasModificadas.get(0);
             } else {

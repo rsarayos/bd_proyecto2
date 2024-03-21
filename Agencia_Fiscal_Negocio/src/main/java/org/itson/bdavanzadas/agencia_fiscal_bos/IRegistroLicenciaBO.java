@@ -14,5 +14,7 @@ public interface IRegistroLicenciaBO {
     
     public Licencia registrarLicencia(LicenciaNuevaDTO licenciaNueva) throws NegociosException;
     public List<Licencia> obtenerLicencias(PersonaNuevaDTO personaNueva) throws NegociosException;
+    public Licencia obtenerLicencia(Long id) throws NegociosException;
+    public Licencia modificarVigencia(Long id) throws NegociosException;
     
 }

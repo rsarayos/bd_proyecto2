@@ -20,6 +20,6 @@ public interface ILicenciaDAO {
     
     public Licencia obtenerLicencia(Long id) throws PersistenciaException;
     
-    public Licencia modificarVigencia(Licencia licencia) throws PersistenciaException;
+    public Licencia modificarVigencia(Long id) throws PersistenciaException;
     
 }

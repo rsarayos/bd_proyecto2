@@ -78,6 +78,28 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
             throw new NegociosException("Error al obtener licencia", ex);
         }
     }
+
+    @Override
+    public Licencia obtenerLicencia(Long id) throws NegociosException {
+        Licencia licencia = null;
+        try {
+            licencia = licenciaDAO.obtenerLicencia(id);
+        } catch (PersistenciaException ex) {
+            logger.log(Level.SEVERE, "Excepcion en persistencia");
+        }
+        return licencia;
+    }
+
+    @Override
+    public Licencia modificarVigencia(Long id) throws NegociosException {
+        Licencia licencia = null;
+        try {
+            licencia = licenciaDAO.modificarVigencia(id);
+        } catch (PersistenciaException ex) {
+            logger.log(Level.SEVERE, "Excepcion en persistencia");
+        }
+        return licencia;
+    }
     
 }
 
