@@ -1,13 +1,14 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
 import java.awt.Frame;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PantallaBusqueda extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaModuloLicencias
+     * @param parent
+     * @param modal
      */
     public PantallaBusqueda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -42,6 +43,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
 
@@ -77,6 +79,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("CANCELAR");
         btnCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCancelar.setFocusPainted(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -88,6 +91,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
         btnAceptar.setText("ACEPTAR");
         btnAceptar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAceptar.setFocusable(false);
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptarActionPerformed(evt);
@@ -117,7 +121,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Nombre", "Fecha de Nacimiento", "CURP", ""
+                "NOMBRE", "FECHA DE NACIMIENTO", "CURP", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -135,6 +139,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("BUSCAR");
         btnBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBuscar.setFocusable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

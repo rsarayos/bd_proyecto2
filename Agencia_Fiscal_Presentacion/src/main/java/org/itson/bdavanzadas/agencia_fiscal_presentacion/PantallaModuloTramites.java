@@ -70,6 +70,7 @@ public class PantallaModuloTramites extends javax.swing.JDialog {
         btnModuloLicencias.setForeground(new java.awt.Color(255, 255, 255));
         btnModuloLicencias.setText("MÓDULO DE LICENCIAS");
         btnModuloLicencias.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnModuloLicencias.setFocusPainted(false);
         btnModuloLicencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModuloLicenciasActionPerformed(evt);
@@ -81,6 +82,7 @@ public class PantallaModuloTramites extends javax.swing.JDialog {
         btnModuloPlacas.setForeground(new java.awt.Color(255, 255, 255));
         btnModuloPlacas.setText("MODULO DE PLACAS");
         btnModuloPlacas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnModuloPlacas.setFocusPainted(false);
 
         btnAtras.setBackground(new java.awt.Color(223, 223, 223));
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flechaAtras.png"))); // NOI18N

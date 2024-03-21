@@ -1,4 +1,12 @@
-package org.itson.bdavanzadas.agencia_fiscal_presentacion;public class PantallaContribuyentes extends javax.swing.JDialog {
+package org.itson.bdavanzadas.agencia_fiscal_presentacion;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonaBO;
+import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
+
+public class PantallaContribuyentes extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaAgregarPersonas
@@ -28,6 +36,7 @@ package org.itson.bdavanzadas.agencia_fiscal_presentacion;public class PantallaC
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
 
@@ -63,6 +72,7 @@ package org.itson.bdavanzadas.agencia_fiscal_presentacion;public class PantallaC
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("AGREGAR");
         btnAgregar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAgregar.setFocusPainted(false);
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
@@ -78,6 +88,7 @@ package org.itson.bdavanzadas.agencia_fiscal_presentacion;public class PantallaC
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("SALIR");
         btnSalir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSalir.setFocusPainted(false);
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -135,7 +146,13 @@ package org.itson.bdavanzadas.agencia_fiscal_presentacion;public class PantallaC
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        RegistroPersonaBO registroPersona = new RegistroPersonaBO();
+        try {
+            registroPersona.agregarPersonas();
+        } catch (NegociosException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), 
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
