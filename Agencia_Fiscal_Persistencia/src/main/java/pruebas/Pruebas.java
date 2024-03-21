@@ -1,32 +1,20 @@
 package pruebas;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import org.itson.bdavanzadas.agencia_fiscal_auxiliar.Encriptar;
+import org.itson.bdavanzadas.agencia_fiscal_auxiliar.FiltroPersonas;
 import org.itson.bdavanzadas.agencia_fiscal_dao.Conexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.ILicenciaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.LicenciaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.PersonaDAO;
-import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Automovil;
-import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Licencia;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
-import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Placa;
-import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Tramite;
-import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
 /**
@@ -167,30 +155,41 @@ public class Pruebas {
         IPersonaDAO personaDAO = new PersonaDAO(conexion);
         ILicenciaDAO licenciaDAO = new LicenciaDAO(conexion);
 
-//        try {
-//            personaDAO.agregarPersonas();
-//        } catch (PersistenciaException ex) {
-//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
-        Calendar fechaVencimiento = Calendar.getInstance();
-        fechaVencimiento.add(Calendar.YEAR, 1);
-        Calendar fechaTramite = Calendar.getInstance();
-        fechaTramite.setTime(new Date());
-
-        Persona persona = entityManager.find(Persona.class, new String("GUGR040316E27"));
-
-        Licencia licencia = new Licencia(fechaVencimiento, fechaTramite, 100.0f, persona, true);
-
+        FiltroPersonas filtro = new FiltroPersonas();
+        filtro.setNombre("Ricardo");
+        filtro.setRfc("");
+//        filtro.setFechaNacimiento(new GregorianCalendar(2004,02,21));
+        filtro.setFechaNacimiento(null);
+        
+        List<Persona> listaPersonas = null;
         try {
-            List<Licencia> licencias = licenciaDAO.obtenerLicencias(persona);
-            for (Licencia lic : licencias) {
-                System.out.println(lic.getEstado());
-            }
+            listaPersonas = personaDAO.buscarPersona(filtro);
         } catch (PersistenciaException ex) {
             Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        for (Persona listaPersona : listaPersonas) {
+            System.out.println(listaPersona);
+        }
+//
+//        Calendar fechaVencimiento = Calendar.getInstance();
+//        fechaVencimiento.add(Calendar.YEAR, 1);
+//        Calendar fechaTramite = Calendar.getInstance();
+//        fechaTramite.setTime(new Date());
+//
+//        Persona persona = entityManager.find(Persona.class, new String("GUGR040316E27"));
+//
+//        Licencia licencia = new Licencia(fechaVencimiento, fechaTramite, 100.0f, persona, true);
+//
+//        try {
+//            List<Licencia> licencias = licenciaDAO.obtenerLicencias(persona);
+//            for (Licencia lic : licencias) {
+//                System.out.println(lic.getEstado());
+//            }
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
     }
-
 }

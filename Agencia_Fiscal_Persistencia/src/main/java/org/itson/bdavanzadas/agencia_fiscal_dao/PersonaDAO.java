@@ -109,26 +109,62 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+//    @Override
+//    public List<Persona> buscarPersona(FiltroPersonas filtroPersonas) throws PersistenciaException {
+//        EntityManager entityManager = conexion.crearConexion();
+//        String jpqlQuery = """
+//                      SELECT p
+//                      FROM Persona p
+//                      WHERE CONCAT(p.nombres , " ", p.apellidoPaterno, " ", p.apellidoMaterno) LIKE :nombre 
+//                      AND p.rfc LIKE :rfc
+//                      AND p.fechaNacimiento = :fechaNacimiento
+//                      """;
+//
+//        //consulta construida
+//        TypedQuery<Persona> query = entityManager.createQuery(jpqlQuery, Persona.class);
+//        query.setParameter("nombre", "%" + filtroPersonas.getNombre() + "%");
+//        query.setParameter("rfc", "%" + filtroPersonas.getRfc() + "%");
+//        query.setParameter("fechaNacimiento", filtroPersonas.getFechaNacimiento() != null ? filtroPersonas.getFechaNacimiento(): "");
+//        List<Persona> personas = query.getResultList();
+//        logger.log(Level.INFO, "Se consultó la lista de personas correctamente");
+//        return personas;
+//    }
     @Override
     public List<Persona> buscarPersona(FiltroPersonas filtroPersonas) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
         String jpqlQuery = """
-                      SELECT p
-                      FROM Persona p
-                      WHERE CONCAT(p.nombres , " ", p.apellidoPaterno, " ", p.apellidoMaterno) LIKE :nombre 
-                      AND p.rfc LIKE :rfc
-                      """;
-//                      AND p.fechaNacimiento = :fechaNacimiento
+                  SELECT p
+                  FROM Persona p
+                  WHERE (:nombre IS NULL OR CONCAT(p.nombres , ' ', p.apellidoPaterno, ' ', p.apellidoMaterno) LIKE :nombre)
+                  AND (:rfc IS NULL OR p.rfc LIKE :rfc)
+                  AND (:fechaNacimiento IS NULL OR p.fechaNacimiento = :fechaNacimiento)
+                  """;
 
-        //consulta construida
+        // Construir consulta
         TypedQuery<Persona> query = entityManager.createQuery(jpqlQuery, Persona.class);
-        query.setParameter("nombre", "%" + filtroPersonas.getNombre() + "%");
-        query.setParameter("rfc", "%" + filtroPersonas.getRfc() + "%");
-//        query.setParameter("fechaNacimiento", filtroPersonas.getFechaNacimiento());
+
+        // Configurar parámetros de consulta
+        if (filtroPersonas.getNombre() != null) {
+            query.setParameter("nombre", "%" + filtroPersonas.getNombre() + "%");
+        } else {
+            query.setParameter("nombre", null);
+        }
+
+        if (filtroPersonas.getRfc() != null) {
+            query.setParameter("rfc", "%" + filtroPersonas.getRfc() + "%");
+        } else {
+            query.setParameter("rfc", null);
+        }
+
+        if (filtroPersonas.getFechaNacimiento() != null) {
+            query.setParameter("fechaNacimiento", filtroPersonas.getFechaNacimiento());
+        } else {
+            query.setParameter("fechaNacimiento", null);
+        }
+
         List<Persona> personas = query.getResultList();
         logger.log(Level.INFO, "Se consultó la lista de personas correctamente");
         return personas;
+
     }
-
 }
-
