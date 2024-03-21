@@ -122,7 +122,7 @@ public class PersonaNuevaDTO {
     }
 
     /**
-     * Permite obtener una lista con los trámites que haya realizado la persona
+     * Permite obtener una lista con los trámites que haya realizado la persona.
      *
      * @return Una lista con los trámites que haya realizado la persona
      */
@@ -131,7 +131,7 @@ public class PersonaNuevaDTO {
     }
 
     /**
-     * Permite obtener una lista con todos los vehículos que tenga la persona
+     * Permite obtener una lista con todos los vehículos que tenga la persona.
      *
      * @return Una lista con todos los vehículos que tenga la persona
      */

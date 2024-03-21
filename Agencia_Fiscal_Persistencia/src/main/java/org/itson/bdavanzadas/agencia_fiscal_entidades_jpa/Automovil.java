@@ -21,7 +21,7 @@ public class Automovil extends Vehiculo implements Serializable{
     /**
      * Constructor que nos permite crear un automóvil con los atributos necesarios.
      *
-     * @param numeroSerie Número de serie del automóvil.
+     * @param numeroSerie Número de serie del automóvil
      * @param color Color del automóvil.
      * @param modelo Modelo del automóvil.
      * @param linea Línea del automóvil.

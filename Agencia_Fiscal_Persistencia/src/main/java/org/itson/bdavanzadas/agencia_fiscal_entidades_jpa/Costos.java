@@ -19,7 +19,7 @@ public class Costos {
     // Costo de una licencia para personas discapacitadas con duración de tres años.
     public static final float COSTO_DISCAPACITADOS_TRES_ANIOS = 700f;
     
-    // Costo de la tramitación de placas para un automóvil nuevo.
+    // Costo de la tramitación de placas para un automóvil nuevo
     public static final float COSTO_PLACAS_AUTO_NUEVO = 1500f;
     // Costo de la tramitación de placas para un automóvil usado.
     public static final float COSTO_PLACAS_AUTO_USADO = 1000f;

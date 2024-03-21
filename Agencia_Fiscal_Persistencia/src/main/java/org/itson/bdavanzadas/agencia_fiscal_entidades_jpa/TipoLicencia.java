@@ -10,7 +10,7 @@ public enum TipoLicencia {
     UN_ANIO,
     // Licencia con duración de dos años.
     DOS_ANIOS,
-    // Licencia con duración de tres años.
+    // Licencia con duración de tres años
     TRES_ANIOS;
     
 }

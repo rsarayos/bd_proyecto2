@@ -6,7 +6,7 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Licencia;
 public class LicenciaDAO implements ILicenciaDAO{
 
     private final IConexion conexion;
-
+    
     public LicenciaDAO(IConexion conexion) {
         this.conexion = conexion;
     }
@@ -14,7 +14,7 @@ public class LicenciaDAO implements ILicenciaDAO{
     @Override
     public Licencia agregarLicencia(Licencia licenciaNueva) {
         EntityManager entityManager = conexion.crearConexion();
-        //Iniciamos la transaccion nueva
+        //Iniciamos la transaccion nueva.
         entityManager.getTransaction().begin();
         
         entityManager.persist(licenciaNueva);

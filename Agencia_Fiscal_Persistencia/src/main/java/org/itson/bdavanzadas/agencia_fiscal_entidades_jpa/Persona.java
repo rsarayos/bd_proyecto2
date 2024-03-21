@@ -16,7 +16,6 @@ import javax.persistence.TemporalType;
  * Clase que representa a una persona en el sistema. Una persona tiene atributos
  * como RFC, nombres, apellidos, fecha de nacimiento, teléfono, CURP, entre
  * otros. Además, puede estar asociada a trámites y vehículos.
- *
  */
 @Entity
 @Table(name = "personas")

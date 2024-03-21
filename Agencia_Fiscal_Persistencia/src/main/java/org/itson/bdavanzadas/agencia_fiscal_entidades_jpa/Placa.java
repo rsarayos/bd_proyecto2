@@ -25,7 +25,7 @@ public class Placa extends Tramite implements Serializable {
     @Temporal(TemporalType.DATE)
     private Calendar fechaRecepcion;
 
-    // Vigencia de la placa.
+    // Vigencia de la placa
     @Column(name = "estado")
     private Boolean estado;
 

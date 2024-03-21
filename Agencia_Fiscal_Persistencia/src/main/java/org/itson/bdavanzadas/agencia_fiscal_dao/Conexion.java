@@ -10,7 +10,7 @@ public class Conexion implements IConexion{
     public EntityManager crearConexion() {
         //Obtenemos acceso a la fábrica de entityManager
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("fiscalPU");
-        //Solicitamos una entityManager
+        //Solicitamos una entityManager.
         EntityManager entityManager = emFactory.createEntityManager();
         return entityManager;
     }

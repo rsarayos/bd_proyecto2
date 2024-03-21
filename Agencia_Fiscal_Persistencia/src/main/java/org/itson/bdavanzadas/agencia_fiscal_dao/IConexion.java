@@ -7,7 +7,7 @@ public interface IConexion {
     /**
      * Permite crear la conexión con FactoryEntityManager.
      *
-     * @return EntityManager con la conexión.
+     * @return EntityManager con la conexión
      */
     public EntityManager crearConexion();
     

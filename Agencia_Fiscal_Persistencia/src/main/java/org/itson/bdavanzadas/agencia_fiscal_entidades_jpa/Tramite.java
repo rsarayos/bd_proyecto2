@@ -32,7 +32,7 @@ public class Tramite implements Serializable {
     @Column(name = "id_tramite")
     private Long id;
 
-    // Fecha en la que se realizó el trámite.
+    // Fecha en la que se realizó el trámite
     @Column(name = "fecha_tramite", nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar fechaTramite;

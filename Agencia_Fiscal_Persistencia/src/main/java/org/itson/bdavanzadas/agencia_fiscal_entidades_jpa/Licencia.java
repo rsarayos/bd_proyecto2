@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 @Table(name = "licencias")
 public class Licencia extends Tramite implements Serializable {
 
-    // Fecha de vencimiento de la licencia.
+    // Fecha de vencimiento de la licencia
     @Column(name = "fecha_vencimiento", nullable = false)
     @Temporal(TemporalType.DATE)
     private Calendar fechaVencimiento;

@@ -45,7 +45,7 @@ public class Vehiculo implements Serializable {
     @Column(name = "estado", nullable = false)
     private Boolean estado;
 
-    // Persona asociada al vehículo.
+    // Persona asociada al vehículo
     @ManyToOne
     @JoinColumn(name = "rfc_persona", nullable = false)
     private Persona persona;
