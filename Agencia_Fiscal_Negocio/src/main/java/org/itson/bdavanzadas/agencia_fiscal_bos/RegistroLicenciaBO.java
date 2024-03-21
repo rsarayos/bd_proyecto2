@@ -64,7 +64,7 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
                 if (personaNueva.esValido()) {
                     Persona persona = new Persona(personaNueva.getRfc());
                     try {
-                        licencias = licenciaDAO.obtenerLicencia(persona);
+                        licencias = licenciaDAO.obtenerLicencias(persona);
                     } catch (PersistenciaException ex) {
                         logger.log(Level.SEVERE, "Excepcion en persistencia");
                     }

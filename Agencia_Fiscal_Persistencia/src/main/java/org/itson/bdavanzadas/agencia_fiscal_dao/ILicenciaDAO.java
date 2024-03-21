@@ -16,6 +16,10 @@ public interface ILicenciaDAO {
      */
     public Licencia agregarLicencia(Licencia licenciaNueva) throws PersistenciaException;
     
-    public List<Licencia> obtenerLicencia(Persona persona) throws PersistenciaException;
+    public List<Licencia> obtenerLicencias(Persona persona) throws PersistenciaException;
+    
+    public Licencia obtenerLicencia(Long id) throws PersistenciaException;
+    
+    public Licencia modificarVigencia(Licencia licencia) throws PersistenciaException;
     
 }

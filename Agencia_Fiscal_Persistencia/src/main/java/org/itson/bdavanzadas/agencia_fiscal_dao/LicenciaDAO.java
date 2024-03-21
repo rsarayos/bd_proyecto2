@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -48,7 +49,7 @@ public class LicenciaDAO implements ILicenciaDAO {
     }
 
     @Override
-    public List<Licencia> obtenerLicencia(Persona persona) throws PersistenciaException {
+    public List<Licencia> obtenerLicencias(Persona persona) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
         try {
             CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -64,8 +65,50 @@ public class LicenciaDAO implements ILicenciaDAO {
             List<Licencia> licencias = query.getResultList();
             return licencias;
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "No se puedo agregar la licencia", e);
-            throw new PersistenciaException("Error al agregar la licencia", e);
+            logger.log(Level.SEVERE, "No se pudo cpnsultar las licencias", e);
+            throw new PersistenciaException("Error al consultar las licencias", e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public Licencia obtenerLicencia(Long id) throws PersistenciaException {
+        EntityManager entityManager = conexion.crearConexion();
+        try {
+            Licencia licencia = entityManager.find(Licencia.class, id);
+            return licencia;
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "No se pudo consultar la licencia", e);
+            throw new PersistenciaException("Error al consultar la licencia", e);
+        } finally {
+            entityManager.close();
+        }
+
+    }
+
+    @Override
+    public Licencia modificarVigencia(Licencia licencia) throws PersistenciaException {
+        EntityManager entityManager = conexion.crearConexion();
+        try {
+            entityManager.getTransaction().begin();
+
+            String jpqlUpdate = "UPDATE Licencia l SET l.estado = false WHERE l.id = :licenciaId";
+            Query queryUpdate = entityManager.createQuery(jpqlUpdate);
+            queryUpdate.setParameter("licenciaId", licencia.getId());
+            int updatedCount = queryUpdate.executeUpdate();
+            if (updatedCount > 0) {
+                String jpqlSelect = "SELECT l FROM Licencia l WHERE l.id = :licenciaId";
+                Query querySelect = entityManager.createQuery(jpqlSelect);
+                querySelect.setParameter("licenciaId", licencia.getId());
+                List<Licencia> licenciasModificadas = querySelect.getResultList();
+                return licenciasModificadas.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "No se pudo consultar la licencia", e);
+            throw new PersistenciaException("Error al consultar la licencia", e);
         } finally {
             entityManager.close();
         }
