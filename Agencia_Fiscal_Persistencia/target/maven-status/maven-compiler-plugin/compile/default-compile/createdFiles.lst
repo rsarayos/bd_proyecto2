@@ -15,4 +15,5 @@ org\itson\bdavanzadas\agencia_fiscal_entidades_jpa\Licencia.class
 org\itson\bdavanzadas\agencia_fiscal_entidades_jpa\Placa.class
 org\itson\bdavanzadas\agencia_fiscal_dao\IConexion.class
 org\itson\bdavanzadas\agencia_fiscal_dao\LicenciaDAO.class
+org\itson\bdavanzadas\agencia_fiscal_auxiliar\FiltroPersonas.class
 org\itson\bdavanzadas\agencia_fiscal_entidades_jpa\Costos$1.class

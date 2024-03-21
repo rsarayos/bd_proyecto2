@@ -6,6 +6,14 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import org.itson.bdavanzadas.agencia_fiscal_auxiliar.Encriptar;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import org.itson.bdavanzadas.agencia_fiscal_auxiliar.Encriptar;
+import org.itson.bdavanzadas.agencia_fiscal_auxiliar.FiltroPersonas;
+import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
 /**
@@ -101,4 +109,26 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    @Override
+    public List<Persona> buscarPersona(FiltroPersonas filtroPersonas) throws PersistenciaException {
+        EntityManager entityManager = conexion.crearConexion();
+        String jpqlQuery = """
+                      SELECT p
+                      FROM Persona p
+                      WHERE CONCAT(p.nombres , " ", p.apellidoPaterno, " ", p.apellidoMaterno) LIKE :nombre 
+                      AND p.rfc LIKE :rfc
+                      """;
+//                      AND p.fechaNacimiento = :fechaNacimiento
+
+        //consulta construida
+        TypedQuery<Persona> query = entityManager.createQuery(jpqlQuery, Persona.class);
+        query.setParameter("nombre", "%" + filtroPersonas.getNombre() + "%");
+        query.setParameter("rfc", "%" + filtroPersonas.getRfc() + "%");
+//        query.setParameter("fechaNacimiento", filtroPersonas.getFechaNacimiento());
+        List<Persona> personas = query.getResultList();
+        logger.log(Level.INFO, "Se consultó la lista de personas correctamente");
+        return personas;
+    }
+
 }
+
