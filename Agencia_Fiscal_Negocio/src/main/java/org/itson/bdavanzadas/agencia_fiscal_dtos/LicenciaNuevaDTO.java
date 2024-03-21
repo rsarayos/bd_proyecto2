@@ -10,12 +10,14 @@ public class LicenciaNuevaDTO {
     private Calendar fechaTramite;
     private Float costo;
     private Persona persona;
+    private Boolean estado;
 
-    public LicenciaNuevaDTO(Calendar fechaVencimiento, Calendar fechaTramite, Float costo, Persona persona) {
+    public LicenciaNuevaDTO(Calendar fechaVencimiento, Calendar fechaTramite, Float costo, Persona persona, Boolean estado) {
         this.fechaVencimiento = fechaVencimiento;
         this.fechaTramite = fechaTramite;
         this.costo = costo;
         this.persona = persona;
+        this.estado = estado;
     }
 
     public Calendar getFechaVencimiento() {
@@ -32,6 +34,10 @@ public class LicenciaNuevaDTO {
 
     public Persona getPersona() {
         return persona;
+    }
+
+    public Boolean getEstado() {
+        return estado;
     }
     
     public boolean esValido() throws ValidacionDTOException {

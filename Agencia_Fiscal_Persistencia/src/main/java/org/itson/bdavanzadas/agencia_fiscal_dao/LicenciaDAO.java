@@ -24,9 +24,8 @@ public class LicenciaDAO implements ILicenciaDAO {
      */
     @Override
     public Licencia agregarLicencia(Licencia licenciaNueva) throws PersistenciaException {
-        EntityManager entityManager = null;
+        EntityManager entityManager = conexion.crearConexion();
         try {
-            entityManager = conexion.crearConexion();
             //Iniciamos la transaccion nueva.
             entityManager.getTransaction().begin();
             entityManager.persist(licenciaNueva);
