@@ -3,6 +3,7 @@ package org.itson.bdavanzadas.agencia_fiscal_bos;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.itson.bdavanzadas.agencia_fiscal_dao.Conexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.ILicenciaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.LicenciaDAO;
@@ -29,11 +30,10 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
      * Constructor de la clase RegistroLicenciaBO que recibe un objeto IConexion e inicializa la conexion
      * con IlicenciaDAO
      *
-     * @param conexion Objeto IConexion utilizado para obtener conexiones a la base de datos.
      */
-    public RegistroLicenciaBO(IConexion conexion) {
-        this.conexion = conexion;
-        this.licenciaDAO = new LicenciaDAO(this.conexion);
+    public RegistroLicenciaBO() {
+        conexion = new Conexion();
+        licenciaDAO = new LicenciaDAO(conexion);
     }
     
     /**

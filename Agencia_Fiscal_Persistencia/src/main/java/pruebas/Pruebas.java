@@ -39,7 +39,7 @@ public class Pruebas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("fiscalPU");
 //        // solicitamos una entity manager (acceso a la bd)
         EntityManager entityManager = emFactory.createEntityManager();
@@ -71,7 +71,7 @@ public class Pruebas {
 //        }
 //        
 //        entityManager.close();
-        
+
 //        Calendar fechaNacimiento = Calendar.getInstance();
 //        fechaNacimiento.set(1990, Calendar.JANUARY, 1);
 //        
@@ -162,27 +162,26 @@ public class Pruebas {
 //        for (Tramite mite : licencias) {
 //            System.out.println(mite.toString());
 //        }
-
         IConexion conexion = new Conexion();
-        
+
         IPersonaDAO personaDAO = new PersonaDAO(conexion);
         ILicenciaDAO licenciaDAO = new LicenciaDAO(conexion);
-        
+
 //        try {
 //            personaDAO.agregarPersonas();
 //        } catch (PersistenciaException ex) {
 //            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        
+
         Calendar fechaVencimiento = Calendar.getInstance();
         fechaVencimiento.add(Calendar.YEAR, 1);
         Calendar fechaTramite = Calendar.getInstance();
         fechaTramite.setTime(new Date());
-        
+
         Persona persona = entityManager.find(Persona.class, new String("GUGR040316E27"));
-        
+
         Licencia licencia = new Licencia(fechaVencimiento, fechaTramite, 100.0f, persona, true);
-        
+
         try {
             List<Licencia> licencias = licenciaDAO.obtenerLicencias(persona);
             for (Licencia lic : licencias) {
@@ -191,9 +190,7 @@ public class Pruebas {
         } catch (PersistenciaException ex) {
             Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+
     }
-    
+
 }

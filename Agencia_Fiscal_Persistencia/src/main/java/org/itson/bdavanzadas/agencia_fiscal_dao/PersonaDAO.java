@@ -99,7 +99,6 @@ public class PersonaDAO implements IPersonaDAO {
         } finally {
             entityManager.close();
         }
-
     }
 
 }

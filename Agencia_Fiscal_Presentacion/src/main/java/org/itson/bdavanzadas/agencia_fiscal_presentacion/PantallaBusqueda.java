@@ -34,8 +34,8 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         btnAceptar = new javax.swing.JButton();
         lblNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        lblCurp = new javax.swing.JLabel();
-        txtCurp = new javax.swing.JTextField();
+        lblRFC = new javax.swing.JLabel();
+        txtRFC = new javax.swing.JTextField();
         lblFechaNacimiento = new javax.swing.JLabel();
         dpFechaNacimiento = new com.github.lgooddatepicker.components.DatePicker();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -49,9 +49,9 @@ public class PantallaBusqueda extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(119, 119, 119));
 
+        lblTitulo.setText("MÓDULO DE LICENCIAS");
         lblTitulo.setFont(new java.awt.Font("Arial", 1, 43)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("MÓDULO DE LICENCIAS");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -70,58 +70,57 @@ public class PantallaBusqueda extends javax.swing.JDialog {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        lblInstrucciones.setText("INGRESE AL MENOS UN CAMPO PARA BUSCAR AL CONTRIBUYENTE");
         lblInstrucciones.setFont(new java.awt.Font("Arial", 1, 27)); // NOI18N
         lblInstrucciones.setForeground(new java.awt.Color(119, 119, 119));
-        lblInstrucciones.setText("INGRESE AL MENOS UN CAMPO PARA BUSCAR AL CONTRIBUYENTE");
 
-        btnCancelar.setBackground(new java.awt.Color(159, 34, 65));
-        btnCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("CANCELAR");
+        btnCancelar.setBackground(new java.awt.Color(159, 34, 65));
         btnCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelar.setFocusPainted(false);
+        btnCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
 
-        btnAceptar.setBackground(new java.awt.Color(159, 34, 65));
-        btnAceptar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
         btnAceptar.setText("ACEPTAR");
+        btnAceptar.setBackground(new java.awt.Color(159, 34, 65));
         btnAceptar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnAceptar.setFocusable(false);
+        btnAceptar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptarActionPerformed(evt);
             }
         });
 
-        lblNombre.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblNombre.setText("NOMBRE:");
+        lblNombre.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
         txtNombre.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(119, 119, 119));
 
-        lblCurp.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblCurp.setText("CURP:");
+        lblRFC.setText("RFC:");
+        lblRFC.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        txtCurp.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        txtCurp.setForeground(new java.awt.Color(119, 119, 119));
+        txtRFC.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        txtRFC.setForeground(new java.awt.Color(119, 119, 119));
 
-        lblFechaNacimiento.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblFechaNacimiento.setText("FECHA DE NACIMIENTO:");
+        lblFechaNacimiento.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
         dpFechaNacimiento.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        tblContribuyentes.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         tblContribuyentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "NOMBRE", "FECHA DE NACIMIENTO", "CURP", ""
+                "NOMBRE", "FECHA DE NACIMIENTO", "RFC", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -132,14 +131,15 @@ public class PantallaBusqueda extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblContribuyentes.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jScrollPane1.setViewportView(tblContribuyentes);
 
-        btnBuscar.setBackground(new java.awt.Color(159, 34, 65));
-        btnBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("BUSCAR");
+        btnBuscar.setBackground(new java.awt.Color(159, 34, 65));
         btnBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnBuscar.setFocusable(false);
+        btnBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -165,10 +165,10 @@ public class PantallaBusqueda extends javax.swing.JDialog {
                         .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblCurp)
+                        .addComponent(lblRFC)
                         .addGap(18, 18, 18)
-                        .addComponent(txtCurp, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                         .addComponent(lblFechaNacimiento)
                         .addGap(18, 18, 18)
                         .addComponent(dpFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -193,8 +193,8 @@ public class PantallaBusqueda extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dpFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblCurp)
-                        .addComponent(txtCurp, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblRFC)
+                        .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblFechaNacimiento)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
@@ -239,7 +239,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         };
         modelo.addColumn("NOMBRE");
         modelo.addColumn("FECHA DE NACIMIENTO");
-        modelo.addColumn("CURP");
+        modelo.addColumn("RFC");
         modelo.addColumn("");
 
         // Agregar los socios al modelo de la tabla
@@ -277,18 +277,15 @@ public class PantallaBusqueda extends javax.swing.JDialog {
     private com.github.lgooddatepicker.components.DatePicker dpFechaNacimiento;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblCurp;
     private javax.swing.JLabel lblFechaNacimiento;
     private javax.swing.JLabel lblInstrucciones;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblRFC;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblTitulo1;
     private javax.swing.JTable tblContribuyentes;
-    private javax.swing.JTextField txtCurp;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
     private Frame parent;
 }

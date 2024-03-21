@@ -1,5 +1,8 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
+import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPersonasBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonaBO;
+
 public class PantallaInicio extends javax.swing.JFrame {
 
     /**
@@ -7,6 +10,7 @@ public class PantallaInicio extends javax.swing.JFrame {
      */
     public PantallaInicio() {
         initComponents();
+        registroPersonasBO = new RegistroPersonaBO();
     }
 
     /**
@@ -219,4 +223,5 @@ public class PantallaInicio extends javax.swing.JFrame {
     private javax.swing.JLabel lblInstrucciones;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
+    private IRegistroPersonasBO registroPersonasBO;
 }

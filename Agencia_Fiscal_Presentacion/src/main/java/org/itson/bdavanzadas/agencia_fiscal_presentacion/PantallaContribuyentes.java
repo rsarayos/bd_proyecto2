@@ -1,7 +1,5 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonaBO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;

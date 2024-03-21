@@ -11,6 +11,7 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaTiposLicencias
+     *
      * @param parent
      * @param modal
      */
@@ -293,7 +294,7 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        int opcion = JOptionPane.showConfirmDialog(this, "Está en medio de un trámite, ¿desea salir en este momento?", 
+        int opcion = JOptionPane.showConfirmDialog(this, "Está en medio de un trámite, ¿desea salir en este momento?",
                 "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (opcion == JOptionPane.YES_OPTION) {
             dispose();
@@ -301,12 +302,12 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if (!txtCosto.getText().isBlank()){
-            JOptionPane.showMessageDialog(this, "Se ha registrado la licencia correctamente", 
+        if (!txtCosto.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Se ha registrado la licencia correctamente",
                     "Información", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Asegúrese de seleccionar un tipo de licencia", 
+            JOptionPane.showMessageDialog(this, "Asegúrese de seleccionar un tipo de licencia",
                     "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
@@ -323,14 +324,51 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
         txtCosto.setText("$ 1,200.00");
     }//GEN-LAST:event_rbtTresAniosActionPerformed
 
-//    private void registrarLicencia(){
+    private void registrarLicencia() {
+//        // Crea una fecha actual para calcular la fecha de vencimiento de la licencia
+//        Calendar fechaVencimiento = new GregorianCalendar();
+//        // Si se selecciona una licencia de un año
 //        if (rbtUnAnio.isSelected()) {
-//            Calendar fechaVencimiento = new GregorianCalendar();
+//            // Se calcula la fecha de vecimiento sumando un año a la fecha actual
 //            fechaVencimiento.add(Calendar.YEAR, 1);
-//            LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(), Costos.COSTO_NORMAL_UN_ANIO, persona, true);
+//            // Si la persona es discapacitada
+//            if (persona.isDiscapacitado()) {
+//                LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
+//                        Costos.COSTO_DISCAPACITADOS_UN_ANIO, persona, true);
+//            } else {
+//                LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
+//                        Costos.COSTO_NORMAL_UN_ANIO, persona, true);
+//            }
 //        }
-//    }
-    
+//        // Si se selecciona una licencia de dos años
+//        if (rbtDosAnios.isSelected()) {
+//            // Se calcula la fecha de vecimiento sumando dos años a la fecha actual
+//            fechaVencimiento.add(Calendar.YEAR, 2);
+//            // Si la persona es discapacitada
+//            if (persona.isDiscapacitado()) {
+//                LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
+//                        Costos.COSTO_DISCAPACITADOS_DOS_ANIOS, persona, true);
+//            } else {
+//                LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
+//                        Costos.COSTO_NORMAL_DOS_ANIOS, persona, true);
+//
+//            }
+//        }
+//        // Si se selecciona una licencia de tres años
+//        if (rbtTresAnios.isSelected()) {
+//            // Se calcula la fecha de vecimiento sumando tres años a la fecha actual
+//            fechaVencimiento.add(Calendar.YEAR, 3);
+//            // Si la persona es discapacitada
+//            if (persona.isDiscapacitado()) {
+//                LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
+//                        Costos.COSTO_DISCAPACITADOS_TRES_ANIOS, persona, true);
+//            } else {
+//                LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
+//                        Costos.COSTO_NORMAL_TRES_ANIOS, persona, true);
+//            }
+//        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
