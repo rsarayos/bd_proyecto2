@@ -1,4 +1,4 @@
-package org.itson.bdavanzadas.agencia_fiscal_entidades_jpa;
+package org.itson.bdavanzadas.agencia_fiscal_negocioAux;
 
 /**
  * Enumeración que representa los tipos de duración de una licencia.
