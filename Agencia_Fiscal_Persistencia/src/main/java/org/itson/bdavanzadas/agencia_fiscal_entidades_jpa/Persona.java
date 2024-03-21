@@ -1,3 +1,4 @@
+
 package org.itson.bdavanzadas.agencia_fiscal_entidades_jpa;
 
 import java.io.Serializable;
@@ -72,25 +73,6 @@ public class Persona implements Serializable {
     public Persona() {
     }
 
-    /**
-     * Constructor que nos permite crear una persona con los atributos
-     * necesarios (atributos que no permiten un campo null).
-     *
-     * @param rfc RFC de la persona.
-     * @param nombres Nombres de la persona.
-     * @param apellidoPaterno Apellido Paterno de la persona.
-     * @param fechaNacimiento Fecha de nacimiento de la persona.
-     * @param telefono Telefono de la persona
-     * @param curp CURP de la persona
-     */
-    public Persona(String rfc, String nombres, String apellidoPaterno, Calendar fechaNacimiento, byte[] telefono, String curp) {
-        this.rfc = rfc;
-        this.nombres = nombres;
-        this.apellidoPaterno = apellidoPaterno;
-        this.fechaNacimiento = fechaNacimiento;
-        this.telefono = telefono;
-        this.curp = curp;
-    }
 
     /**
      * Constructor que nos permite crear una persona con todos los atributos.
