@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -45,8 +46,9 @@ public class Persona implements Serializable {
     private Calendar fechaNacimiento;
 
     // Telefono de la persona
-    @Column(name = "telefono", nullable = false, length = 15)
-    private String telefono;
+    @Column(name = "telefono", nullable = false, columnDefinition = "VARBINARY(32)")
+    @Lob
+    private byte[] telefono;
 
     // CURP (Clave Única de Registro de Población) de la persona.
     @Column(name = "curp", nullable = false, length = 18, unique = true)
@@ -81,7 +83,7 @@ public class Persona implements Serializable {
      * @param telefono Telefono de la persona
      * @param curp CURP de la persona
      */
-    public Persona(String rfc, String nombres, String apellidoPaterno, Calendar fechaNacimiento, String telefono, String curp) {
+    public Persona(String rfc, String nombres, String apellidoPaterno, Calendar fechaNacimiento, byte[] telefono, String curp) {
         this.rfc = rfc;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -103,7 +105,7 @@ public class Persona implements Serializable {
      * @param isDiscapacitado true si la persona es discapacitada, false en caso
      * contrario.
      */
-    public Persona(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String curp, Boolean isDiscapacitado) {
+    public Persona(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, String curp, Boolean isDiscapacitado) {
         this.rfc = rfc;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -130,7 +132,7 @@ public class Persona implements Serializable {
      * @param tramites Lista de trámites asociados a la persona.
      * @param vehiculos Lista de vehículos asociados a la persona.
      */
-    public Persona(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, String curp, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
+    public Persona(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, String curp, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
         this.rfc = rfc;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -240,7 +242,7 @@ public class Persona implements Serializable {
      *
      * @return Teléfono de la persona.
      */
-    public String getTelefono() {
+    public byte[] getTelefono() {
         return telefono;
     }
 
@@ -249,7 +251,7 @@ public class Persona implements Serializable {
      *
      * @param telefono Teléfono de la persona.
      */
-    public void setTelefono(String telefono) {
+    public void setTelefono(byte[] telefono) {
         this.telefono = telefono;
     }
 
