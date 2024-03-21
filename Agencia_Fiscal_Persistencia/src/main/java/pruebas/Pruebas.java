@@ -15,12 +15,19 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.itson.bdavanzadas.agencia_fiscal_auxiliar.Encriptar;
+import org.itson.bdavanzadas.agencia_fiscal_dao.Conexion;
+import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
+import org.itson.bdavanzadas.agencia_fiscal_dao.ILicenciaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.LicenciaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.PersonaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Automovil;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Licencia;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Placa;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Tramite;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
+import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
 /**
  *
@@ -34,36 +41,36 @@ public class Pruebas {
     public static void main(String[] args) {
         
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("fiscalPU");
-        // solicitamos una entity manager (acceso a la bd)
+//        // solicitamos una entity manager (acceso a la bd)
         EntityManager entityManager = emFactory.createEntityManager();
-        
-        entityManager.getTransaction().begin();
 //        
-        
+        entityManager.getTransaction().begin();
+////        
+//        
+////        
+////        entityManager.close();
+//        
+//        String jpqlUpdate = "UPDATE Licencia l SET l.estado = false WHERE l.id = :licenciaId";
+//        Query queryUpdate = entityManager.createQuery(jpqlUpdate);
+//        queryUpdate.setParameter("licenciaId", 1L);
+//        int updatedCount = queryUpdate.executeUpdate();
+//
+//        if (updatedCount > 0) {
+//            // Se actualizaron licencias, ahora recuperamos las licencias modificadas.
+//            String jpqlSelect = "SELECT l FROM Licencia l WHERE l.id = :licenciaId";
+//            Query querySelect = entityManager.createQuery(jpqlSelect);
+//            querySelect.setParameter("licenciaId", 1L);
+//            List<Licencia> licenciasModificadas = querySelect.getResultList();
+//
+//            // Aquí tienes la lista de licencias modificadas
+//            for (Licencia licencia : licenciasModificadas) {
+//                System.out.println(licencia.getEstado());
+//            }
+//        } else {
+//            System.out.println("No se encontró ninguna licencia con el ID proporcionado.");
+//        }
 //        
 //        entityManager.close();
-        
-        String jpqlUpdate = "UPDATE Licencia l SET l.estado = false WHERE l.id = :licenciaId";
-        Query queryUpdate = entityManager.createQuery(jpqlUpdate);
-        queryUpdate.setParameter("licenciaId", 1L);
-        int updatedCount = queryUpdate.executeUpdate();
-
-        if (updatedCount > 0) {
-            // Se actualizaron licencias, ahora recuperamos las licencias modificadas.
-            String jpqlSelect = "SELECT l FROM Licencia l WHERE l.id = :licenciaId";
-            Query querySelect = entityManager.createQuery(jpqlSelect);
-            querySelect.setParameter("licenciaId", 1L);
-            List<Licencia> licenciasModificadas = querySelect.getResultList();
-
-            // Aquí tienes la lista de licencias modificadas
-            for (Licencia licencia : licenciasModificadas) {
-                System.out.println(licencia.getEstado());
-            }
-        } else {
-            System.out.println("No se encontró ninguna licencia con el ID proporcionado.");
-        }
-        
-        entityManager.close();
         
 //        Calendar fechaNacimiento = Calendar.getInstance();
 //        fechaNacimiento.set(1990, Calendar.JANUARY, 1);
@@ -155,6 +162,37 @@ public class Pruebas {
 //        for (Tramite mite : licencias) {
 //            System.out.println(mite.toString());
 //        }
+
+        IConexion conexion = new Conexion();
+        
+        IPersonaDAO personaDAO = new PersonaDAO(conexion);
+        ILicenciaDAO licenciaDAO = new LicenciaDAO(conexion);
+        
+//        try {
+//            personaDAO.agregarPersonas();
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        Calendar fechaVencimiento = Calendar.getInstance();
+        fechaVencimiento.add(Calendar.YEAR, 1);
+        Calendar fechaTramite = Calendar.getInstance();
+        fechaTramite.setTime(new Date());
+        
+        Persona persona = entityManager.find(Persona.class, new String("GUGR040316E27"));
+        
+        Licencia licencia = new Licencia(fechaVencimiento, fechaTramite, 100.0f, persona, true);
+        
+        try {
+            List<Licencia> licencias = licenciaDAO.obtenerLicencias(persona);
+            for (Licencia lic : licencias) {
+                System.out.println(lic.getEstado());
+            }
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         
     }
     
