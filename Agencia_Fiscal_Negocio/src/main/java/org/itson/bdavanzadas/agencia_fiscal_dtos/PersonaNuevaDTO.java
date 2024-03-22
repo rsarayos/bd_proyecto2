@@ -14,10 +14,13 @@ public class PersonaNuevaDTO {
     private String apellidoMaterno;
     private Calendar fechaNacimiento;
     private byte[] telefono;
-    private String curp;
     private Boolean Discapacitado;
     private List<Tramite> tramites;
     private List<Vehiculo> vehiculos;
+
+    public PersonaNuevaDTO(String rfc) {
+        this.rfc = rfc;
+    }
 
     /**
      * Constructor que nos permite crear un objeto DTO de persona con todos los
@@ -35,14 +38,13 @@ public class PersonaNuevaDTO {
      * @param tramites lista de tramites de la persona
      * @param vehiculos lista de vehiculos de la persona
      */
-    public PersonaNuevaDTO(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, String curp, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
+    public PersonaNuevaDTO(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
         this.rfc = rfc;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
-        this.curp = curp;
         this.Discapacitado = isDiscapacitado;
         this.tramites = tramites;
         this.vehiculos = vehiculos;
@@ -101,16 +103,6 @@ public class PersonaNuevaDTO {
      */
     public byte[] getTelefono() {
         return telefono;
-    }
-
-    /**
-     * Permite obtener la CURP (Clave Única de Registro de Población) del objeto
-     * persona.
-     *
-     * @return CURP de la persona.
-     */
-    public String getCurp() {
-        return curp;
     }
 
     /**

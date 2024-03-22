@@ -36,7 +36,7 @@ public interface ILicenciaDAO {
      * @return El objeto de tipo Licencia correspondiente al identificador proporcionado.
      * @throws PersistenciaException Si ocurre un error durante la obtención de la licencia.
      */
-    public Licencia obtenerLicencia(Long id) throws PersistenciaException;
+    public Licencia obtenerLicencia(Licencia licenciaNueva) throws PersistenciaException;
     
     /**
      * Método que modifica la vigencia de una licencia.
@@ -45,6 +45,6 @@ public interface ILicenciaDAO {
      * @return El objeto de tipo Licencia con su vigencia modificada.
      * @throws PersistenciaException Si ocurre un error durante la modificación de la vigencia de la licencia.
      */
-    public Licencia modificarVigencia(Long id) throws PersistenciaException;
+    public Licencia modificarVigencia(Licencia licenciaNueva) throws PersistenciaException;
     
 }

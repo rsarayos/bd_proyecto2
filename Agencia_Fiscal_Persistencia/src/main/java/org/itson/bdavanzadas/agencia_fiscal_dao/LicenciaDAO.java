@@ -85,10 +85,10 @@ public class LicenciaDAO implements ILicenciaDAO {
      * {@inheritDoc}
      */
     @Override
-    public Licencia obtenerLicencia(Long id) throws PersistenciaException {
+    public Licencia obtenerLicencia(Licencia licenciaNueva) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
         try {
-            Licencia licencia = entityManager.find(Licencia.class, id);
+            Licencia licencia = entityManager.find(Licencia.class, licenciaNueva.getId());
             return licencia;
         } catch (Exception e) {
             logger.log(Level.SEVERE, "No se pudo consultar la licencia", e);
@@ -103,19 +103,19 @@ public class LicenciaDAO implements ILicenciaDAO {
      * {@inheritDoc}
      */
     @Override
-    public Licencia modificarVigencia(Long id) throws PersistenciaException {
+    public Licencia modificarVigencia(Licencia licenciaNueva) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
         try {
             entityManager.getTransaction().begin();
 
             String jpqlUpdate = "UPDATE Licencia l SET l.estado = false WHERE l.id = :licenciaId";
             Query queryUpdate = entityManager.createQuery(jpqlUpdate);
-            queryUpdate.setParameter("licenciaId", id);
+            queryUpdate.setParameter("licenciaId", licenciaNueva.getId());
             int updatedCount = queryUpdate.executeUpdate();
             if (updatedCount > 0) {
                 String jpqlSelect = "SELECT l FROM Licencia l WHERE l.id = :licenciaId";
                 Query querySelect = entityManager.createQuery(jpqlSelect);
-                querySelect.setParameter("licenciaId", id);
+                querySelect.setParameter("licenciaId", licenciaNueva.getId());
                 List<Licencia> licenciasModificadas = querySelect.getResultList();
                 return licenciasModificadas.get(0);
             } else {

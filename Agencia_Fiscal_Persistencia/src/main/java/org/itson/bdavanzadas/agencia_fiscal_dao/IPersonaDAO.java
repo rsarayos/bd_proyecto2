@@ -19,6 +19,8 @@ public interface IPersonaDAO {
      */
     public void agregarPersonas() throws PersistenciaException;
     
+    public Persona obtenerPersonaRFC(String rfc) throws PersistenciaException;
+    
     public List<Persona> buscarPersona(FiltroPersonas filtroPersonas) throws PersistenciaException;
 
 }

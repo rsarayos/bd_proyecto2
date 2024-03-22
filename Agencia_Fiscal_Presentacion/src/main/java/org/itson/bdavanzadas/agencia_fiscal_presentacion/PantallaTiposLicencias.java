@@ -5,7 +5,6 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.LicenciaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
-import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Costos;
 
 public class PantallaTiposLicencias extends javax.swing.JDialog {
 

@@ -21,7 +21,7 @@ public class RegistroPersonaBO implements IRegistroPersonasBO {
     private IConexion conexion;
     private IPersonaDAO personaDAO;
     
-    public RegistroPersonaBO(Conexion conexion) {
+    public RegistroPersonaBO() {
         conexion = new Conexion();
         personaDAO = new PersonaDAO(conexion);
     }

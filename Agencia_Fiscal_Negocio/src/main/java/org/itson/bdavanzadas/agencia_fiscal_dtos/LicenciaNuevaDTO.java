@@ -13,7 +13,7 @@ public class LicenciaNuevaDTO {
     private Calendar fechaVencimiento;
     private Calendar fechaTramite;
     private Float costo;
-    private Persona persona;
+    private PersonaNuevaDTO persona;
     private Boolean estado;
 
     /**
@@ -25,7 +25,7 @@ public class LicenciaNuevaDTO {
      * @param persona La persona a la que se otorga la licencia.
      * @param estado El estado de la licencia.
      */
-    public LicenciaNuevaDTO(Calendar fechaVencimiento, Calendar fechaTramite, Float costo, Persona persona, Boolean estado) {
+    public LicenciaNuevaDTO(Calendar fechaVencimiento, Calendar fechaTramite, Float costo, PersonaNuevaDTO persona, Boolean estado) {
         this.fechaVencimiento = fechaVencimiento;
         this.fechaTramite = fechaTramite;
         this.costo = costo;
@@ -65,7 +65,7 @@ public class LicenciaNuevaDTO {
      *
      * @return La persona a la que se otorga la licencia.
      */
-    public Persona getPersona() {
+    public PersonaNuevaDTO getPersona() {
         return persona;
     }
 

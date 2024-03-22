@@ -51,10 +51,6 @@ public class Persona implements Serializable {
     @Lob
     private byte[] telefono;
 
-    // CURP (Clave Única de Registro de Población) de la persona.
-    @Column(name = "curp", nullable = false, length = 18, unique = true)
-    private String curp;
-
     // Indica si la persona es discapacitada o no
     @Column(name = "isDiscapacitado")
     private Boolean isDiscapacitado;
@@ -90,14 +86,13 @@ public class Persona implements Serializable {
      * @param isDiscapacitado true si la persona es discapacitada, false en caso
      * contrario.
      */
-    public Persona(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, String curp, Boolean isDiscapacitado) {
+    public Persona(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, Boolean isDiscapacitado) {
         this.rfc = rfc;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
-        this.curp = curp;
         this.isDiscapacitado = isDiscapacitado;
     }
 
@@ -117,14 +112,13 @@ public class Persona implements Serializable {
      * @param tramites Lista de trámites asociados a la persona.
      * @param vehiculos Lista de vehículos asociados a la persona.
      */
-    public Persona(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, String curp, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
+    public Persona(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
         this.rfc = rfc;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
-        this.curp = curp;
         this.isDiscapacitado = isDiscapacitado;
         this.tramites = tramites;
         this.vehiculos = vehiculos;
@@ -241,26 +235,6 @@ public class Persona implements Serializable {
     }
 
     /**
-     * Permite obtener la CURP (Clave Única de Registro de Población) de la
-     * persona.
-     *
-     * @return CURP de la persona.
-     */
-    public String getCurp() {
-        return curp;
-    }
-
-    /**
-     * Permite establecer la CURP (Clave Única de Registro de Población) de la
-     * persona.
-     *
-     * @param curp CURP de la persona.
-     */
-    public void setCurp(String curp) {
-        this.curp = curp;
-    }
-
-    /**
      * Permite obtener si una persona es discapacitada o no.
      *
      * @return true si es discapacitada, false en caso contrario.
@@ -360,7 +334,6 @@ public class Persona implements Serializable {
         sb.append(", apellidoMaterno=").append(apellidoMaterno);
         sb.append(", fechaNacimiento=").append(fechaNacimiento);
         sb.append(", telefono=").append(telefono);
-        sb.append(", curp=").append(curp);
         sb.append(", isDiscapacitado=").append(isDiscapacitado);
         sb.append(", tramites=").append(tramites);
         sb.append(", vehiculos=").append(vehiculos);
