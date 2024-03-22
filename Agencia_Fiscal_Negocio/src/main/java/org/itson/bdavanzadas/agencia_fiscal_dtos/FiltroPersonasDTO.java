@@ -1,20 +1,14 @@
-
-package org.itson.bdavanzadas.agencia_fiscal_auxiliar;
+package org.itson.bdavanzadas.agencia_fiscal_dtos;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
-/**
- *
- * @author victo
- */
-public class FiltroPersonas {
+public class FiltroPersonasDTO {
     
     private String nombre;
     private String rfc;
     private Calendar fechaNacimiento;
 
-    public FiltroPersonas() {
+    public FiltroPersonasDTO() {
     }
 
     public String getNombre() {
@@ -40,4 +34,5 @@ public class FiltroPersonas {
     public void setFechaNacimiento(Calendar fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+    
 }

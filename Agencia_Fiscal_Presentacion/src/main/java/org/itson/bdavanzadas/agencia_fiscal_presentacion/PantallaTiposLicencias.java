@@ -1,10 +1,18 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
+import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroLicenciaBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroLicenciaBO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.LicenciaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
+import org.itson.bdavanzadas.agencia_fiscal_negocioAux.PreciosTramites;
+import org.itson.bdavanzadas.agencia_fiscal_negocioAux.TipoLicencia;
 
 public class PantallaTiposLicencias extends javax.swing.JDialog {
 
@@ -13,10 +21,13 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
      *
      * @param parent
      * @param modal
+     * @param persona
      */
-    public PantallaTiposLicencias(java.awt.Frame parent, boolean modal) {
+    public PantallaTiposLicencias(java.awt.Frame parent, boolean modal, PersonaNuevaDTO persona) {
         super(parent, modal);
         initComponents();
+        this.persona = persona;
+        this.registroLicencia = new RegistroLicenciaBO();
     }
 
     /**
@@ -302,6 +313,7 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         if (!txtCosto.getText().isBlank()) {
+            registrarLicencia();
             JOptionPane.showMessageDialog(this, "Se ha registrado la licencia correctamente",
                     "Información", JOptionPane.INFORMATION_MESSAGE);
             dispose();
@@ -312,60 +324,54 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void rbtUnAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtUnAnioActionPerformed
-        txtCosto.setText("$ 600.00");
+        txtCosto.setText(NumberFormat.getCurrencyInstance().format(PreciosTramites.obtenerCostoLicencia(TipoLicencia.UN_ANIO, persona.isDiscapacitado())));
     }//GEN-LAST:event_rbtUnAnioActionPerformed
 
     private void rbtDosAniosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtDosAniosActionPerformed
-        txtCosto.setText("$ 900.00");
+        txtCosto.setText(NumberFormat.getCurrencyInstance().format(PreciosTramites.obtenerCostoLicencia(TipoLicencia.DOS_ANIOS, persona.isDiscapacitado())));
     }//GEN-LAST:event_rbtDosAniosActionPerformed
 
     private void rbtTresAniosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtTresAniosActionPerformed
-        txtCosto.setText("$ 1,200.00");
+        txtCosto.setText(NumberFormat.getCurrencyInstance().format(PreciosTramites.obtenerCostoLicencia(TipoLicencia.TRES_ANIOS, persona.isDiscapacitado())));
     }//GEN-LAST:event_rbtTresAniosActionPerformed
 
     private void registrarLicencia() {
-//        // Crea una fecha actual para calcular la fecha de vencimiento de la licencia
-//        Calendar fechaVencimiento = new GregorianCalendar();
-//        // Si se selecciona una licencia de un año
-//        if (rbtUnAnio.isSelected()) {
-//            // Se calcula la fecha de vecimiento sumando un año a la fecha actual
-//            fechaVencimiento.add(Calendar.YEAR, 1);
-//            // Si la persona es discapacitada
-//            if (persona.isDiscapacitado()) {
-//                LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
-//                        Costos.COSTO_DISCAPACITADOS_UN_ANIO, persona, true);
-//            } else {
-//                LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
-//                        Costos.COSTO_NORMAL_UN_ANIO, persona, true);
-//            }
-//        }
-//        // Si se selecciona una licencia de dos años
-//        if (rbtDosAnios.isSelected()) {
-//            // Se calcula la fecha de vecimiento sumando dos años a la fecha actual
-//            fechaVencimiento.add(Calendar.YEAR, 2);
-//            // Si la persona es discapacitada
-//            if (persona.isDiscapacitado()) {
-//                LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
-//                        Costos.COSTO_DISCAPACITADOS_DOS_ANIOS, persona, true);
-//            } else {
-//                LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
-//                        Costos.COSTO_NORMAL_DOS_ANIOS, persona, true);
-//
-//            }
-//        }
-//        // Si se selecciona una licencia de tres años
-//        if (rbtTresAnios.isSelected()) {
-//            // Se calcula la fecha de vecimiento sumando tres años a la fecha actual
-//            fechaVencimiento.add(Calendar.YEAR, 3);
-//            // Si la persona es discapacitada
-//            if (persona.isDiscapacitado()) {
-//                LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
-//                        Costos.COSTO_DISCAPACITADOS_TRES_ANIOS, persona, true);
-//            } else {
-//                LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
-//                        Costos.COSTO_NORMAL_TRES_ANIOS, persona, true);
-//            }
-//        }
+        // Crea una fecha actual para calcular la fecha de vencimiento de la licencia
+        Calendar fechaVencimiento = new GregorianCalendar();
+        LicenciaNuevaDTO licenciaNueva = null;
+        // Si se selecciona una licencia de un año
+        if (rbtUnAnio.isSelected()) {
+            // Se calcula la fecha de vecimiento sumando un año a la fecha actual
+            fechaVencimiento.add(Calendar.YEAR, 1);
+            // Si la persona es discapacitada
+            Float costo = PreciosTramites.obtenerCostoLicencia(TipoLicencia.UN_ANIO, persona.isDiscapacitado());
+            licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
+                    costo, persona, true);
+        }
+        // Si se selecciona una licencia de dos años
+        if (rbtDosAnios.isSelected()) {
+            // Se calcula la fecha de vecimiento sumando dos años a la fecha actual
+            fechaVencimiento.add(Calendar.YEAR, 2);
+            // Si la persona es discapacitada
+            Float costo = PreciosTramites.obtenerCostoLicencia(TipoLicencia.DOS_ANIOS, persona.isDiscapacitado());
+            licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
+                    costo, persona, true);
+        }
+        // Si se selecciona una licencia de tres años
+        if (rbtTresAnios.isSelected()) {
+            // Se calcula la fecha de vecimiento sumando tres años a la fecha actual
+            fechaVencimiento.add(Calendar.YEAR, 3);
+            // Si la persona es discapacitada
+            Float costo = PreciosTramites.obtenerCostoLicencia(TipoLicencia.TRES_ANIOS, persona.isDiscapacitado());
+            licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, new GregorianCalendar(),
+                    costo, persona, true);
+        }
+        try {
+            registroLicencia.registrarLicencia(licenciaNueva);
+        } catch (NegociosException ex) {
+            JOptionPane.showMessageDialog(this, "No se pudo registrar la licencia.", 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -392,5 +398,6 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbtUnAnio;
     private javax.swing.JTextField txtCosto;
     // End of variables declaration//GEN-END:variables
+    private IRegistroLicenciaBO registroLicencia;
     private PersonaNuevaDTO persona;
 }

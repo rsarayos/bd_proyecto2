@@ -1,12 +1,23 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
 import java.awt.Frame;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPersonasBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonaBO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroPersonasDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
 public class PantallaBusqueda extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaModuloLicencias
+     *
      * @param parent
      * @param modal
      */
@@ -14,7 +25,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.parent = parent;
-        llenarTabla();
+        this.registroPersonas = new RegistroPersonaBO();
     }
 
     /**
@@ -31,7 +42,6 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         lblTitulo = new javax.swing.JLabel();
         lblInstrucciones = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
-        btnAceptar = new javax.swing.JButton();
         lblNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         lblRFC = new javax.swing.JLabel();
@@ -86,18 +96,6 @@ public class PantallaBusqueda extends javax.swing.JDialog {
             }
         });
 
-        btnAceptar.setText("ACEPTAR");
-        btnAceptar.setBackground(new java.awt.Color(159, 34, 65));
-        btnAceptar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnAceptar.setFocusable(false);
-        btnAceptar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
-            }
-        });
-
         lblNombre.setText("NOMBRE:");
         lblNombre.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
@@ -120,18 +118,18 @@ public class PantallaBusqueda extends javax.swing.JDialog {
 
             },
             new String [] {
-                "NOMBRE", "FECHA DE NACIMIENTO", "RFC", ""
+                "NOMBRE", "FECHA DE NACIMIENTO", "RFC", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblContribuyentes.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        tblContribuyentes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(tblContribuyentes);
 
         btnBuscar.setText("BUSCAR");
@@ -140,6 +138,11 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         btnBuscar.setFocusable(false);
         btnBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,8 +164,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblRFC)
@@ -199,9 +201,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
@@ -224,12 +224,28 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        PantallaTiposLicencias pTiposLicencias = new PantallaTiposLicencias(parent, true);
-        pTiposLicencias.setVisible(true);
-    }//GEN-LAST:event_btnAceptarActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // Se crea el filtro para la consulta de personas
+        FiltroPersonasDTO filtroPersonas = new FiltroPersonasDTO();
+        filtroPersonas.setRfc(txtRFC.getText());
+        filtroPersonas.setNombre(txtNombre.getText());
 
-    private void llenarTabla() {
+        if (dpFechaNacimiento.getDate() != null) {
+            LocalDate fechaIngresada = dpFechaNacimiento.getDate();
+            Calendar fechaNacimiento = new GregorianCalendar(fechaIngresada.getYear(), fechaIngresada.getMonthValue() - 1, fechaIngresada.getDayOfMonth());
+            filtroPersonas.setFechaNacimiento(fechaNacimiento);
+        }
+
+        try {
+            List<PersonaNuevaDTO> personas = registroPersonas.consultarPersonas(filtroPersonas);
+            llenarTabla(personas);
+        } catch (NegociosException ex) {
+            JOptionPane.showMessageDialog(this, "No se pudieron consultar los contribuyentes",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void llenarTabla(List<PersonaNuevaDTO> personas) {
 //        try {
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
@@ -241,37 +257,34 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         modelo.addColumn("FECHA DE NACIMIENTO");
         modelo.addColumn("RFC");
         modelo.addColumn("");
+        modelo.addColumn("");
 
         // Agregar los socios al modelo de la tabla
-//            for (Cuenta cuenta : listaCuentas) {
-//                Boolean activa = cuenta.isActiva();
-//                String activaString;
-//                if (activa) {
-//                    activaString = "Si";
-//                } else {
-//                    activaString = "No";
-//                }
-//
-//                Object[] fila = {cuenta.getAlias(), cuenta.getSaldo(), cuenta.getFechaApertura().formatearFecha(), activaString, "VER"};
-//                modelo.addRow(fila);
-//            }
-//            tblCuentas.setModel(modelo);
+        for (PersonaNuevaDTO persona : personas) {
+
+            String fechaNacimiento = persona.getFechaNacimiento().get(Calendar.DAY_OF_MONTH) + "/" + (persona.getFechaNacimiento().get(Calendar.MONTH) + 1) + "/" + persona.getFechaNacimiento().get(Calendar.YEAR);
+            String isDiscapacitado = "";
+
+            if (persona.isDiscapacitado()) {
+                isDiscapacitado = "Discapacitado";
+            }
+
+            Object[] fila = {persona.getNombres() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno(), fechaNacimiento, persona.getRfc(), isDiscapacitado, "SELECCIONAR"};
+            modelo.addRow(fila);
+        }
+        tblContribuyentes.setModel(modelo);
         ButtonColumn buttonColumn = new ButtonColumn("SELECCIONAR", (e) -> {
             int fila = tblContribuyentes.convertRowIndexToModel(tblContribuyentes.getSelectedRow());
-//                Cuenta cuenta = listaCuentas.get(fila);
-//                PantallaCuenta pantallaCuenta = new PantallaCuenta(parent, true, conexion, cuenta);
-//                pantallaCuenta.setVisible(true);
-            llenarTabla();
+            PersonaNuevaDTO persona = personas.get(fila);
+
+            PantallaTiposLicencias pTiposLicencias = new PantallaTiposLicencias(parent, true, persona);
+            pTiposLicencias.setVisible(true);
         });
         tblContribuyentes.getColumnModel().getColumn(tblContribuyentes.getColumnCount() - 1).setCellRenderer(buttonColumn);
         tblContribuyentes.getColumnModel().getColumn(tblContribuyentes.getColumnCount() - 1).setCellEditor(buttonColumn);
-//        } catch (PersistenciaException e) {
-//            JOptionPane.showMessageDialog(this, "Error al consultar la información de los socios: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private com.github.lgooddatepicker.components.DatePicker dpFechaNacimiento;
@@ -288,4 +301,5 @@ public class PantallaBusqueda extends javax.swing.JDialog {
     private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
     private Frame parent;
+    private IRegistroPersonasBO registroPersonas;
 }
