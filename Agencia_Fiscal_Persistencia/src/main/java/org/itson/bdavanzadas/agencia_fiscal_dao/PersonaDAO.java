@@ -1,11 +1,6 @@
 package org.itson.bdavanzadas.agencia_fiscal_dao;
 
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import org.itson.bdavanzadas.agencia_fiscal_auxiliar.Encriptar;
-import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,8 +12,8 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
 /**
- *
- * @author victo
+ * Clase que implementa las operaciones para acceder a los datos de
+ * personas en la base de datos.
  */
 public class PersonaDAO implements IPersonaDAO {
 
@@ -153,16 +148,14 @@ public class PersonaDAO implements IPersonaDAO {
                   AND (:fechaNacimiento IS NULL OR p.fechaNacimiento = :fechaNacimiento)
                   """;
 
-        // Construir consulta
         TypedQuery<Persona> query = entityManager.createQuery(jpqlQuery, Persona.class);
 
-        // Configurar parámetros de consulta
         if (filtroPersonas.getNombre() != null) {
             query.setParameter("nombre", "%" + filtroPersonas.getNombre() + "%");
         } else {
             query.setParameter("nombre", null);
         }
-
+        
         if (filtroPersonas.getRfc() != null) {
             query.setParameter("rfc", "%" + filtroPersonas.getRfc() + "%");
         } else {
