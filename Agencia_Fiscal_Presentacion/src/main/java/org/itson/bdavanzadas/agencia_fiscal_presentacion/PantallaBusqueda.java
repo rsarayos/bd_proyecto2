@@ -263,13 +263,8 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         for (PersonaNuevaDTO persona : personas) {
 
             String fechaNacimiento = persona.getFechaNacimiento().get(Calendar.DAY_OF_MONTH) + "/" + (persona.getFechaNacimiento().get(Calendar.MONTH) + 1) + "/" + persona.getFechaNacimiento().get(Calendar.YEAR);
-            String isDiscapacitado = "";
 
-            if (persona.isDiscapacitado()) {
-                isDiscapacitado = "Discapacitado";
-            }
-
-            Object[] fila = {persona.getNombres() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno(), fechaNacimiento, persona.getRfc(), isDiscapacitado, "SELECCIONAR"};
+            Object[] fila = {persona.getNombres() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno(), fechaNacimiento, persona.getRfc(), persona.isDiscapacitado()? "Discapacitado":"No discapacitado", "SELECCIONAR"};
             modelo.addRow(fila);
         }
         tblContribuyentes.setModel(modelo);

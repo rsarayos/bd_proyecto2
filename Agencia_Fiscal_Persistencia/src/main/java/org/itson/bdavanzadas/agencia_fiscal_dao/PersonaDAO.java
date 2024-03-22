@@ -109,26 +109,39 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
-//    @Override
-//    public List<Persona> buscarPersona(FiltroPersonas filtroPersonas) throws PersistenciaException {
-//        EntityManager entityManager = conexion.crearConexion();
-//        String jpqlQuery = """
-//                      SELECT p
-//                      FROM Persona p
-//                      WHERE CONCAT(p.nombres , " ", p.apellidoPaterno, " ", p.apellidoMaterno) LIKE :nombre 
-//                      AND p.rfc LIKE :rfc
-//                      AND p.fechaNacimiento = :fechaNacimiento
-//                      """;
-//
-//        //consulta construida
-//        TypedQuery<Persona> query = entityManager.createQuery(jpqlQuery, Persona.class);
-//        query.setParameter("nombre", "%" + filtroPersonas.getNombre() + "%");
-//        query.setParameter("rfc", "%" + filtroPersonas.getRfc() + "%");
-//        query.setParameter("fechaNacimiento", filtroPersonas.getFechaNacimiento() != null ? filtroPersonas.getFechaNacimiento(): "");
-//        List<Persona> personas = query.getResultList();
-//        logger.log(Level.INFO, "Se consultó la lista de personas correctamente");
-//        return personas;
-//    }
+    /**
+     * Método que permite buscar un persona según su RFC. 
+     * 
+     * @param rfc RFC de la persona a buscar.
+     * @return Objeto persona con todos sus atributos.
+     * @throws PersistenciaException Si ocurre un error al intentar agregar a la
+     * persona.
+     */
+    @Override
+    public Persona obtenerPersonaRFC(String rfc) throws PersistenciaException {
+        try {
+            EntityManager entityManager = conexion.crearConexion();
+            entityManager.getTransaction().begin();
+
+            Persona personaObtenida = entityManager.find(Persona.class, rfc);
+
+            entityManager.close();
+            return personaObtenida;
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error al obtener la persona");
+            throw new PersistenciaException("No se pudo obtener a la persona.");
+        }
+    }
+    
+    /**
+     * Método que nos permite buscar un lista de personas que cumplan con el
+     * filtro dato en el parámetro.
+     *
+     * @param filtroPersonas Filtro con los atributos por los que será buscado.
+     * @return Una lista de persona que cumplan con los parámetros del filtro.
+     * @throws PersistenciaException Si ocurre un error al intentar agregar a la
+     * persona.
+     */
     @Override
     public List<Persona> buscarPersona(FiltroPersonas filtroPersonas) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
@@ -165,23 +178,5 @@ public class PersonaDAO implements IPersonaDAO {
         List<Persona> personas = query.getResultList();
         logger.log(Level.INFO, "Se consultó la lista de personas correctamente");
         return personas;
-    }
-
-    @Override
-    public Persona obtenerPersonaRFC(String rfc) throws PersistenciaException {
-        try {
-            EntityManager entityManager = conexion.crearConexion();
-            entityManager.getTransaction().begin();
-
-            Persona personaObtenida = entityManager.find(Persona.class, rfc);
-
-            entityManager.close();
-            return personaObtenida;
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error al obtener la persona");
-            throw new PersistenciaException("No se pudo obtener a la persona.");
-        }
-    }
-    
-    
+    }  
 }
