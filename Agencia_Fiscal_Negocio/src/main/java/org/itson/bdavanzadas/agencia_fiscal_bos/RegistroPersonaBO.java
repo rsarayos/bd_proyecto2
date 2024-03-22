@@ -43,6 +43,9 @@ public class RegistroPersonaBO implements IRegistroPersonasBO {
     /**
      * Permite agregar personas utilizando un objeto de acceso a datos de
      * persona.
+     *
+     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
+     * agregar una persona.
      */
     @Override
     public void agregarPersonas() throws NegociosException {
@@ -53,6 +56,15 @@ public class RegistroPersonaBO implements IRegistroPersonasBO {
         }
     }
 
+    /**
+     * Método que nos permite consultar las personas según el filtro enviado.
+     *
+     * @param filtroPersonas Parámetros que ayudarán al filtrado de las
+     * personas.
+     * @return Una lista de personas con los filtros aplicados.
+     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
+     * consultar a las personas.
+     */
     @Override
     public List<PersonaNuevaDTO> consultarPersonas(FiltroPersonasDTO filtroPersonas) throws NegociosException {
         FiltroPersonas filtroConsulta = new FiltroPersonas();
