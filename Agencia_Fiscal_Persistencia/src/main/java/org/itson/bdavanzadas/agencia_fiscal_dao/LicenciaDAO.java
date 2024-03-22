@@ -117,8 +117,11 @@ public class LicenciaDAO implements ILicenciaDAO {
                 Query querySelect = entityManager.createQuery(jpqlSelect);
                 querySelect.setParameter("licenciaId", licenciaNueva.getId());
                 List<Licencia> licenciasModificadas = querySelect.getResultList();
+                entityManager.getTransaction().commit();
+                logger.log(Level.INFO, "Se modifico el estado de la licencia");
                 return licenciasModificadas.get(0);
             } else {
+                logger.log(Level.INFO, "No se modifico ninguna licencia");
                 return null;
             }
         } catch (Exception e) {

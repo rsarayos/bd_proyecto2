@@ -9,6 +9,7 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOExc
  */
 public class LicenciaNuevaDTO {
     
+    private Long id;
     private Calendar fechaVencimiento;
     private Calendar fechaTramite;
     private Float costo;
@@ -30,6 +31,23 @@ public class LicenciaNuevaDTO {
         this.costo = costo;
         this.persona = persona;
         this.estado = estado;
+    }
+
+    public LicenciaNuevaDTO(Long id, Calendar fechaVencimiento, Calendar fechaTramite, Float costo, PersonaNuevaDTO persona, Boolean estado) {
+        this.id = id;
+        this.fechaVencimiento = fechaVencimiento;
+        this.fechaTramite = fechaTramite;
+        this.costo = costo;
+        this.persona = persona;
+        this.estado = estado;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public Long getId() {
+        return id;
     }
 
     /**

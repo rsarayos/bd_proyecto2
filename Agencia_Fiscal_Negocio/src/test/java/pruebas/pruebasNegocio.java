@@ -39,10 +39,12 @@ public class pruebasNegocio {
                 personaNueva, 
                 true);
         
+        
         IRegistroLicenciaBO registro = new RegistroLicenciaBO();
         
         try {
             registro.tramitarLicencia(licenciaNueva);
+//            System.out.println(licN.toString());
         } catch (NegociosException ex) {
             Logger.getLogger(pruebasNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }

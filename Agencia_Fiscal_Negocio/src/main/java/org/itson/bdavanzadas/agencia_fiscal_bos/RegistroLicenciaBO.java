@@ -56,7 +56,8 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
                             persona,
                             licenciaNueva.getEstado());
                     try {
-                        licenciaDAO.agregarLicencia(licencia);
+                        Licencia licenciaPer = licenciaDAO.agregarLicencia(licencia);
+                        licenciaNueva.setId(licenciaPer.getId());
                     } catch (PersistenciaException ex) {
                         logger.log(Level.SEVERE, "Excepcion en persistencia");
                     }
@@ -84,7 +85,9 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
                         Persona persona = new Persona(personaNueva.getRfc());
                         List<Licencia> licencias = licenciaDAO.obtenerLicencias(persona);
                         for (Licencia lic : licencias) {
-                            licenciasDT.add(new LicenciaNuevaDTO(lic.getFechaVencimiento(), 
+                            licenciasDT.add(new LicenciaNuevaDTO(
+                                    lic.getId(),
+                                    lic.getFechaVencimiento(), 
                                     lic.getFechaTramite(), 
                                     lic.getCosto(), 
                                     personaNueva, 
@@ -113,13 +116,14 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
         LicenciaNuevaDTO licObt = null;
         try {
 
-            Persona persona = new Persona(licenciaNueva.getPersona().getRfc());
+            Persona persona = personaDAO.obtenerPersonaRFC(licenciaNueva.getPersona().getRfc());
 
             Licencia licencia = new Licencia(licenciaNueva.getFechaVencimiento(),
                     licenciaNueva.getFechaTramite(),
                     licenciaNueva.getCosto(),
                     persona,
                     licenciaNueva.getEstado());
+            licencia.setId(licenciaNueva.getId());
             Licencia licObtenida = licenciaDAO.obtenerLicencia(licencia);
             if (licObtenida != null) {
                 PersonaNuevaDTO personaDTO = new PersonaNuevaDTO(licObtenida.getPersona().getRfc());
@@ -128,8 +132,10 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
                         licObtenida.getCosto(),
                         personaDTO,
                         licObtenida.getEstado());
+                logger.log(Level.INFO, "se obtuvo licencia");
                 return licObt;
             } else {
+                logger.log(Level.INFO, "No se encontro licencia");
                 return null;
             }
 
@@ -149,12 +155,15 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
                 List<Licencia> licencias = licenciaDAO.obtenerLicencias(persona);
                 if (licencias.isEmpty()) {
                     // se registra la nueva licencia a la persona
+                    logger.log(Level.INFO, "no se cambia vigencias");
                     return this.registrarLicencia(licenciaNueva);
                 } else {
                     // se obtiene la ultima licencia
+                    
                     Licencia licAnterior = licencias.get(licencias.size()-1);
                     licenciaDAO.modificarVigencia(licAnterior);
                     // se registra la nueva licencia
+                    logger.log(Level.INFO, "Se cambia vigencias");
                     return this.registrarLicencia(licenciaNueva);
                 }
             } catch (PersistenciaException ex) {
