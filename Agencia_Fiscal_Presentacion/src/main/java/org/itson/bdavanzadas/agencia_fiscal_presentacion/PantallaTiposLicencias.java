@@ -367,7 +367,7 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
                     costo, persona, true);
         }
         try {
-            registroLicencia.registrarLicencia(licenciaNueva);
+            registroLicencia.tramitarLicencia(licenciaNueva);
         } catch (NegociosException ex) {
             JOptionPane.showMessageDialog(this, "No se pudo registrar la licencia.", 
                     "Error", JOptionPane.ERROR_MESSAGE);
