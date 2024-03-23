@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,17 +19,22 @@ import javax.persistence.TemporalType;
 public class Placa extends Tramite implements Serializable {
 
     // Número de placa asociado a la placa.
-    @Column(name = "numero_placa")
+    @Column(name = "numero_placa", length = 7)
     private String numeroPlaca;
 
     // Fecha en la que se recibió la placa.
-    @Column(name = "fecha_recepcion", nullable = false)
+    @Column(name = "fecha_recepcion", nullable = true)
     @Temporal(TemporalType.DATE)
     private Calendar fechaRecepcion;
 
     // Vigencia de la placa
     @Column(name = "estado")
     private Boolean estado;
+    
+    // Persona asociada al vehículo
+    @ManyToOne
+    @JoinColumn(name = "numero_serie", nullable = false)
+    private Vehiculo vehiculo;
 
     /**
      * Constructor por defecto.
@@ -41,15 +48,17 @@ public class Placa extends Tramite implements Serializable {
      * @param numeroPlaca Número de placa asociado a la placa.
      * @param fechaRecepcion Fecha en la que se recibió la placa.
      * @param estado Estado de la placa.
+     * @param vehiculo vehiculo asociado a la placa
      * @param fechaTramite Fecha en la que se realizó el trámite.
      * @param costo Costo del trámite.
      * @param persona Persona asociada al trámite.
      */
-    public Placa(String numeroPlaca, Calendar fechaRecepcion, Boolean estado, Calendar fechaTramite, Float costo, Persona persona) {
+    public Placa(String numeroPlaca, Calendar fechaRecepcion, Boolean estado, Vehiculo vehiculo, Calendar fechaTramite, Float costo, Persona persona) {
         super(fechaTramite, costo, persona);
         this.numeroPlaca = numeroPlaca;
         this.fechaRecepcion = fechaRecepcion;
         this.estado = estado;
+        this.vehiculo = vehiculo;
     }
 
     /**
@@ -104,6 +113,14 @@ public class Placa extends Tramite implements Serializable {
      */
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
     }
 
     /**

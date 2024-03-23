@@ -1,3 +1,4 @@
+org\itson\bdavanzadas\agencia_fiscal_dao\PlacaDAO.class
 org\itson\bdavanzadas\agencia_fiscal_excepciones\PersistenciaException.class
 org\itson\bdavanzadas\agencia_fiscal_dao\PersonaDAO.class
 org\itson\bdavanzadas\agencia_fiscal_entidades_jpa\Vehiculo.class
@@ -6,6 +7,7 @@ org\itson\bdavanzadas\agencia_fiscal_auxiliar\Encriptar.class
 org\itson\bdavanzadas\agencia_fiscal_dao\ILicenciaDAO.class
 org\itson\bdavanzadas\agencia_fiscal_entidades_jpa\Persona.class
 org\itson\bdavanzadas\agencia_fiscal_dao\IPersonaDAO.class
+org\itson\bdavanzadas\agencia_fiscal_dao\IPlacaDAO.class
 org\itson\bdavanzadas\agencia_fiscal_entidades_jpa\Tramite.class
 org\itson\bdavanzadas\agencia_fiscal_dao\Conexion.class
 pruebas\Pruebas.class

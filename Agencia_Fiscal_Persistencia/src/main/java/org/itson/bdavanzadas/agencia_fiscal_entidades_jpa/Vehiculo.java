@@ -1,23 +1,29 @@
 package org.itson.bdavanzadas.agencia_fiscal_entidades_jpa;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  * Clase que representa un vehículo en el sistema. Un vehículo puede ser
  * asociado a una persona y tiene atributos como número de serie, color, modelo,
- * línea, marca y estado.
+ * línea y marca.
  */
 @Entity
 @Table(name = "vehiculos")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tipo_vehiculo", discriminatorType = DiscriminatorType.STRING)
 public class Vehiculo implements Serializable {
 
     // Número de serie del vehículo.
@@ -41,19 +47,23 @@ public class Vehiculo implements Serializable {
     @Column(name = "marca", nullable = false, length = 50)
     private String marca;
 
-    // Estado del vehículo.
-    @Column(name = "estado", nullable = false)
-    private Boolean estado;
-
     // Persona asociada al vehículo
     @ManyToOne
     @JoinColumn(name = "rfc_persona", nullable = false)
     private Persona persona;
+    
+    // Lista de tramites relacionados a la persona
+    @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.PERSIST)
+    private List<Placa> placas;
 
     /**
      * Constructor por defecto.
      */
     public Vehiculo() {
+    }
+
+    public Vehiculo(String numeroSerie) {
+        this.numeroSerie = numeroSerie;
     }
 
     /**
@@ -65,16 +75,14 @@ public class Vehiculo implements Serializable {
      * @param modelo Modelo del vehículo.
      * @param linea Línea del vehículo.
      * @param marca Marca del vehículo.
-     * @param estado Estado del vehículo.
      * @param persona Persona asociada al vehículo.
      */
-    public Vehiculo(String numeroSerie, String color, String modelo, String linea, String marca, Boolean estado, Persona persona) {
+    public Vehiculo(String numeroSerie, String color, String modelo, String linea, String marca, Persona persona) {
         this.numeroSerie = numeroSerie;
         this.color = color;
         this.modelo = modelo;
         this.linea = linea;
         this.marca = marca;
-        this.estado = estado;
         this.persona = persona;
     }
     
@@ -169,24 +177,6 @@ public class Vehiculo implements Serializable {
     }
 
     /**
-     * Obtiene el estado del vehículo.
-     *
-     * @return Estado del vehículo.
-     */
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    /**
-     * Establece el estado del vehículo.
-     *
-     * @param estado Estado del vehículo.
-     */
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
-    }
-
-    /**
      * Calcula y devuelve el valor hash de esta instancia de Vehiculo.
      *
      * @return El valor hash de esta instancia de Vehiculo.
@@ -232,7 +222,6 @@ public class Vehiculo implements Serializable {
         sb.append(", modelo=").append(modelo);
         sb.append(", linea=").append(linea);
         sb.append(", marca=").append(marca);
-        sb.append(", estado=").append(estado);
         sb.append(", persona=").append(persona);
         sb.append('}');
         return sb.toString();

@@ -16,8 +16,12 @@ import org.itson.bdavanzadas.agencia_fiscal_dao.ILicenciaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.LicenciaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.PersonaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.PlacaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Automovil;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Licencia;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
+import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Placa;
+import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
 /**
@@ -32,14 +36,19 @@ public class Pruebas {
     public static void main(String[] args) {
 
 //        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("fiscalPU");
-////        // solicitamos una entity manager (acceso a la bd)
+//////        // solicitamos una entity manager (acceso a la bd)
 //        EntityManager entityManager = emFactory.createEntityManager();
-////        
+//////        
 //        entityManager.getTransaction().begin();
+//        
+//        Automovil auto = new Automovil("abc", "rojo", "sedan", "Honda", "Civic", new Persona("ASDF123456A78"));
+//        
+//        entityManager.persist(auto);
+//        entityManager.getTransaction().commit();
+////////        
 //////        
-////        
-//////        
-//////        entityManager.close();
+////////        
+//        entityManager.close();
 ////        
 ////        String jpqlUpdate = "UPDATE Licencia l SET l.estado = false WHERE l.id = :licenciaId";
 ////        Query queryUpdate = entityManager.createQuery(jpqlUpdate);
@@ -69,8 +78,8 @@ public class Pruebas {
 ////        Calendar fechaVencimiento = Calendar.getInstance();
 ////        fechaVencimiento.add(Calendar.YEAR, 1);
 ////        
-////        Calendar fechaTramite = Calendar.getInstance();
-////        fechaTramite.setTime(new Date());
+        Calendar fechaTramite = Calendar.getInstance();
+        fechaTramite.setTime(new Date());
 ////        
 ////        Calendar fechaRecepcion = Calendar.getInstance();
 ////        fechaRecepcion.setTime(new Date());
@@ -193,6 +202,28 @@ public class Pruebas {
 //        }
 //
 //    }
+
+        Conexion conexion = new Conexion();
+        
+        PlacaDAO placaDAO = new PlacaDAO(conexion);
+        
+        Placa placa = new Placa("placa", 
+                null, 
+                true, 
+                new Vehiculo("abc"), 
+                fechaTramite, 
+                900f, new Persona("ASDF123456A78")
+        );
+        
+        try {
+            
+//            List<Placa> placas = placaDAO.obtenerPlacas(new Vehiculo("abc"));
+            Placa placaObt = placaDAO.modificarVigencia(placa);
+            System.out.println(placaObt);
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
     }
