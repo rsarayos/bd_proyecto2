@@ -13,7 +13,9 @@ public interface IPlacaDAO {
     
     public Placa agregarPlaca(Placa placa) throws PersistenciaException;
     
-    public List<Placa> obtenerPlacas(Vehiculo vehiculo) throws PersistenciaException;
+    public List<Placa> obtenerPlacasVehiculo(Vehiculo vehiculo) throws PersistenciaException;
+    
+    public Placa obtenerPlaca(String numPlaca) throws PersistenciaException;
     
     public Placa obtenerPlacaActiva(Vehiculo vehiculo) throws PersistenciaException;
     

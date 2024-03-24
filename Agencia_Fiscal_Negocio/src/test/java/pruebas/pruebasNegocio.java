@@ -9,9 +9,13 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroLicenciaBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPlacaBO;
 import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroLicenciaBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPlacaBO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.LicenciaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.PlacaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
 /**
@@ -28,26 +32,42 @@ public class pruebasNegocio {
         Calendar fechaTramite = Calendar.getInstance();
         fechaTramite.setTime(new Date());
         
-        Calendar fechaVencimiento = Calendar.getInstance();
-        fechaVencimiento.add(Calendar.YEAR, 1);
+//        Calendar fechaVencimiento = Calendar.getInstance();
+//        fechaVencimiento.add(Calendar.YEAR, 1);
+//        
+//        PersonaNuevaDTO personaNueva = new PersonaNuevaDTO("ASDF123456A78");
+//        
+//        LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, 
+//                fechaTramite, 
+//                800F, 
+//                personaNueva, 
+//                true);
+//        
+//        
+//        IRegistroLicenciaBO registro = new RegistroLicenciaBO();
+//        
+//        try {
+//            registro.tramitarLicencia(licenciaNueva);
+////            System.out.println(licN.toString());
+//        } catch (NegociosException ex) {
+//            Logger.getLogger(pruebasNegocio.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
+        IRegistroPlacaBO registro = new RegistroPlacaBO();
         
-        PersonaNuevaDTO personaNueva = new PersonaNuevaDTO("ASDF123456A78");
-        
-        LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, 
-                fechaTramite, 
-                800F, 
-                personaNueva, 
-                true);
-        
-        
-        IRegistroLicenciaBO registro = new RegistroLicenciaBO();
+        PlacaNuevaDTO placaNueva = new PlacaNuevaDTO(true, 
+                new VehiculoNuevoDTO("abc"),
+                fechaTramite,
+                1000f, 
+                new PersonaNuevaDTO("ASDF123456A78")
+        );
         
         try {
-            registro.tramitarLicencia(licenciaNueva);
-//            System.out.println(licN.toString());
+            registro.tramitarPlaca(placaNueva);
         } catch (NegociosException ex) {
             Logger.getLogger(pruebasNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
     
 }
