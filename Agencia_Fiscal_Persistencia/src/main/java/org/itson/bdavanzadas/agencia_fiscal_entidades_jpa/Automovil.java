@@ -31,5 +31,19 @@ public class Automovil extends Vehiculo implements Serializable{
     public Automovil(String numeroSerie, String color, String modelo, String linea, String marca, Persona persona) {
         super(numeroSerie, color, modelo, linea, marca, persona);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Automovil{");
+        sb.append("numeroSerie=").append(numeroSerie);
+        sb.append(", color=").append(color);
+        sb.append(", modelo=").append(modelo);
+        sb.append(", linea=").append(linea);
+        sb.append(", marca=").append(marca);
+        sb.append(", persona=").append(persona);
+        sb.append('}');
+        return sb.toString();
+    }
     
 }

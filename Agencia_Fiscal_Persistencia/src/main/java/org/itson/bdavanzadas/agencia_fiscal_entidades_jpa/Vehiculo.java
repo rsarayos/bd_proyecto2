@@ -2,7 +2,6 @@ package org.itson.bdavanzadas.agencia_fiscal_entidades_jpa;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -22,39 +21,39 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "vehiculos")
-@Inheritance(strategy = InheritanceType.JOINED)
+    @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_vehiculo", discriminatorType = DiscriminatorType.STRING)
 public class Vehiculo implements Serializable {
 
     // Número de serie del vehículo.
     @Id
     @Column(name = "numero_serie", length = 17)
-    private String numeroSerie;
+    protected String numeroSerie;
 
     // Color del vehículo.
     @Column(name = "color", nullable = false, length = 30)
-    private String color;
+    protected String color;
 
     // Modelo del vehículo.
     @Column(name = "modelo", nullable = false, length = 50)
-    private String modelo;
+    protected String modelo;
 
     // Línea del vehículo.
     @Column(name = "linea", nullable = false, length = 50)
-    private String linea;
+    protected String linea;
 
     // Marca del vehículo.
     @Column(name = "marca", nullable = false, length = 50)
-    private String marca;
+    protected String marca;
 
     // Persona asociada al vehículo
     @ManyToOne
     @JoinColumn(name = "rfc_persona", nullable = false)
-    private Persona persona;
+    protected Persona persona;
     
     // Lista de tramites relacionados a la persona
-    @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.PERSIST)
-    private List<Placa> placas;
+    @OneToMany(mappedBy = "vehiculo")
+    protected List<Placa> placas;
 
     /**
      * Constructor por defecto.

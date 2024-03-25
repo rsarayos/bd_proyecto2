@@ -1,28 +1,18 @@
 package pruebas;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import org.itson.bdavanzadas.agencia_fiscal_auxiliar.FiltroPersonas;
 import org.itson.bdavanzadas.agencia_fiscal_dao.Conexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
-import org.itson.bdavanzadas.agencia_fiscal_dao.ILicenciaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonaDAO;
-import org.itson.bdavanzadas.agencia_fiscal_dao.LicenciaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.PersonaDAO;
-import org.itson.bdavanzadas.agencia_fiscal_dao.PlacaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.AutomovilesDAO;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Automovil;
-import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Licencia;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
-import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Placa;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
+import org.itson.bdavanzadas.agencia_fiscal_dao.IAutomovilesDAO;
 
 /**
  *
@@ -36,9 +26,9 @@ public class Pruebas {
     public static void main(String[] args) {
 
 //        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("fiscalPU");
-//////        // solicitamos una entity manager (acceso a la bd)
+//        // solicitamos una entity manager (acceso a la bd)
 //        EntityManager entityManager = emFactory.createEntityManager();
-//////        
+       
 //        entityManager.getTransaction().begin();
 //        
 //        Automovil auto = new Automovil("abc", "rojo", "sedan", "Honda", "Civic", new Persona("ASDF123456A78"));
@@ -78,8 +68,8 @@ public class Pruebas {
 ////        Calendar fechaVencimiento = Calendar.getInstance();
 ////        fechaVencimiento.add(Calendar.YEAR, 1);
 ////        
-        Calendar fechaTramite = Calendar.getInstance();
-        fechaTramite.setTime(new Date());
+//        Calendar fechaTramite = Calendar.getInstance();
+//        fechaTramite.setTime(new Date());
 ////        
 ////        Calendar fechaRecepcion = Calendar.getInstance();
 ////        fechaRecepcion.setTime(new Date());
@@ -203,28 +193,71 @@ public class Pruebas {
 //
 //    }
 
-        Conexion conexion = new Conexion();
-        
-        PlacaDAO placaDAO = new PlacaDAO(conexion);
-        
-        Placa placa = new Placa("placa", 
-                null, 
-                true, 
-                new Vehiculo("abc"), 
-                fechaTramite, 
-                900f, new Persona("ASDF123456A78")
-        );
+//        Conexion conexion = new Conexion();
+//        PlacaDAO placaDAO = new PlacaDAO(conexion);
+//        Placa placa = new Placa("placa",
+//                null,
+//                true,
+//                new Vehiculo("abc"),
+//                fechaTramite,
+//                900f, new Persona("ASDF123456A78")
+//        );
+//        try {
+////          List<Placa> placas = placaDAO.obtenerPlacas(new Vehiculo("abc"));
+//            Placa placaObt = placaDAO.modificarVigencia(placa);
+//            System.out.println(placaObt);
+//
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
+        // Prueba del método agregarVehiculo
+//        IConexion conexion = new Conexion();
+//        IVehiculosDAO vehiculosDAO = new VehiculosDAO(conexion);
+//        IPersonaDAO personasDAO = new PersonaDAO(conexion);
+//        Persona persona = null;
+//        
+//        try {
+//            persona = personasDAO.obtenerPersonaRFC("GUGR040316E27");
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        Automovil automovilNuevo = new Automovil("ABC-123", "negro", "2015", "focus", "ford", persona);
+//        Automovil automovilNuevo2 = new Automovil("DEF-456", "guinda", "2014", "versa", "nissan", persona);
+//        Automovil automovilNuevo3 = new Automovil("GHI-789", "blanco", "2014", "x-trail", "nissan", persona);
+//        
+//        try {
+//            vehiculosDAO.agregarVehiculo(automovilNuevo);
+//            vehiculosDAO.agregarVehiculo(automovilNuevo2);
+//            vehiculosDAO.agregarVehiculo(automovilNuevo3);
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
+        // Prueba del método consultarVehiculos
+        IConexion conexion = new Conexion();
+        IAutomovilesDAO vehiculosDAO = new AutomovilesDAO(conexion);
+        IPersonaDAO personasDAO = new PersonaDAO(conexion);
+        Persona persona = null;
         
         try {
-            
-//            List<Placa> placas = placaDAO.obtenerPlacas(new Vehiculo("abc"));
-            Placa placaObt = placaDAO.modificarVigencia(placa);
-            System.out.println(placaObt);
-            
+            persona = personasDAO.obtenerPersonaRFC("GUGR040316E27");
         } catch (PersistenciaException ex) {
             Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        List<Automovil> vehiculos = null;
+        
+        try {
+            vehiculos = vehiculosDAO.consultarAutomoviles(persona);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for (Vehiculo vehiculo : vehiculos) {
+            Logger.getLogger(Pruebas.class.getName()).log(Level.INFO, vehiculo.toString());
+        }
 
     }
 }
