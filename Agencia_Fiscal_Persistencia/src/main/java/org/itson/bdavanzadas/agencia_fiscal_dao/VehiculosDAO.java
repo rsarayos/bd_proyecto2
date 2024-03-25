@@ -8,51 +8,63 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Automovil;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
-public class AutomovilesDAO implements IAutomovilesDAO {
-    
+public class VehiculosDAO implements IVehiculosDAO {
+
     private IConexion conexion;
-    static final Logger logger = Logger.getLogger(AutomovilesDAO.class.getName());
-    
-    public AutomovilesDAO(IConexion conexion){
+    static final Logger logger = Logger.getLogger(VehiculosDAO.class.getName());
+
+    /**
+     * Constructor que recibe una conexión al sistema de persistencia.
+     *
+     * @param conexion La conexión al sistema de persistencia
+     */
+    public VehiculosDAO(IConexion conexion) {
         this.conexion = conexion;
     }
 
+    /**
+     * Permite agregar un vehiculo nuevo al sistema.
+     *
+     * @param vehiculoNuevo El vehiculo a agregar
+     * @throws PersistenciaException Si no se puede agregar el vehículo
+     */
     @Override
-    public void agregarAutomovil(Automovil automovilNuevo) throws PersistenciaException {
+    public void agregarVehiculo(Vehiculo vehiculoNuevo) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
-        
+
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(automovilNuevo);
+            entityManager.persist(vehiculoNuevo);
             entityManager.getTransaction().commit();
             logger.log(Level.INFO, "Se agregó el vehiculo correctamente");
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new PersistenciaException("No se pudo registrar el vehículo.");
         } finally {
             entityManager.close();
         }
     }
 
+    /**
+     * Permite consultar los vehículos de una persona.
+     *
+     * @param persona La persona de la que se desean consultar los vehículos
+     * @return Una lista con los vehículos de la persona
+     * @throws PersistenciaException Si no se pueden consultar los vehículos
+     */
     @Override
-    public List<Automovil> consultarAutomoviles(Persona persona) throws PersistenciaException{
+    public List<Vehiculo> consultarVehiculos(Persona persona) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
         try {
             CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Automovil> criteria = builder.createQuery(Automovil.class);
-            Root<Automovil> root = criteria.from(Automovil.class);
-            criteria.select(root).where(
-                    builder.and(
-                            builder.equal(root.type(), Automovil.class),
-                            builder.like(root.get("persona").get("rfc"), persona.getRfc())
-                    )
-            );
-            TypedQuery<Automovil> query = entityManager.createQuery(criteria);
-            List<Automovil> vehiculos = query.getResultList();
+            CriteriaQuery<Vehiculo> criteria = builder.createQuery(Vehiculo.class);
+            Root<Vehiculo> root = criteria.from(Vehiculo.class);
+            criteria.select(root).where(builder.and(builder.like(root.get("persona").get("rfc"), persona.getRfc())));
+            TypedQuery<Vehiculo> query = entityManager.createQuery(criteria);
+            List<Vehiculo> vehiculos = query.getResultList();
             return vehiculos;
         } catch (Exception e) {
             logger.log(Level.SEVERE, "No se pudieron consultar los vehiculos", e);

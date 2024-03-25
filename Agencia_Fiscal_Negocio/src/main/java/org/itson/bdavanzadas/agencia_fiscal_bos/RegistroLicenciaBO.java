@@ -19,11 +19,11 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosExceptio
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOException;
 
 /**
- * La clase RegistroLicenciaBO implementa la interfaz IRegistroLicenciaBO y proporciona métodos para realizar operaciones 
- * con Licencia.
- * 
+ * La clase RegistroLicenciaBO implementa la interfaz IRegistroLicenciaBO y
+ * proporciona métodos para realizar operaciones con Licencia.
+ *
  */
-public class RegistroLicenciaBO implements IRegistroLicenciaBO{
+public class RegistroLicenciaBO implements IRegistroLicenciaBO {
 
     private final IConexion conexion;
     private final ILicenciaDAO licenciaDAO;
@@ -31,8 +31,8 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
     static final Logger logger = Logger.getLogger(RegistroLicenciaBO.class.getName());
 
     /**
-     * Constructor de la clase RegistroLicenciaBO que recibe un objeto IConexion e inicializa la conexion
-     * con IlicenciaDAO
+     * Constructor de la clase RegistroLicenciaBO que recibe un objeto IConexion
+     * e inicializa la conexion con IlicenciaDAO
      *
      */
     public RegistroLicenciaBO() {
@@ -40,7 +40,7 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
         licenciaDAO = new LicenciaDAO(conexion);
         personaDAO = new PersonaDAO(conexion);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -52,7 +52,7 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
                     Persona persona = personaDAO.obtenerPersonaRFC(licenciaNueva.getPersona().getRfc());
                     Licencia licencia = new Licencia(licenciaNueva.getFechaVencimiento(),
                             licenciaNueva.getFechaTramite(),
-                            licenciaNueva.getCosto(),
+                            licenciaNueva.getCosto(), 
                             persona,
                             licenciaNueva.getEstado());
                     try {
@@ -87,13 +87,13 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
                         for (Licencia lic : licencias) {
                             licenciasDT.add(new LicenciaNuevaDTO(
                                     lic.getId(),
-                                    lic.getFechaVencimiento(), 
-                                    lic.getFechaTramite(), 
-                                    lic.getCosto(), 
-                                    personaNueva, 
+                                    lic.getFechaVencimiento(),
+                                    lic.getFechaTramite(),
+                                    lic.getCosto(),
+                                    personaNueva,
                                     lic.getEstado()));
                         }
-                        
+
                     } catch (PersistenciaException ex) {
                         logger.log(Level.SEVERE, "Excepcion en persistencia");
                     }
@@ -159,8 +159,8 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
                     return this.registrarLicencia(licenciaNueva);
                 } else {
                     // se obtiene la ultima licencia
-                    
-                    Licencia licAnterior = licencias.get(licencias.size()-1);
+
+                    Licencia licAnterior = licencias.get(licencias.size() - 1);
                     licenciaDAO.modificarVigencia(licAnterior);
                     // se registra la nueva licencia
                     logger.log(Level.INFO, "Se cambia vigencias");
@@ -169,11 +169,11 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO{
             } catch (PersistenciaException ex) {
                 logger.log(Level.SEVERE, "No se pudo registrar el tramite de licencia", ex);
                 throw new PersistenciaException("Error al registrar el tramite en persistencia", ex);
-            }} catch (Exception ex) {
-                logger.log(Level.SEVERE, "No se pudo registrar el tramite de licencia", ex);
-                throw new NegociosException("Error al registrar el tramite en negocio", ex);
             }
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, "No se pudo registrar el tramite de licencia", ex);
+            throw new NegociosException("Error al registrar el tramite en negocio", ex);
         }
-    
-}
+    }
 
+}

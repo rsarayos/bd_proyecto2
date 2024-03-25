@@ -21,7 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "vehiculos")
-    @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_vehiculo", discriminatorType = DiscriminatorType.STRING)
 public class Vehiculo implements Serializable {
 
@@ -50,7 +50,7 @@ public class Vehiculo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "rfc_persona", nullable = false)
     protected Persona persona;
-    
+
     // Lista de tramites relacionados a la persona
     @OneToMany(mappedBy = "vehiculo")
     protected List<Placa> placas;
@@ -84,7 +84,7 @@ public class Vehiculo implements Serializable {
         this.marca = marca;
         this.persona = persona;
     }
-    
+
     /**
      * Obtiene el número de serie del vehículo.
      *
@@ -173,6 +173,42 @@ public class Vehiculo implements Serializable {
      */
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    /**
+     * Permite obtener la persona a la que pertenece el vehículo.
+     *
+     * @return La persona a la que pertenece el vehículo
+     */
+    public Persona getPersona() {
+        return persona;
+    }
+
+    /**
+     * Permite establecer la persona a la que pertenece el vehículo.
+     *
+     * @param persona La persona a la que pertenece el vehículo
+     */
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    /**
+     * Permite obtener la lista de placas del vehículo.
+     *
+     * @return La lista de placas del vehículo
+     */
+    public List<Placa> getPlacas() {
+        return placas;
+    }
+
+    /**
+     * Permite establecer la lista de placas del vehículo.
+     *
+     * @param placas La lista de placas del vehículo
+     */
+    public void setPlacas(List<Placa> placas) {
+        this.placas = placas;
     }
 
     /**

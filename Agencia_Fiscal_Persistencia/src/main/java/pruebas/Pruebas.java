@@ -7,12 +7,12 @@ import org.itson.bdavanzadas.agencia_fiscal_dao.Conexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.PersonaDAO;
-import org.itson.bdavanzadas.agencia_fiscal_dao.AutomovilesDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.VehiculosDAO;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Automovil;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
-import org.itson.bdavanzadas.agencia_fiscal_dao.IAutomovilesDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.IVehiculosDAO;
 
 /**
  *
@@ -237,7 +237,7 @@ public class Pruebas {
 
         // Prueba del método consultarVehiculos
         IConexion conexion = new Conexion();
-        IAutomovilesDAO vehiculosDAO = new AutomovilesDAO(conexion);
+        IVehiculosDAO vehiculosDAO = new VehiculosDAO(conexion);
         IPersonaDAO personasDAO = new PersonaDAO(conexion);
         Persona persona = null;
         
@@ -247,10 +247,10 @@ public class Pruebas {
             Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        List<Automovil> vehiculos = null;
+        List<Vehiculo> vehiculos = null;
         
         try {
-            vehiculos = vehiculosDAO.consultarAutomoviles(persona);
+            vehiculos = vehiculosDAO.consultarVehiculos(persona);
         } catch (PersistenciaException ex) {
             Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
         }

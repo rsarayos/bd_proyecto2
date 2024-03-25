@@ -1,27 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package pruebas;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroLicenciaBO;
-import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPlacaBO;
-import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroLicenciaBO;
-import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPlacaBO;
-import org.itson.bdavanzadas.agencia_fiscal_dtos.LicenciaNuevaDTO;
-import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
-import org.itson.bdavanzadas.agencia_fiscal_dtos.PlacaNuevaDTO;
-import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
-import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
-/**
- *
- * @author alex_
- */
 public class pruebasNegocio {
 
     /**
@@ -53,20 +34,20 @@ public class pruebasNegocio {
 //            Logger.getLogger(pruebasNegocio.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
-        IRegistroPlacaBO registro = new RegistroPlacaBO();
-        
-        PlacaNuevaDTO placaNueva = new PlacaNuevaDTO(true, 
-                new VehiculoNuevoDTO("abc"),
-                fechaTramite,
-                1000f, 
-                new PersonaNuevaDTO("ASDF123456A78")
-        );
-        
-        try {
-            registro.tramitarPlaca(placaNueva);
-        } catch (NegociosException ex) {
-            Logger.getLogger(pruebasNegocio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        IRegistroPlacaBO registro = new RegistroPlacaBO();
+//        
+//        PlacaNuevaDTO placaNueva = new PlacaNuevaDTO(true, 
+//                new VehiculoNuevoDTO("abc"),
+//                fechaTramite,
+//                1000f, 
+//                new PersonaNuevaDTO("ASDF123456A78")
+//        );
+//        
+//        try {
+//            registro.tramitarPlaca(placaNueva);
+//        } catch (NegociosException ex) {
+//            Logger.getLogger(pruebasNegocio.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
     }
     
