@@ -30,15 +30,18 @@ public class Persona implements Serializable {
     private String rfc;
 
     // Nombres de la persona.
-    @Column(name = "nombres", nullable = false, columnDefinition = "VARBINARY(32)")
+    @Column(name = "nombres", nullable = false, columnDefinition = "VARBINARY(128)")
+    @Lob
     private byte[] nombres;
 
     // Apellido paterno de la persona.
     @Column(name = "apellidoPaterno", nullable = false, columnDefinition = "VARBINARY(32)")
+    @Lob
     private byte[] apellidoPaterno;
 
     // Apellido materno de la persona.
     @Column(name = "apellidoMaterno", columnDefinition = "VARBINARY(32)")
+    @Lob
     private byte[] apellidoMaterno;
 
     // Fecha de nacimiento de la persona
