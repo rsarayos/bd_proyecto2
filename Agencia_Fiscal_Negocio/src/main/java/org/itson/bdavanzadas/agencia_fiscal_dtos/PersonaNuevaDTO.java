@@ -13,7 +13,7 @@ public class PersonaNuevaDTO {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private Calendar fechaNacimiento;
-    private byte[] telefono;
+    private String telefono;
     private Boolean Discapacitado;
     private List<Tramite> tramites;
     private List<Vehiculo> vehiculos;
@@ -37,7 +37,7 @@ public class PersonaNuevaDTO {
      * @param tramites lista de tramites de la persona
      * @param vehiculos lista de vehiculos de la persona
      */
-    public PersonaNuevaDTO(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
+    public PersonaNuevaDTO(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, String telefono, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
         this.rfc = rfc;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -100,7 +100,7 @@ public class PersonaNuevaDTO {
      *
      * @return Teléfono de la persona.
      */
-    public byte[] getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 

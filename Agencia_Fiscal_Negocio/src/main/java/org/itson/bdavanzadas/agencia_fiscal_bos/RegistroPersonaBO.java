@@ -2,7 +2,9 @@ package org.itson.bdavanzadas.agencia_fiscal_bos;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.itson.bdavanzadas.agencia_fiscal_auxiliar.Encriptar;
 import org.itson.bdavanzadas.agencia_fiscal_auxiliar.FiltroPersonas;
 import org.itson.bdavanzadas.agencia_fiscal_dao.Conexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
@@ -23,10 +25,12 @@ public class RegistroPersonaBO implements IRegistroPersonasBO {
     static final Logger logger = Logger.getLogger(RegistroPersonaBO.class.getName());
     private IConexion conexion;
     private IPersonaDAO personaDAO;
+    private Encriptar encriptar;
 
     public RegistroPersonaBO() {
         conexion = new Conexion();
         personaDAO = new PersonaDAO(conexion);
+        encriptar = new Encriptar();
     }
 
     /**
@@ -66,28 +70,35 @@ public class RegistroPersonaBO implements IRegistroPersonasBO {
      * buscar una persona.
      */
     @Override
-    public PersonaNuevaDTO buscarPersona(String rfc) throws NegociosException{
+    public PersonaNuevaDTO buscarPersona(String rfc) throws NegociosException {
         try {
             Persona persona = personaDAO.obtenerPersonaRFC(rfc);
-            
+
+            String nombresEnc = new String(persona.getNombres());
+            String apellidoPaternoEnc = new String(persona.getApellidoPaterno());
+            String apellidoMaternoEnc = new String(persona.getApellidoMaterno());
+            String telefonoEnc = new String(persona.getTelefono());
+
             PersonaNuevaDTO personaNueva = new PersonaNuevaDTO(
-                        persona.getRfc(),
-                        persona.getNombres(),
-                        persona.getApellidoPaterno(),
-                        persona.getApellidoMaterno(),
-                        persona.getFechaNacimiento(),
-                        persona.getTelefono(),
-                        persona.getIsDiscapacitado(),
-                        persona.getTramites(),
-                        persona.getVehiculos()
-                );
+                    persona.getRfc(),
+                    encriptar.desencriptar(nombresEnc),
+                    encriptar.desencriptar(apellidoPaternoEnc),
+                    encriptar.desencriptar(apellidoMaternoEnc),
+                    persona.getFechaNacimiento(),
+                    encriptar.desencriptar(telefonoEnc),
+                    persona.getIsDiscapacitado(),
+                    persona.getTramites(),
+                    persona.getVehiculos()
+            );
             return personaNueva;
         } catch (PersistenciaException pex) {
             throw new NegociosException(pex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(RegistroPersonaBO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+        return null;
     }
-    
+
     /**
      * Método que nos permite consultar las personas según el filtro enviado.
      *
@@ -108,13 +119,19 @@ public class RegistroPersonaBO implements IRegistroPersonasBO {
             List<Persona> personasConsultadas = personaDAO.buscarPersona(filtroConsulta);
             List<PersonaNuevaDTO> personasRegreso = new LinkedList<>();
             for (Persona persona : personasConsultadas) {
+
+                String nombresEnc = new String(persona.getNombres());
+                String apellidoPaternoEnc = new String(persona.getApellidoPaterno());
+                String apellidoMaternoEnc = new String(persona.getApellidoMaterno());
+                String telefonoEnc = new String(persona.getTelefono());
+
                 PersonaNuevaDTO personaNueva = new PersonaNuevaDTO(
                         persona.getRfc(),
-                        persona.getNombres(),
-                        persona.getApellidoPaterno(),
-                        persona.getApellidoMaterno(),
+                        encriptar.desencriptar(nombresEnc),
+                        encriptar.desencriptar(apellidoPaternoEnc),
+                        encriptar.desencriptar(apellidoMaternoEnc),
                         persona.getFechaNacimiento(),
-                        persona.getTelefono(),
+                        encriptar.desencriptar(telefonoEnc),
                         persona.getIsDiscapacitado(),
                         persona.getTramites(),
                         persona.getVehiculos()
@@ -122,9 +139,12 @@ public class RegistroPersonaBO implements IRegistroPersonasBO {
                 personasRegreso.add(personaNueva);
             }
             return personasRegreso;
-        } catch (PersistenciaException ex) {
-            throw new NegociosException(ex.getMessage());
+        } catch (PersistenciaException pex) {
+            throw new NegociosException(pex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(RegistroPersonaBO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
 }

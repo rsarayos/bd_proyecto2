@@ -151,9 +151,13 @@ public class Pruebas {
 ////        for (Tramite mite : licencias) {
 ////            System.out.println(mite.toString());
 ////        }
-//        IConexion conexion = new Conexion();
-//
-//        IPersonaDAO personaDAO = new PersonaDAO(conexion);
+        IConexion conexion = new Conexion();
+
+        IPersonaDAO personaDAO = new PersonaDAO(conexion);
+        try {
+            personaDAO.agregarPersonas();
+        } catch (PersistenciaException e) {
+        }
 //        ILicenciaDAO licenciaDAO = new LicenciaDAO(conexion);
 //
 //        FiltroPersonas filtro = new FiltroPersonas();
@@ -236,28 +240,52 @@ public class Pruebas {
 //        }
 
         // Prueba del método consultarVehiculos
-        IConexion conexion = new Conexion();
-        IVehiculosDAO vehiculosDAO = new VehiculosDAO(conexion);
-        IPersonaDAO personasDAO = new PersonaDAO(conexion);
-        Persona persona = null;
-        
-        try {
-            persona = personasDAO.obtenerPersonaRFC("GUGR040316E27");
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        List<Vehiculo> vehiculos = null;
-        
-        try {
-            vehiculos = vehiculosDAO.consultarVehiculos(persona);
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        for (Vehiculo vehiculo : vehiculos) {
-            Logger.getLogger(Pruebas.class.getName()).log(Level.INFO, vehiculo.toString());
-        }
+//
+//        IConexion conexion = new Conexion();
+//        IVehiculosDAO vehiculosDAO = new VehiculosDAO(conexion);
+//        IPersonaDAO personasDAO = new PersonaDAO(conexion);
+//        Persona persona = null;
+//        
+//        try {
+//            persona = personasDAO.obtenerPersonaRFC("GUGR040316E27");
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        List<Vehiculo> vehiculos = null;
+//        
+//        try {
+//            vehiculos = vehiculosDAO.consultarVehiculos(persona);
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        for (Vehiculo vehiculo : vehiculos) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.INFO, vehiculo.toString());
+//        }
+
+//        IConexion conexion = new Conexion();
+//        IAutomovilesDAO vehiculosDAO = new AutomovilesDAO(conexion);
+//        IPersonaDAO personasDAO = new PersonaDAO(conexion);
+//        Persona persona = null;
+//        
+//        try {
+//            persona = personasDAO.obtenerPersonaRFC("GUGR040316E27");
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        List<Automovil> vehiculos = null;
+//        
+//        try {
+//            vehiculos = vehiculosDAO.consultarAutomoviles(persona);
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        for (Vehiculo vehiculo : vehiculos) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.INFO, vehiculo.toString());
+//        }
 
     }
 }
