@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPersonasBO;
@@ -242,11 +244,12 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         } catch (NegociosException ex) {
             JOptionPane.showMessageDialog(this, "No se pudieron consultar los contribuyentes",
                     "Error", JOptionPane.ERROR_MESSAGE);
+            logger.log(Level.SEVERE, ex.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void llenarTabla(List<PersonaNuevaDTO> personas) {
-//        try {
+
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -297,4 +300,5 @@ public class PantallaBusqueda extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private Frame parent;
     private IRegistroPersonasBO registroPersonas;
+    static final Logger logger = Logger.getLogger(PantallaBusqueda.class.getName());
 }

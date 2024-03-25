@@ -32,7 +32,6 @@ public class PersonaNuevaDTO {
      * @param apellidoMaterno Apellido Materno de la persona.
      * @param fechaNacimiento Fecha de nacimiento de la persona.
      * @param telefono Telefono de la persona
-     * @param curp CURP de la persona
      * @param isDiscapacitado true si la persona es discapacitada, false en caso
      * contrario.
      * @param tramites lista de tramites de la persona

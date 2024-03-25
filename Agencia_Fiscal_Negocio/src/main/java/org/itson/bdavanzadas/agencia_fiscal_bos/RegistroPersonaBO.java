@@ -57,6 +57,38 @@ public class RegistroPersonaBO implements IRegistroPersonasBO {
     }
 
     /**
+     * Permite buscar una persona por su rfc utilizando un objeto de acceso a
+     * datos de persona.
+     *
+     * @param rfc RFC de la persona a buscar
+     * @return Objeto con la persona buscada con el RFC
+     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
+     * buscar una persona.
+     */
+    @Override
+    public PersonaNuevaDTO buscarPersona(String rfc) throws NegociosException{
+        try {
+            Persona persona = personaDAO.obtenerPersonaRFC(rfc);
+            
+            PersonaNuevaDTO personaNueva = new PersonaNuevaDTO(
+                        persona.getRfc(),
+                        persona.getNombres(),
+                        persona.getApellidoPaterno(),
+                        persona.getApellidoMaterno(),
+                        persona.getFechaNacimiento(),
+                        persona.getTelefono(),
+                        persona.getIsDiscapacitado(),
+                        persona.getTramites(),
+                        persona.getVehiculos()
+                );
+            return personaNueva;
+        } catch (PersistenciaException pex) {
+            throw new NegociosException(pex.getMessage());
+        }
+    
+    }
+    
+    /**
      * Método que nos permite consultar las personas según el filtro enviado.
      *
      * @param filtroPersonas Parámetros que ayudarán al filtrado de las

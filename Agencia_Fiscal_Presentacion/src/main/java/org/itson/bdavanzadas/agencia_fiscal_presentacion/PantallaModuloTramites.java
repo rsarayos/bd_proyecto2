@@ -77,12 +77,17 @@ public class PantallaModuloTramites extends javax.swing.JDialog {
             }
         });
 
-        btnModuloPlacas.setBackground(new java.awt.Color(159, 34, 65));
-        btnModuloPlacas.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        btnModuloPlacas.setForeground(new java.awt.Color(255, 255, 255));
         btnModuloPlacas.setText("MODULO DE PLACAS");
+        btnModuloPlacas.setBackground(new java.awt.Color(159, 34, 65));
         btnModuloPlacas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnModuloPlacas.setFocusPainted(false);
+        btnModuloPlacas.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        btnModuloPlacas.setForeground(new java.awt.Color(255, 255, 255));
+        btnModuloPlacas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModuloPlacasActionPerformed(evt);
+            }
+        });
 
         btnAtras.setBackground(new java.awt.Color(223, 223, 223));
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flechaAtras.png"))); // NOI18N
@@ -154,6 +159,13 @@ public class PantallaModuloTramites extends javax.swing.JDialog {
         pModuloLicencias.setVisible(true);
         setVisible(true);
     }//GEN-LAST:event_btnModuloLicenciasActionPerformed
+
+    private void btnModuloPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModuloPlacasActionPerformed
+        setVisible(false);
+        PantallaBusquedaVehiculos pModuloPlacas = new PantallaBusquedaVehiculos(parent, true);
+        pModuloPlacas.setVisible(true);
+        setVisible(true);
+    }//GEN-LAST:event_btnModuloPlacasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
