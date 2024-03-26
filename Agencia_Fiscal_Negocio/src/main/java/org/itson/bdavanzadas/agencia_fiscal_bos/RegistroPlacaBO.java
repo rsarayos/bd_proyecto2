@@ -93,9 +93,12 @@ public class RegistroPlacaBO implements IRegistroPlacaBO {
             logger.log(Level.SEVERE, "No se pudo consultar la placa", pe);
             throw new NegociosException("Error al buscar la placa");
         }
-        
+        if(placa == null){
+            return null;
+        } else {
         PlacaNuevaDTO placaNueva = new PlacaNuevaDTO(numPlaca);
         return placaNueva;
+        }
     }
     
     @Override
