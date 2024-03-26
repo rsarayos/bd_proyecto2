@@ -205,7 +205,8 @@ public class PantallaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModuloReportesActionPerformed
 
     private void btnModuloConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModuloConsultasActionPerformed
-        // TODO add your handling code here:
+        PantallaConsultas pConsultas = new PantallaConsultas(this, true);
+        pConsultas.setVisible(true);
     }//GEN-LAST:event_btnModuloConsultasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

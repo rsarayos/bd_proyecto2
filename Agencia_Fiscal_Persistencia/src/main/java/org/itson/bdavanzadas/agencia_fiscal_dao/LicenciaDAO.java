@@ -96,7 +96,6 @@ public class LicenciaDAO implements ILicenciaDAO {
         } finally {
             entityManager.close();
         }
-
     }
 
     /**

@@ -15,7 +15,7 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroPersonasDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
-public class PantallaBusqueda extends javax.swing.JDialog {
+public class PantallaConsultas extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaModuloLicencias
@@ -23,7 +23,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public PantallaBusqueda(java.awt.Frame parent, boolean modal) {
+    public PantallaConsultas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.parent = parent;
@@ -61,7 +61,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(119, 119, 119));
 
-        lblTitulo.setText("MÓDULO DE LICENCIAS");
+        lblTitulo.setText("MÓDULO DE CONSULTAS");
         lblTitulo.setFont(new java.awt.Font("Arial", 1, 43)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -70,7 +70,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(295, 295, 295)
+                .addGap(276, 276, 276)
                 .addComponent(lblTitulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -120,11 +120,11 @@ public class PantallaBusqueda extends javax.swing.JDialog {
 
             },
             new String [] {
-                "NOMBRE", "FECHA DE NACIMIENTO", "RFC", "", ""
+                "NOMBRE", "FECHA DE NACIMIENTO", "RFC", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -228,23 +228,28 @@ public class PantallaBusqueda extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // Se crea el filtro para la consulta de personas
-        FiltroPersonasDTO filtroPersonas = new FiltroPersonasDTO();
-        filtroPersonas.setRfc(txtRFC.getText());
-        filtroPersonas.setNombre(txtNombre.getText());
+        if (!txtNombre.getText().isBlank() || !txtRFC.getText().isBlank() || dpFechaNacimiento.getDate() != null) {
+            FiltroPersonasDTO filtroPersonas = new FiltroPersonasDTO();
+            filtroPersonas.setRfc(txtRFC.getText());
+            filtroPersonas.setNombre(txtNombre.getText());
 
-        if (dpFechaNacimiento.getDate() != null) {
-            LocalDate fechaIngresada = dpFechaNacimiento.getDate();
-            Calendar fechaNacimiento = new GregorianCalendar(fechaIngresada.getYear(), fechaIngresada.getMonthValue() - 1, fechaIngresada.getDayOfMonth());
-            filtroPersonas.setFechaNacimiento(fechaNacimiento);
-        }
+            if (dpFechaNacimiento.getDate() != null) {
+                LocalDate fechaIngresada = dpFechaNacimiento.getDate();
+                Calendar fechaNacimiento = new GregorianCalendar(fechaIngresada.getYear(), fechaIngresada.getMonthValue() - 1, fechaIngresada.getDayOfMonth());
+                filtroPersonas.setFechaNacimiento(fechaNacimiento);
+            }
 
-        try {
-            List<PersonaNuevaDTO> personas = registroPersonas.consultarPersonas(filtroPersonas);
-            llenarTabla(personas);
-        } catch (NegociosException ex) {
-            JOptionPane.showMessageDialog(this, "No se pudieron consultar los contribuyentes",
+            try {
+                List<PersonaNuevaDTO> personas = registroPersonas.consultarPersonas(filtroPersonas);
+                llenarTabla(personas);
+            } catch (NegociosException ex) {
+                JOptionPane.showMessageDialog(this, "No se pudieron consultar los contribuyentes",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                logger.log(Level.SEVERE, ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Asegurese de ingresar al menos un campo para realizar la búsqueda.",
                     "Error", JOptionPane.ERROR_MESSAGE);
-            logger.log(Level.SEVERE, ex.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -256,27 +261,26 @@ public class PantallaBusqueda extends javax.swing.JDialog {
                 return column == getColumnCount() - 1; // Solo la última columna es editable
             }
         };
+
         modelo.addColumn("NOMBRE");
         modelo.addColumn("FECHA DE NACIMIENTO");
         modelo.addColumn("RFC");
         modelo.addColumn("");
-        modelo.addColumn("");
 
         // Agregar los socios al modelo de la tabla
         for (PersonaNuevaDTO persona : personas) {
-
             String fechaNacimiento = persona.getFechaNacimiento().get(Calendar.DAY_OF_MONTH) + "/" + (persona.getFechaNacimiento().get(Calendar.MONTH) + 1) + "/" + persona.getFechaNacimiento().get(Calendar.YEAR);
 
-            Object[] fila = {persona.getNombres() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno(), fechaNacimiento, persona.getRfc(), persona.isDiscapacitado()? "Discapacitado":"No discapacitado", "SELECCIONAR"};
+            Object[] fila = {persona.getNombres() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno(), fechaNacimiento, persona.getRfc(), "CONSULTAR"};
             modelo.addRow(fila);
         }
         tblContribuyentes.setModel(modelo);
-        ButtonColumn buttonColumn = new ButtonColumn("SELECCIONAR", (e) -> {
+        ButtonColumn buttonColumn = new ButtonColumn("CONSULTAR", (e) -> {
             int fila = tblContribuyentes.convertRowIndexToModel(tblContribuyentes.getSelectedRow());
             PersonaNuevaDTO persona = personas.get(fila);
 
-            PantallaTiposLicencias pTiposLicencias = new PantallaTiposLicencias(parent, true, persona);
-            pTiposLicencias.setVisible(true);
+            PantallaConsultasTramites pConsultasTramites = new PantallaConsultasTramites(parent, true, persona);
+            pConsultasTramites.setVisible(true);
         });
         tblContribuyentes.getColumnModel().getColumn(tblContribuyentes.getColumnCount() - 1).setCellRenderer(buttonColumn);
         tblContribuyentes.getColumnModel().getColumn(tblContribuyentes.getColumnCount() - 1).setCellEditor(buttonColumn);
@@ -300,5 +304,5 @@ public class PantallaBusqueda extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private Frame parent;
     private IRegistroPersonasBO registroPersonas;
-    static final Logger logger = Logger.getLogger(PantallaBusqueda.class.getName());
+    static final Logger logger = Logger.getLogger(PantallaConsultas.class.getName());
 }

@@ -155,7 +155,7 @@ public class PantallaModuloTramites extends javax.swing.JDialog {
 
     private void btnModuloLicenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModuloLicenciasActionPerformed
         setVisible(false);
-        PantallaBusqueda pModuloLicencias = new PantallaBusqueda(parent, true);
+        PantallaBusquedaContribuyente pModuloLicencias = new PantallaBusquedaContribuyente(parent, true);
         pModuloLicencias.setVisible(true);
         setVisible(true);
     }//GEN-LAST:event_btnModuloLicenciasActionPerformed

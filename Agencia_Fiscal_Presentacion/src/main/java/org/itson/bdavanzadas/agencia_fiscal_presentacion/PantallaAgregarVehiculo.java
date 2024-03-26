@@ -71,23 +71,23 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         lblInstrucciones = new javax.swing.JLabel();
-        lblRFC = new javax.swing.JLabel();
+        lblNumeroSerie = new javax.swing.JLabel();
         txtNoSerie = new javax.swing.JTextField();
-        lblRFC1 = new javax.swing.JLabel();
+        lblMarca = new javax.swing.JLabel();
         txtMarca = new javax.swing.JTextField();
-        lblRFC2 = new javax.swing.JLabel();
+        lblLinea = new javax.swing.JLabel();
         txtLinea = new javax.swing.JTextField();
         txtColor = new javax.swing.JTextField();
-        lblRFC4 = new javax.swing.JLabel();
+        lblColor = new javax.swing.JLabel();
         txtModelo = new javax.swing.JTextField();
-        lblRFC5 = new javax.swing.JLabel();
+        lblRFC = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
-        lblRFC6 = new javax.swing.JLabel();
+        lblModelo = new javax.swing.JLabel();
         txtRFC = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         txtNombrePersona = new javax.swing.JTextField();
-        lblRFC3 = new javax.swing.JLabel();
+        lblNombreContribuyente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -104,7 +104,7 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(325, 325, 325)
+                .addGap(324, 324, 324)
                 .addComponent(lblTitulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -118,22 +118,22 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
 
         lblInstrucciones.setFont(new java.awt.Font("Arial", 1, 27)); // NOI18N
         lblInstrucciones.setForeground(new java.awt.Color(119, 119, 119));
-        lblInstrucciones.setText("REGISTRO DE DATOS DEL VEHÍCULO");
+        lblInstrucciones.setText("INGRESE LOS DATOS DEL VEHÍCULO");
 
-        lblRFC.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblRFC.setText("Número de serie");
+        lblNumeroSerie.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblNumeroSerie.setText("Número de serie");
 
         txtNoSerie.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtNoSerie.setForeground(new java.awt.Color(119, 119, 119));
 
-        lblRFC1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblRFC1.setText("Marca");
+        lblMarca.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblMarca.setText("Marca");
 
         txtMarca.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtMarca.setForeground(new java.awt.Color(119, 119, 119));
 
-        lblRFC2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblRFC2.setText("Línea");
+        lblLinea.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblLinea.setText("Línea");
 
         txtLinea.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtLinea.setForeground(new java.awt.Color(119, 119, 119));
@@ -141,14 +141,14 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         txtColor.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtColor.setForeground(new java.awt.Color(119, 119, 119));
 
-        lblRFC4.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblRFC4.setText("Color");
+        lblColor.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblColor.setText("Color");
 
         txtModelo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtModelo.setForeground(new java.awt.Color(119, 119, 119));
 
-        lblRFC5.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblRFC5.setText("Buscar contribuyente (RFC):");
+        lblRFC.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblRFC.setText("Buscar contribuyente (RFC):");
 
         btnCancelar.setBackground(new java.awt.Color(159, 34, 65));
         btnCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -174,8 +174,8 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
             }
         });
 
-        lblRFC6.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblRFC6.setText("Modelo");
+        lblModelo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblModelo.setText("Modelo");
 
         txtRFC.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtRFC.setForeground(new java.awt.Color(119, 119, 119));
@@ -193,106 +193,105 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         });
 
         txtNombrePersona.setEditable(false);
-        txtNombrePersona.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        txtNombrePersona.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtNombrePersona.setForeground(new java.awt.Color(119, 119, 119));
 
-        lblRFC3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblRFC3.setText("Nombre del contribuyente");
+        lblNombreContribuyente.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblNombreContribuyente.setText("Nombre del contribuyente");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblInstrucciones)
-                .addGap(299, 299, 299))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(290, 290, 290)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtRFC)
-                                .addGap(17, 17, 17)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNombrePersona)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblRFC)
-                                    .addComponent(lblRFC1)
+                                    .addComponent(lblNumeroSerie)
+                                    .addComponent(lblMarca)
                                     .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtNoSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblRFC5))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblRFC3, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(350, 350, 350))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
+                                    .addComponent(lblNombreContribuyente, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 88, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtRFC)
+                                        .addGap(17, 17, 17)
+                                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNombrePersona))
+                                .addGap(88, 88, 88)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblRFC4)
-                            .addComponent(lblRFC2)
+                            .addComponent(lblColor)
+                            .addComponent(lblLinea)
                             .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRFC6)
-                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 66, Short.MAX_VALUE))))
+                            .addComponent(lblModelo)
+                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 66, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(302, 302, 302)
+                .addComponent(lblInstrucciones)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblInstrucciones)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
+                .addComponent(lblInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRFC5)
-                    .addComponent(lblRFC2))
+                    .addComponent(lblRFC)
+                    .addComponent(lblLinea))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar)
                         .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(txtNombrePersona, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblRFC)
-                            .addComponent(lblRFC6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNoSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(lblColor)
+                        .addGap(34, 34, 34))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(lblRFC1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblRFC3)
-                            .addComponent(lblRFC4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(36, 36, 36)
+                                    .addComponent(txtNombrePersona, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblNombreContribuyente))
+                            .addComponent(txtColor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNumeroSerie)
+                    .addComponent(lblModelo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNoSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(lblMarca)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -315,35 +314,20 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        if (!txtNombrePersona.getText().isBlank() || !txtNombrePersona.getText().isEmpty()) {
-            if (validador.validaNoSerie(txtNoSerie.getText())) {
-                if (validador.validaMarca(txtMarca.getText())) {
-                    if (validador.validaLinea(txtLinea.getText())) {
-                        if (validador.validaColor(txtColor.getText())) {
-                            if (validador.validaModelo(txtModelo.getText())) {
+        if (!txtNombrePersona.getText().isBlank()) {
+            if (validador.validaNoSerie(txtNoSerie.getText()) && validador.validaMarca(txtMarca.getText())&& validador.validaLinea(txtLinea.getText())
+                    && validador.validaMarca(txtMarca.getText()) && validador.validaLinea(txtLinea.getText()) && validador.validaColor(txtColor.getText())
+                    && validador.validaModelo(txtModelo.getText())) {
                                 agregarVehiculo();
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Ingrese un modelo correcto",
-                                        "Error", JOptionPane.INFORMATION_MESSAGE);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Ingrese un color correcto",
-                                    "Error", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Ingrese una línea correcta",
-                                "Error", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Ingrese una marca correcta",
-                            "Error", JOptionPane.INFORMATION_MESSAGE);
-                }
+                                JOptionPane.showMessageDialog(this, "Se agregó el vehículo correctamente.",
+                                        "Iformación", JOptionPane.INFORMATION_MESSAGE);
+                                dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Ingrese un número de serie correcto",
+                JOptionPane.showMessageDialog(this, "Asegúrse de ingresar los datos del vehículo correctamente.",
                         "Error", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Ingrese un número de serie correcto",
+            JOptionPane.showMessageDialog(this, "Asegúrese de asociarle un contribuyente al vehículo.",
                     "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -393,14 +377,14 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblColor;
     private javax.swing.JLabel lblInstrucciones;
+    private javax.swing.JLabel lblLinea;
+    private javax.swing.JLabel lblMarca;
+    private javax.swing.JLabel lblModelo;
+    private javax.swing.JLabel lblNombreContribuyente;
+    private javax.swing.JLabel lblNumeroSerie;
     private javax.swing.JLabel lblRFC;
-    private javax.swing.JLabel lblRFC1;
-    private javax.swing.JLabel lblRFC2;
-    private javax.swing.JLabel lblRFC3;
-    private javax.swing.JLabel lblRFC4;
-    private javax.swing.JLabel lblRFC5;
-    private javax.swing.JLabel lblRFC6;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtLinea;
