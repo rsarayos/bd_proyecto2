@@ -1,18 +1,16 @@
 package pruebas;
 
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.itson.bdavanzadas.agencia_fiscal_dao.Conexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.IVehiculosDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.PersonaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.VehiculosDAO;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Automovil;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
-import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
-import org.itson.bdavanzadas.agencia_fiscal_dao.IVehiculosDAO;
 
 /**
  *
@@ -28,14 +26,14 @@ public class Pruebas {
 //        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("fiscalPU");
 //        // solicitamos una entity manager (acceso a la bd)
 //        EntityManager entityManager = emFactory.createEntityManager();
-       
+//       
 //        entityManager.getTransaction().begin();
 //        
 //        Automovil auto = new Automovil("abc", "rojo", "sedan", "Honda", "Civic", new Persona("ASDF123456A78"));
 //        
 //        entityManager.persist(auto);
 //        entityManager.getTransaction().commit();
-////////        
+//////        
 //////        
 ////////        
 //        entityManager.close();
@@ -62,45 +60,45 @@ public class Pruebas {
 ////        
 ////        entityManager.close();
 //
-////        Calendar fechaNacimiento = Calendar.getInstance();
-////        fechaNacimiento.set(1990, Calendar.JANUARY, 1);
-////        
-////        Calendar fechaVencimiento = Calendar.getInstance();
-////        fechaVencimiento.add(Calendar.YEAR, 1);
-////        
+//        Calendar fechaNacimiento = Calendar.getInstance();
+//        fechaNacimiento.set(1990, Calendar.JANUARY, 1);
+//        
+//        Calendar fechaVencimiento = Calendar.getInstance();
+//        fechaVencimiento.add(Calendar.YEAR, 1);
+//////        
 //        Calendar fechaTramite = Calendar.getInstance();
 //        fechaTramite.setTime(new Date());
-////        
-////        Calendar fechaRecepcion = Calendar.getInstance();
-////        fechaRecepcion.setTime(new Date());
-////        
-////        Encriptar encriptar = new Encriptar();
-////        
-////        // encriptacion
-////        String telefono = null;
-////        try {
-////            telefono = encriptar.encriptar("1234567");
-////        } catch (Exception ex) {
-////            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
-////        }
+//        
+//        Calendar fechaRecepcion = Calendar.getInstance();
+//        fechaRecepcion.setTime(new Date());
+//////        
+//        Encriptar encriptar = new Encriptar();
+//        
+//        // encriptacion
+//        String telefono = null;
+//        try {
+//            telefono = encriptar.encriptar("1234567");
+//        } catch (Exception ex) {
+//            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
+//    }
 ////
-////        Persona persona = new Persona(
-////            "RFC1234567890", // RFC
-////            "Juan",          // Nombres
-////            "Pérez",         // Apellido Paterno
-////            "Gómez",         // Apellido Materno
-////            fechaNacimiento, // Fecha de Nacimiento
-////            // se pasan los bytes
-////            telefono.getBytes(),    // Teléfono
-////            "CURP12367890",// CURP
-////            false            // isDiscapacitado
-////        );
+//        Persona persona = new Persona(
+//            "RFC1234567890", // RFC
+//            "Juan",          // Nombres
+//            "Pérez",         // Apellido Paterno
+//            "Gómez",         // Apellido Materno
+//            fechaNacimiento, // Fecha de Nacimiento
+//            // se pasan los bytes
+//            telefono.getBytes(),    // Teléfono
+//            "CURP12367890",// CURP
+//            false            // isDiscapacitado
+//        );
 ////        
 ////        Vehiculo vehiculo = new Automovil("12345678901234567", "Rojo", "Civic", "Sedán", "Honda", true, persona);
 ////        
 ////        Licencia tramite3 = new Licencia(fechaVencimiento, fechaTramite, 250.0f, persona, true);
-////        Placa tramite2 = new Placa("ABC123", fechaRecepcion, true, fechaTramite, 100.0f, persona);
-////        Placa tramite4 = new Placa("ABC123", fechaRecepcion, true, fechaTramite, 150.0f, persona);
+//        Placa tramite2 = new Placa("ABC-123", fechaRecepcion, true, fechaTramite, 100.0f, persona);
+////        Placa tramite4 = new Placa("ABC-123", fechaRecepcion, true, fechaTramite, 150.0f, persona);
 ////        
 ////        Licencia tramite6 = new Licencia(fechaVencimiento, fechaTramite, 45.0f, persona, true);
 ////        
@@ -157,6 +155,7 @@ public class Pruebas {
         try {
             personaDAO.agregarPersonas();
         } catch (PersistenciaException e) {
+            System.err.println(e.getMessage());
         }
 //        ILicenciaDAO licenciaDAO = new LicenciaDAO(conexion);
 //
@@ -196,7 +195,6 @@ public class Pruebas {
 //        }
 //
 //    }
-
 //        Conexion conexion = new Conexion();
 //        PlacaDAO placaDAO = new PlacaDAO(conexion);
 //        Placa placa = new Placa("placa",
@@ -214,23 +212,22 @@ public class Pruebas {
 //        } catch (PersistenciaException ex) {
 //            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-
         // Prueba del método agregarVehiculo
 //        IConexion conexion = new Conexion();
 //        IVehiculosDAO vehiculosDAO = new VehiculosDAO(conexion);
 //        IPersonaDAO personasDAO = new PersonaDAO(conexion);
 //        Persona persona = null;
-//        
+//
 //        try {
 //            persona = personasDAO.obtenerPersonaRFC("GUGR040316E27");
 //        } catch (PersistenciaException ex) {
 //            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-//        
-//        Automovil automovilNuevo = new Automovil("ABC-123", "negro", "2015", "focus", "ford", persona);
-//        Automovil automovilNuevo2 = new Automovil("DEF-456", "guinda", "2014", "versa", "nissan", persona);
-//        Automovil automovilNuevo3 = new Automovil("GHI-789", "blanco", "2014", "x-trail", "nissan", persona);
-//        
+//
+//        Automovil automovilNuevo = new Automovil("ABC123", "negro", "2015", "focus", "ford", persona);
+//        Automovil automovilNuevo2 = new Automovil("DEF456", "guinda", "2014", "versa", "nissan", persona);
+//        Automovil automovilNuevo3 = new Automovil("GHI789", "blanco", "2014", "x-trail", "nissan", persona);
+//
 //        try {
 //            vehiculosDAO.agregarVehiculo(automovilNuevo);
 //            vehiculosDAO.agregarVehiculo(automovilNuevo2);
@@ -263,7 +260,6 @@ public class Pruebas {
 //        for (Vehiculo vehiculo : vehiculos) {
 //            Logger.getLogger(Pruebas.class.getName()).log(Level.INFO, vehiculo.toString());
 //        }
-
 //        IConexion conexion = new Conexion();
 //        IAutomovilesDAO vehiculosDAO = new AutomovilesDAO(conexion);
 //        IPersonaDAO personasDAO = new PersonaDAO(conexion);
@@ -286,6 +282,5 @@ public class Pruebas {
 //        for (Vehiculo vehiculo : vehiculos) {
 //            Logger.getLogger(Pruebas.class.getName()).log(Level.INFO, vehiculo.toString());
 //        }
-
     }
 }

@@ -1,16 +1,24 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
-import java.util.Calendar;
+import java.awt.Frame;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.itson.bdavanzadas.agencia_fiscal_bos.GestorVehiculosBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IGestorVehiculosBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroLicenciaBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPersonasBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPlacaBO;
 import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroLicenciaBO;
-import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonaBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonasBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPlacaBO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.LicenciaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
+import org.itson.bdavanzadas.agencia_fiscal_presentacion.validadores.Validadores;
 
 /**
  *
@@ -18,9 +26,13 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosExceptio
  */
 public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
 
-    private RegistroPersonaBO registroPersona;
-    private RegistroLicenciaBO registroLicencia;
-    private PersonaNuevaDTO persona = null;
+    private IRegistroPersonasBO registroPersona;
+    private IRegistroLicenciaBO registroLicencia;
+    private IRegistroPlacaBO registroPlaca;
+    private IGestorVehiculosBO gestorVehiculo;
+    private PersonaNuevaDTO persona;
+    private Validadores validador;
+    private Frame parent;
     static final Logger logger = Logger.getLogger(PantallaBusquedaVehiculos.class.getName());
 
     /**
@@ -29,8 +41,12 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
     public PantallaBusquedaVehiculos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.registroPersona = new RegistroPersonaBO();
+        this.parent = parent;
+        this.registroPersona = new RegistroPersonasBO();
         this.registroLicencia = new RegistroLicenciaBO();
+        this.registroPlaca = new RegistroPlacaBO();
+        this.gestorVehiculo = new GestorVehiculosBO();
+        this.validador = new Validadores();
     }
 
     private Boolean isLicenciaActiva() {
@@ -51,7 +67,7 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
         }
     }
 
-    private void llenarTabla(List<PersonaNuevaDTO> personas) {
+    private void llenarTablaPersona(List<VehiculoNuevoDTO> vehiculos) {
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -59,32 +75,30 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
             }
         };
         modelo.addColumn("NO. SERIE");
+        modelo.addColumn("MARCA");
+        modelo.addColumn("LINEA");
         modelo.addColumn("COLOR");
         modelo.addColumn("MODELO");
-        modelo.addColumn("LINEA");
-        modelo.addColumn("MARCA");
         modelo.addColumn("");
 
-        // Agregar los socios al modelo de la tabla
-        for (PersonaNuevaDTO persona : personas) {
+        for (VehiculoNuevoDTO vehiculo : vehiculos) {
 
-            String fechaNacimiento = persona.getFechaNacimiento().get(Calendar.DAY_OF_MONTH) + "/" + (persona.getFechaNacimiento().get(Calendar.MONTH) + 1) + "/" + persona.getFechaNacimiento().get(Calendar.YEAR);
-
-            Object[] fila = {persona.getNombres() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno(), fechaNacimiento, persona.getRfc(), persona.isDiscapacitado() ? "Discapacitado" : "No discapacitado", "SELECCIONAR"};
+            Object[] fila = {vehiculo.getNumeroSerie(), vehiculo.getMarca(), vehiculo.getLinea(), vehiculo.getColor(), vehiculo.getModelo(), "SELECCIONAR"};
             modelo.addRow(fila);
         }
-        tblContribuyentes.setModel(modelo);
+        tblVehiculos.setModel(modelo);
         ButtonColumn buttonColumn = new ButtonColumn("SELECCIONAR", (e) -> {
-            int fila = tblContribuyentes.convertRowIndexToModel(tblContribuyentes.getSelectedRow());
-            PersonaNuevaDTO persona = personas.get(fila);
+            int fila = tblVehiculos.convertRowIndexToModel(tblVehiculos.getSelectedRow());
+            VehiculoNuevoDTO vehiculo = vehiculos.get(fila);
 
             if (isLicenciaActiva()) {
-//                PantallaTiposLicencias pTiposLicencias = new PantallaTiposLicencias(parent, true, persona);
-//                pTiposLicencias.setVisible(true);
+                PantallaPlacasVehiculo pPlacasVehiculo = new PantallaPlacasVehiculo(parent, true, vehiculo);
+                pPlacasVehiculo.setVisible(true);
+                dispose();
             }
         });
-        tblContribuyentes.getColumnModel().getColumn(tblContribuyentes.getColumnCount() - 1).setCellRenderer(buttonColumn);
-        tblContribuyentes.getColumnModel().getColumn(tblContribuyentes.getColumnCount() - 1).setCellEditor(buttonColumn);
+        tblVehiculos.getColumnModel().getColumn(tblVehiculos.getColumnCount() - 1).setCellRenderer(buttonColumn);
+        tblVehiculos.getColumnModel().getColumn(tblVehiculos.getColumnCount() - 1).setCellEditor(buttonColumn);
     }
 
     /**
@@ -104,13 +118,17 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
         lblRFC = new javax.swing.JLabel();
         txtRFC = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblContribuyentes = new javax.swing.JTable();
+        tblVehiculos = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
         btnAgregarVehiculo = new javax.swing.JButton();
+        lblInstrucciones1 = new javax.swing.JLabel();
+        lblRFC1 = new javax.swing.JLabel();
+        txtNoPlaca = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1100, 600));
 
         jPanel2.setBackground(new java.awt.Color(119, 119, 119));
 
@@ -125,7 +143,7 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(325, 325, 325)
                 .addComponent(lblTitulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(326, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,9 +153,9 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        lblInstrucciones.setFont(new java.awt.Font("Arial", 1, 27)); // NOI18N
+        lblInstrucciones.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblInstrucciones.setForeground(new java.awt.Color(119, 119, 119));
-        lblInstrucciones.setText("INGRESE EL RFC PARA BUSCAR EL VEHÍCULO DEL CONTRIBUYENTE");
+        lblInstrucciones.setText("<html><p>INGRESE EL NÚMERO DE PLACA PARA BUSCAR <br> EL VEHÍCULO DEL CONTRIBUYENTE<p></html>");
 
         btnCancelar.setBackground(new java.awt.Color(159, 34, 65));
         btnCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -157,8 +175,8 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
         txtRFC.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtRFC.setForeground(new java.awt.Color(119, 119, 119));
 
-        tblContribuyentes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        tblContribuyentes.setModel(new javax.swing.table.DefaultTableModel(
+        tblVehiculos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tblVehiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -166,7 +184,7 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane1.setViewportView(tblContribuyentes);
+        jScrollPane1.setViewportView(tblVehiculos);
 
         btnBuscar.setBackground(new java.awt.Color(159, 34, 65));
         btnBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -192,59 +210,83 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
             }
         });
 
+        lblInstrucciones1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblInstrucciones1.setForeground(new java.awt.Color(119, 119, 119));
+        lblInstrucciones1.setText("<html><p>INGRESE EL RFC PARA BUSCAR EL <br> VEHÍCULO DEL CONTRIBUYENTE<p></html>");
+
+        lblRFC1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblRFC1.setText("NO. PLACA:");
+
+        txtNoPlaca.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        txtNoPlaca.setForeground(new java.awt.Color(119, 119, 119));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblRFC)
-                .addGap(18, 18, 18)
-                .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(225, 225, 225)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(190, 190, 190))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(84, 84, 84)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 933, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblInstrucciones)
-                        .addContainerGap(85, Short.MAX_VALUE))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(508, 508, 508)
+                        .addComponent(btnAgregarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
+                            .addComponent(lblInstrucciones1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblRFC)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblRFC1)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAgregarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(84, 84, 84))))
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(lblInstrucciones)
-                .addGap(41, 41, 41)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRFC)
-                    .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
+                    .addComponent(lblInstrucciones1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblInstrucciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(lblRFC))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtNoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblRFC1))
+                            .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                    .addComponent(btnAgregarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1101, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,20 +303,43 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String rfc = txtRFC.getText();
-        try {
-            persona = registroPersona.buscarPersona(rfc);
-        } catch (NegociosException ex) {
-            JOptionPane.showMessageDialog(this, "El RFC no pertenece a ninguna persona",
+        String noPlaca = txtNoPlaca.getText();
+
+        if (validador.validaRfc(rfc)) {
+            try {
+                persona = registroPersona.buscarPersona(rfc);
+                List<VehiculoNuevoDTO> vehiculos = gestorVehiculo.obtenerVehiculos(persona);
+                llenarTablaPersona(vehiculos);
+            } catch (NegociosException ex) {
+                JOptionPane.showMessageDialog(this, "El RFC no pertenece a ninguna persona",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                logger.log(Level.SEVERE, ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un rfc correcto",
                     "Error", JOptionPane.ERROR_MESSAGE);
-            logger.log(Level.SEVERE, ex.getMessage());
+        }
+
+        if (validador.validaNoPlaca(noPlaca)) {
+//            try {
+////                persona = registroPlaca;
+////            } catch (NegociosException ex) {
+//                JOptionPane.showMessageDialog(this, "La placa no pertenece a ningún vehículo",
+//                        "Error", JOptionPane.ERROR_MESSAGE);
+//                logger.log(Level.SEVERE, ex.getMessage());
+//            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un número de placa correcto",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVehiculoActionPerformed
-        if (isLicenciaActiva()) {
-            //Pantalla agregar vehículo
-        }
+
+        PantallaAgregarVehiculo pAgregarVehiculo = new PantallaAgregarVehiculo(parent, true);
+        pAgregarVehiculo.setVisible(true);
+
 
     }//GEN-LAST:event_btnAgregarVehiculoActionPerformed
 
@@ -286,9 +351,12 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblInstrucciones;
+    private javax.swing.JLabel lblInstrucciones1;
     private javax.swing.JLabel lblRFC;
+    private javax.swing.JLabel lblRFC1;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTable tblContribuyentes;
+    private javax.swing.JTable tblVehiculos;
+    private javax.swing.JTextField txtNoPlaca;
     private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
 }

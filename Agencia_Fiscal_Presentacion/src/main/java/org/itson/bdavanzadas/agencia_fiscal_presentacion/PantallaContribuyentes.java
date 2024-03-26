@@ -2,7 +2,7 @@ package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
 import javax.swing.JOptionPane;
 import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPersonasBO;
-import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonaBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonasBO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
 public class PantallaContribuyentes extends javax.swing.JDialog {
@@ -145,7 +145,7 @@ public class PantallaContribuyentes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        IRegistroPersonasBO registroPersona = new RegistroPersonaBO();
+        IRegistroPersonasBO registroPersona = new RegistroPersonasBO();
         try {
             registroPersona.agregarPersonas();
             JOptionPane.showMessageDialog(this, "Se registraron las personas en el sistema.", 

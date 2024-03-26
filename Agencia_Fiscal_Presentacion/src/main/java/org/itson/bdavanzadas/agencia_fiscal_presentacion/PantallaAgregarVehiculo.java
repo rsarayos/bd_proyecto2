@@ -1,7 +1,21 @@
-
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.itson.bdavanzadas.agencia_fiscal_bos.GestorVehiculosBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IGestorVehiculosBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroLicenciaBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPersonasBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroLicenciaBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonasBO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.LicenciaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
+import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
+import static org.itson.bdavanzadas.agencia_fiscal_presentacion.PantallaBusquedaVehiculos.logger;
+import org.itson.bdavanzadas.agencia_fiscal_presentacion.validadores.Validadores;
 
 /**
  *
@@ -10,14 +24,38 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 public class PantallaAgregarVehiculo extends javax.swing.JDialog {
 
     private PersonaNuevaDTO persona;
-    
+    private Validadores validador;
+    private IRegistroPersonasBO registroPersona;
+    private IRegistroLicenciaBO registroLicencia;
+    private IGestorVehiculosBO gestorVehiculo;
+    static final Logger logger = Logger.getLogger(PantallaAgregarVehiculo.class.getName());
+
     /**
      * Creates new form PantallaAgregarVehiculo
      */
-    public PantallaAgregarVehiculo(java.awt.Frame parent, boolean modal, PersonaNuevaDTO persona) {
+    public PantallaAgregarVehiculo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.persona = persona;
+        this.validador = new Validadores();
+        this.registroPersona = new RegistroPersonasBO();
+        this.registroLicencia = new RegistroLicenciaBO();
+        this.gestorVehiculo = new GestorVehiculosBO();
+    }
+
+    private void agregarVehiculo() {
+        String noSerie = txtNoSerie.getText();
+        String marca = txtMarca.getText();
+        String linea = txtLinea.getText();
+        String color = txtColor.getText();
+        String modelo = txtModelo.getText();
+
+        VehiculoNuevoDTO vehiculoNuevo = new VehiculoNuevoDTO(noSerie, color, modelo, linea, marca, persona);
+
+        try {
+            gestorVehiculo.agregarVehiculo(vehiculoNuevo);
+        } catch (NegociosException ex) {
+            logger.log(Level.SEVERE, ex.getMessage());
+        }
     }
 
     /**
@@ -45,6 +83,11 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         lblRFC5 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
+        lblRFC6 = new javax.swing.JLabel();
+        txtRFC = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        txtNombrePersona = new javax.swing.JTextField();
+        lblRFC3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -105,7 +148,7 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         txtModelo.setForeground(new java.awt.Color(119, 119, 119));
 
         lblRFC5.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblRFC5.setText("Modelo");
+        lblRFC5.setText("Buscar contribuyente (RFC):");
 
         btnCancelar.setBackground(new java.awt.Color(159, 34, 65));
         btnCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -131,74 +174,125 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
             }
         });
 
+        lblRFC6.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblRFC6.setText("Modelo");
+
+        txtRFC.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        txtRFC.setForeground(new java.awt.Color(119, 119, 119));
+
+        btnBuscar.setBackground(new java.awt.Color(159, 34, 65));
+        btnBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBuscar.setFocusable(false);
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        txtNombrePersona.setEditable(false);
+        txtNombrePersona.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        txtNombrePersona.setForeground(new java.awt.Color(119, 119, 119));
+
+        lblRFC3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblRFC3.setText("Nombre del contribuyente");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(300, 300, 300)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblInstrucciones)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(299, 299, 299))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(336, 336, 336)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(290, 290, 290)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblRFC)
-                            .addComponent(lblRFC1)
-                            .addComponent(lblRFC2)
-                            .addComponent(txtMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
-                            .addComponent(txtLinea)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(txtNoSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtRFC)
+                                .addGap(17, 17, 17)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNombrePersona)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblRFC)
+                                    .addComponent(lblRFC1)
+                                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNoSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblRFC5))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblRFC3, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblRFC5)
-                        .addComponent(lblRFC4)
-                        .addComponent(txtColor)
-                        .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(350, 350, 350))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblRFC4)
+                            .addComponent(lblRFC2)
+                            .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRFC6)
+                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 66, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addComponent(lblInstrucciones)
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRFC5)
+                    .addComponent(lblRFC2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblRFC)
+                        .addGap(36, 36, 36)
+                        .addComponent(txtNombrePersona, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRFC)
+                            .addComponent(lblRFC6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNoSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNoSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(lblRFC1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblRFC4)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRFC3)
+                            .addComponent(lblRFC4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblRFC5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(lblRFC2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -221,11 +315,81 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        if (!txtNombrePersona.getText().isBlank() || !txtNombrePersona.getText().isEmpty()) {
+            if (validador.validaNoSerie(txtNoSerie.getText())) {
+                if (validador.validaMarca(txtMarca.getText())) {
+                    if (validador.validaLinea(txtLinea.getText())) {
+                        if (validador.validaColor(txtColor.getText())) {
+                            if (validador.validaModelo(txtModelo.getText())) {
+                                agregarVehiculo();
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Ingrese un modelo correcto",
+                                        "Error", JOptionPane.INFORMATION_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Ingrese un color correcto",
+                                    "Error", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Ingrese una línea correcta",
+                                "Error", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ingrese una marca correcta",
+                            "Error", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Ingrese un número de serie correcto",
+                        "Error", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un número de serie correcto",
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String rfc = txtRFC.getText();
+
+        if (validador.validaRfc(rfc)) {
+            try {
+                persona = registroPersona.buscarPersona(rfc);
+                if (persona != null) {
+                    List<LicenciaNuevaDTO> licencias = null;
+                    try {
+                        licencias = registroLicencia.obtenerLicencias(persona);
+                    } catch (NegociosException ex) {
+                        logger.log(Level.SEVERE, ex.getMessage());
+                    }
+
+                    if (licencias != null && !licencias.isEmpty()) {
+                        LicenciaNuevaDTO ultimaLicencia = licencias.get(licencias.size() - 1);
+                        if(ultimaLicencia.getEstado()){
+                            txtNombrePersona.setText(persona.getNombres()+" "+ persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
+                        }else{
+                            JOptionPane.showMessageDialog(this, "El contribuyente no cuenta con una licencia activa",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "El contribuyente no cuenta con una licencia",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } catch (NegociosException ex) {
+                JOptionPane.showMessageDialog(this, "El RFC no pertenece a ninguna persona",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                logger.log(Level.SEVERE, ex.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un rfc correcto",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -233,13 +397,17 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
     private javax.swing.JLabel lblRFC;
     private javax.swing.JLabel lblRFC1;
     private javax.swing.JLabel lblRFC2;
+    private javax.swing.JLabel lblRFC3;
     private javax.swing.JLabel lblRFC4;
     private javax.swing.JLabel lblRFC5;
+    private javax.swing.JLabel lblRFC6;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtLinea;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtNoSerie;
+    private javax.swing.JTextField txtNombrePersona;
+    private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
 }

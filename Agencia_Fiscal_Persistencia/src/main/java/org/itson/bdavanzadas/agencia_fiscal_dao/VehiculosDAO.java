@@ -73,5 +73,6 @@ public class VehiculosDAO implements IVehiculosDAO {
             entityManager.close();
         }
     }
+    
 
 }

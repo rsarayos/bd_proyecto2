@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPersonasBO;
-import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonaBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonasBO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroPersonasDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
@@ -27,7 +27,7 @@ public class PantallaBusqueda extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.parent = parent;
-        this.registroPersonas = new RegistroPersonaBO();
+        this.registroPersonas = new RegistroPersonasBO();
     }
 
     /**

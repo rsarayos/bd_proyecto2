@@ -31,14 +31,12 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
     @Override
     public void agregarVehiculo(VehiculoNuevoDTO vehiculoNuevo) throws NegociosException {
         try {
-            vehiculoNuevo.isValid();
-            
             Persona persona = personasDAO.obtenerPersonaRFC(vehiculoNuevo.getPersona().getRfc());
             Vehiculo vehiculo = new Vehiculo(vehiculoNuevo.getNumeroSerie(), vehiculoNuevo.getColor(), vehiculoNuevo.getModelo(),
-                    vehiculoNuevo.getLinea(), vehiculoNuevo.getMarca(), vehiculoNuevo.getPersona());
+                    vehiculoNuevo.getLinea(), vehiculoNuevo.getMarca(), persona);
             
             vehiculosDAO.agregarVehiculo(vehiculo);
-        } catch (ValidacionDTOException | PersistenciaException ex) {
+        } catch (PersistenciaException ex) {
             throw new NegociosException("No se pudo agregar el vehículo al sistema.");
         }
     }
@@ -54,7 +52,7 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
             List<VehiculoNuevoDTO> vehiculos = new LinkedList<>();
             for (Vehiculo vehiculo : vehiculosSistema) {
                 vehiculos.add(new VehiculoNuevoDTO(vehiculo.getNumeroSerie(), vehiculo.getColor(), vehiculo.getModelo(), 
-                        vehiculo.getLinea(), vehiculo.getMarca(), vehiculo.getPersona(), vehiculo.getPlacas()));
+                        vehiculo.getLinea(), vehiculo.getMarca(), persona, vehiculo.getPlacas()));
             }
             
             return vehiculos;

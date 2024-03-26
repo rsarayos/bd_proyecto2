@@ -12,10 +12,10 @@ public class VehiculoNuevoDTO {
     private String modelo;
     private String linea;
     private String marca;
-    private Persona persona;
+    private PersonaNuevaDTO persona;
     private List<Placa> placas;
 
-    public VehiculoNuevoDTO(String numeroSerie, String color, String modelo, String linea, String marca, Persona persona) {
+    public VehiculoNuevoDTO(String numeroSerie, String color, String modelo, String linea, String marca, PersonaNuevaDTO persona) {
         this.numeroSerie = numeroSerie;
         this.color = color;
         this.modelo = modelo;
@@ -24,7 +24,7 @@ public class VehiculoNuevoDTO {
         this.persona = persona;
     }
     
-    public VehiculoNuevoDTO(String numeroSerie, String color, String modelo, String linea, String marca, Persona persona, List<Placa> placas) {
+    public VehiculoNuevoDTO(String numeroSerie, String color, String modelo, String linea, String marca, PersonaNuevaDTO persona, List<Placa> placas) {
         this.numeroSerie = numeroSerie;
         this.color = color;
         this.modelo = modelo;
@@ -54,7 +54,7 @@ public class VehiculoNuevoDTO {
         return marca;
     }
 
-    public Persona getPersona() {
+    public PersonaNuevaDTO getPersona() {
         return persona;
     }
 

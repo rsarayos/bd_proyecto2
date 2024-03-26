@@ -30,19 +30,16 @@ public class Persona implements Serializable {
     private String rfc;
 
     // Nombres de la persona.
-    @Column(name = "nombres", nullable = false, columnDefinition = "VARBINARY(128)")
-    @Lob
-    private byte[] nombres;
+    @Column(name = "nombres", nullable = false, length = 100)
+    private String nombres;
 
     // Apellido paterno de la persona.
-    @Column(name = "apellidoPaterno", nullable = false, columnDefinition = "VARBINARY(32)")
-    @Lob
-    private byte[] apellidoPaterno;
+    @Column(name = "apellidoPaterno", nullable = false, length = 50)
+    private String apellidoPaterno;
 
     // Apellido materno de la persona.
-    @Column(name = "apellidoMaterno", columnDefinition = "VARBINARY(32)")
-    @Lob
-    private byte[] apellidoMaterno;
+    @Column(name = "apellidoMaterno", length = 50)
+    private String apellidoMaterno;
 
     // Fecha de nacimiento de la persona
     @Column(name = "fechaNacimiento", nullable = false)
@@ -88,7 +85,7 @@ public class Persona implements Serializable {
      * @param isDiscapacitado true si la persona es discapacitada, false en caso
      * contrario.
      */
-    public Persona(String rfc, byte[] nombres, byte[] apellidoPaterno, byte[] apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, Boolean isDiscapacitado) {
+    public Persona(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, Boolean isDiscapacitado) {
         this.rfc = rfc;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -113,7 +110,7 @@ public class Persona implements Serializable {
      * @param tramites Lista de trámites asociados a la persona.
      * @param vehiculos Lista de vehículos asociados a la persona.
      */
-    public Persona(String rfc, byte[] nombres, byte[] apellidoPaterno, byte[] apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
+    public Persona(String rfc, String nombres, String apellidoPaterno, String apellidoMaterno, Calendar fechaNacimiento, byte[] telefono, Boolean isDiscapacitado, List<Tramite> tramites, List<Vehiculo> vehiculos) {
         this.rfc = rfc;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -150,7 +147,7 @@ public class Persona implements Serializable {
      *
      * @return nombres de la persona.
      */
-    public byte[] getNombres() {
+    public String getNombres() {
         return nombres;
     }
 
@@ -159,7 +156,7 @@ public class Persona implements Serializable {
      *
      * @param nombres Nombres de la persona.
      */
-    public void setNombres(byte[] nombres) {
+    public void setNombres(String nombres) {
         this.nombres = nombres;
     }
 
@@ -168,7 +165,7 @@ public class Persona implements Serializable {
      *
      * @return Apellido paterno de la persona.
      */
-    public byte[] getApellidoPaterno() {
+    public String getApellidoPaterno() {
         return apellidoPaterno;
     }
 
@@ -177,7 +174,7 @@ public class Persona implements Serializable {
      *
      * @param apellidoPaterno Apellido paterno de la persona.
      */
-    public void setApellidoPaterno(byte[] apellidoPaterno) {
+    public void setApellidoPaterno(String apellidoPaterno) {
         this.apellidoPaterno = apellidoPaterno;
     }
 
@@ -186,7 +183,7 @@ public class Persona implements Serializable {
      *
      * @return Apellido materno de la persona.
      */
-    public byte[] getApellidoMaterno() {
+    public String getApellidoMaterno() {
         return apellidoMaterno;
     }
 
@@ -195,7 +192,7 @@ public class Persona implements Serializable {
      *
      * @param apellidoMaterno Apellido materno de la persona.
      */
-    public void setApellidoMaterno(byte[] apellidoMaterno) {
+    public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
     }
 
