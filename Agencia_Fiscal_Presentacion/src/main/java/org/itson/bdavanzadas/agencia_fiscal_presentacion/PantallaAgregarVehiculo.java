@@ -1,5 +1,7 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
+import java.awt.Frame;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,10 +26,12 @@ import org.itson.bdavanzadas.agencia_fiscal_presentacion.validadores.Validadores
 public class PantallaAgregarVehiculo extends javax.swing.JDialog {
 
     private PersonaNuevaDTO persona;
+    private VehiculoNuevoDTO vehiculoNuevo;
     private Validadores validador;
     private IRegistroPersonasBO registroPersona;
     private IRegistroLicenciaBO registroLicencia;
     private IGestorVehiculosBO gestorVehiculo;
+    private Frame parent;
     static final Logger logger = Logger.getLogger(PantallaAgregarVehiculo.class.getName());
 
     /**
@@ -36,6 +40,7 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
     public PantallaAgregarVehiculo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.parent = parent;
         this.validador = new Validadores();
         this.registroPersona = new RegistroPersonasBO();
         this.registroLicencia = new RegistroLicenciaBO();
@@ -49,8 +54,8 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         String color = txtColor.getText();
         String modelo = txtModelo.getText();
 
-        VehiculoNuevoDTO vehiculoNuevo = new VehiculoNuevoDTO(noSerie, color, modelo, linea, marca, persona);
-
+        vehiculoNuevo = new VehiculoNuevoDTO(noSerie, color, modelo, linea, marca, persona);
+        
         try {
             gestorVehiculo.agregarVehiculo(vehiculoNuevo);
         } catch (NegociosException ex) {
@@ -321,6 +326,8 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
                                 agregarVehiculo();
                                 JOptionPane.showMessageDialog(this, "Se agregó el vehículo correctamente.",
                                         "Iformación", JOptionPane.INFORMATION_MESSAGE);
+                                PantallaPlacasVehiculo pPlacasVehiculo = new PantallaPlacasVehiculo(parent, true, vehiculoNuevo);
+                                pPlacasVehiculo.setVisible(true);
                                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Asegúrse de ingresar los datos del vehículo correctamente.",
@@ -339,7 +346,7 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
             try {
                 persona = registroPersona.buscarPersona(rfc);
                 if (persona != null) {
-                    List<LicenciaNuevaDTO> licencias = null;
+                    List<LicenciaNuevaDTO> licencias = new LinkedList<>();
                     try {
                         licencias = registroLicencia.obtenerLicencias(persona);
                     } catch (NegociosException ex) {

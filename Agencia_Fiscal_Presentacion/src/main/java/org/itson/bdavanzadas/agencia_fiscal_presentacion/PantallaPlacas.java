@@ -1,5 +1,16 @@
-
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
+
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPlacaBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPlacaBO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.PlacaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
+import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
+import org.itson.bdavanzadas.agencia_fiscal_negocioAux.GenerarNumeroPlaca;
 
 /**
  *
@@ -7,12 +18,58 @@ package org.itson.bdavanzadas.agencia_fiscal_presentacion;
  */
 public class PantallaPlacas extends javax.swing.JDialog {
 
+    private VehiculoNuevoDTO vehiculo;
+    private IRegistroPlacaBO registroPlaca;
+
     /**
      * Creates new form PantallaPlacas
      */
-    public PantallaPlacas(java.awt.Frame parent, boolean modal) {
+    public PantallaPlacas(java.awt.Frame parent, boolean modal, VehiculoNuevoDTO vehiculo) {
         super(parent, modal);
         initComponents();
+        this.vehiculo = vehiculo;
+        this.registroPlaca = new RegistroPlacaBO();
+        llenarDatosPlaca();
+    }
+
+    private void llenarDatosPlaca() {
+
+        List<PlacaNuevaDTO> placas = new LinkedList<>();
+        try {
+            placas = registroPlaca.buscarPlacasVehiculo(vehiculo);
+        } catch (NegociosException ex) {
+            Logger.getLogger(PantallaPlacas.class.getName()).log(Level.SEVERE, ex.getMessage());
+        }
+
+        if (placas != null && !placas.isEmpty()) {
+            txtTipoVehiculo.setText("Usado");
+        } else {
+            txtTipoVehiculo.setText("Nuevo");
+        }
+
+        GenerarNumeroPlaca genNumPlaca = new GenerarNumeroPlaca();
+        String numPlaca = genNumPlaca.generarNumeroDePlaca();
+        boolean placaNoReg = false;
+
+        // se verifica si la placa no se encuentra registrada
+        while (!placaNoReg) {
+            PlacaNuevaDTO placaNueva = null;
+            try {
+                placaNueva = this.registroPlaca.buscarPlaca(numPlaca);
+            } catch (NegociosException ex) {
+                Logger.getLogger(PantallaPlacas.class.getName()).log(Level.SEVERE, ex.getMessage());
+            }
+            if (placaNueva == null) {
+                placaNoReg = true;
+            }
+        }
+        
+        txtNoPlaca.setText(numPlaca);
+        
+        Calendar fechaExpedicion = Calendar.getInstance();
+        txtFechaExpedicion.setText(fechaExpedicion.get(Calendar.DAY_OF_MONTH) + "/" + (fechaExpedicion.get(Calendar.MONTH) + 1) + "/" + fechaExpedicion.get(Calendar.YEAR));
+        txtContribuyente.setText(vehiculo.getPersona().getNombres()+" "+vehiculo.getPersona().getApellidoPaterno()+" "+vehiculo.getPersona().getApellidoMaterno());
+        txtVehiculo.setText(vehiculo.getMarca()+" "+vehiculo.getLinea()+" "+vehiculo.getColor()+" "+vehiculo.getModelo());
     }
 
     /**
@@ -33,11 +90,13 @@ public class PantallaPlacas extends javax.swing.JDialog {
         lblRFC1 = new javax.swing.JLabel();
         txtNoPlaca = new javax.swing.JTextField();
         lblRFC2 = new javax.swing.JLabel();
-        txtFechaExpedición = new javax.swing.JTextField();
+        txtFechaExpedicion = new javax.swing.JTextField();
         txtContribuyente = new javax.swing.JTextField();
         lblRFC4 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
+        lblRFC5 = new javax.swing.JLabel();
+        txtVehiculo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,26 +132,30 @@ public class PantallaPlacas extends javax.swing.JDialog {
         lblRFC.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblRFC.setText("Tipo de vehículo");
 
+        txtTipoVehiculo.setEditable(false);
         txtTipoVehiculo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtTipoVehiculo.setForeground(new java.awt.Color(119, 119, 119));
 
         lblRFC1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblRFC1.setText("Número de placas");
 
+        txtNoPlaca.setEditable(false);
         txtNoPlaca.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtNoPlaca.setForeground(new java.awt.Color(119, 119, 119));
 
         lblRFC2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblRFC2.setText("Fecha de expedición");
 
-        txtFechaExpedición.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        txtFechaExpedición.setForeground(new java.awt.Color(119, 119, 119));
+        txtFechaExpedicion.setEditable(false);
+        txtFechaExpedicion.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        txtFechaExpedicion.setForeground(new java.awt.Color(119, 119, 119));
 
+        txtContribuyente.setEditable(false);
         txtContribuyente.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtContribuyente.setForeground(new java.awt.Color(119, 119, 119));
 
         lblRFC4.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblRFC4.setText("Contributente asociado");
+        lblRFC4.setText("Vehiculo asociado");
 
         btnCancelar.setBackground(new java.awt.Color(159, 34, 65));
         btnCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -118,6 +181,13 @@ public class PantallaPlacas extends javax.swing.JDialog {
             }
         });
 
+        lblRFC5.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblRFC5.setText("Contributente asociado");
+
+        txtVehiculo.setEditable(false);
+        txtVehiculo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        txtVehiculo.setForeground(new java.awt.Color(119, 119, 119));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -135,7 +205,7 @@ public class PantallaPlacas extends javax.swing.JDialog {
                             .addComponent(lblRFC1)
                             .addComponent(lblRFC2)
                             .addComponent(txtNoPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
-                            .addComponent(txtFechaExpedición)))
+                            .addComponent(txtFechaExpedicion)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(txtTipoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -143,7 +213,9 @@ public class PantallaPlacas extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblRFC4)
                     .addComponent(txtContribuyente, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRFC5)
+                    .addComponent(txtVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(66, 66, 66))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -167,14 +239,17 @@ public class PantallaPlacas extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNoPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblRFC4)
+                        .addComponent(lblRFC5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtContribuyente, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80)))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblRFC4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(lblRFC2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFechaExpedición, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFechaExpedicion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,10 +290,12 @@ public class PantallaPlacas extends javax.swing.JDialog {
     private javax.swing.JLabel lblRFC1;
     private javax.swing.JLabel lblRFC2;
     private javax.swing.JLabel lblRFC4;
+    private javax.swing.JLabel lblRFC5;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtContribuyente;
-    private javax.swing.JTextField txtFechaExpedición;
+    private javax.swing.JTextField txtFechaExpedicion;
     private javax.swing.JTextField txtNoPlaca;
     private javax.swing.JTextField txtTipoVehiculo;
+    private javax.swing.JTextField txtVehiculo;
     // End of variables declaration//GEN-END:variables
 }

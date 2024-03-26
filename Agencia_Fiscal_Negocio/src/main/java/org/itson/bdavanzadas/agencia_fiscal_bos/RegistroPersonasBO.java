@@ -72,7 +72,7 @@ public class RegistroPersonasBO implements IRegistroPersonasBO {
     @Override
     public PersonaNuevaDTO buscarPersona(String rfc) throws NegociosException {
         try {
-            Persona persona = personaDAO.obtenerPersonaRFC(rfc);
+            Persona persona = this.personaDAO.obtenerPersonaRFC(rfc);
 
             String telefonoEnc = new String(persona.getTelefono());
 
@@ -113,7 +113,7 @@ public class RegistroPersonasBO implements IRegistroPersonasBO {
         filtroConsulta.setFechaNacimiento(filtroPersonas.getFechaNacimiento());
 
         try {
-            List<Persona> personasConsultadas = personaDAO.buscarPersona(filtroConsulta);
+            List<Persona> personasConsultadas = this.personaDAO.buscarPersona(filtroConsulta);
             List<PersonaNuevaDTO> personasRegreso = new LinkedList<>();
             for (Persona persona : personasConsultadas) {
 

@@ -4,14 +4,20 @@
  */
 package org.itson.bdavanzadas.agencia_fiscal_bos;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.itson.bdavanzadas.agencia_fiscal_auxiliar.Encriptar;
 import org.itson.bdavanzadas.agencia_fiscal_dao.Conexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
+import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IPlacaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.PersonaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.PlacaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PlacaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Placa;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
@@ -23,15 +29,20 @@ import org.itson.bdavanzadas.agencia_fiscal_negocioAux.GenerarNumeroPlaca;
  *
  * @author alex_
  */
-public class RegistroPlacaBO implements IRegistroPlacaBO{
-    
+public class RegistroPlacaBO implements IRegistroPlacaBO {
+
     private final IConexion conexion;
     private final IPlacaDAO placaDAO;
+    private final IPersonaDAO personasDAO;
+    private Encriptar encriptar;
     static final Logger logger = Logger.getLogger(RegistroPlacaBO.class.getName());
 
     public RegistroPlacaBO() {
         this.conexion = new Conexion();
         this.placaDAO = new PlacaDAO(conexion);
+        this.personasDAO = new PersonaDAO(conexion);
+        encriptar = new Encriptar();
+        
     }
 
     @Override
@@ -39,20 +50,10 @@ public class RegistroPlacaBO implements IRegistroPlacaBO{
         // se verifica si el vehiculo ya tenia una placa previamente
         Vehiculo vehiculo = new Vehiculo(placaNueva.getVehiculo().getNumeroSerie());
         Persona persona = new Persona(placaNueva.getPersona().getRfc());
-        // se generar el numero de placa
-        GenerarNumeroPlaca genNumPlaca = new GenerarNumeroPlaca();
-        String numPlaca = genNumPlaca.generarNumeroDePlaca();
-        boolean placaNoReg = false;
+       
         try {
-            // se verifica si la placa no se encuentra registrada
-            while (!placaNoReg) {
-                Placa placaNu = this.placaDAO.obtenerPlaca(numPlaca);
-                if (placaNu == null) {
-                    placaNoReg = true;
-                }
-            }
             // Una ves se determina el numero de placa se crea la nueva placa
-            Placa placa = new Placa(numPlaca,
+            Placa placa = new Placa(placaNueva.getNumeroPlaca(),
                     null,
                     placaNueva.getEstado(),
                     vehiculo,
@@ -77,10 +78,77 @@ public class RegistroPlacaBO implements IRegistroPlacaBO{
                 return placaNueva;
             }
         } catch (PersistenciaException pe) {
-            logger.log(Level.SEVERE, "No se pudo consultar las placas del vehiculo");
+            logger.log(Level.SEVERE, "No se pudo consultar las placas del vehiculo", pe);
             throw new NegociosException("Error al tramitar Placa");
         }
 
     }
+
+    @Override
+    public PlacaNuevaDTO buscarPlaca(String numPlaca) throws NegociosException {
+        Placa placa=null;
+        try {
+            placa = this.placaDAO.obtenerPlaca(numPlaca);
+        } catch (PersistenciaException pe) {
+            logger.log(Level.SEVERE, "No se pudo consultar la placa", pe);
+            throw new NegociosException("Error al buscar la placa");
+        }
+        
+        PlacaNuevaDTO placaNueva = new PlacaNuevaDTO(numPlaca);
+        return placaNueva;
+    }
+    
+    @Override
+    public List<PlacaNuevaDTO> buscarPlacasVehiculo(VehiculoNuevoDTO vehiculoNuevo) throws NegociosException {
+        
+        Persona persona = null;
+        
+        try {
+            persona = this.personasDAO.obtenerPersonaRFC(vehiculoNuevo.getPersona().getRfc());
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(RegistroPlacaBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Vehiculo vehiculo = new Vehiculo(
+                vehiculoNuevo.getNumeroSerie(), 
+                vehiculoNuevo.getColor(), 
+                vehiculoNuevo.getModelo(), 
+                vehiculoNuevo.getLinea(), 
+                vehiculoNuevo.getModelo(), 
+                persona);
+        
+        String telefonoEnc = new String(persona.getTelefono());
+        PersonaNuevaDTO personaNueva = null;
+        try {
+            personaNueva = new PersonaNuevaDTO(
+                    persona.getRfc(),
+                    persona.getNombres(),
+                    persona.getApellidoPaterno(),
+                    persona.getApellidoMaterno(),
+                    persona.getFechaNacimiento(),
+                    encriptar.desencriptar(telefonoEnc),
+                    persona.getIsDiscapacitado(),
+                    persona.getTramites(),
+                    persona.getVehiculos()
+            );
+        } catch (Exception ex) {
+            Logger.getLogger(RegistroPlacaBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        List<Placa> listaPlacas = new LinkedList<>();
+        try {
+            listaPlacas = this.placaDAO.obtenerPlacasVehiculo(vehiculo);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(RegistroPlacaBO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegociosException("Error al obtener lista de placas");
+        }
+        
+        List<PlacaNuevaDTO> placas = new LinkedList<>();
+        for (Placa placa : listaPlacas) {
+            placas.add(new PlacaNuevaDTO(placa.getEstado(), vehiculoNuevo, placa.getFechaTramite(),placa.getCosto(), personaNueva));
+        }
+        return placas;
+    }
+
 
 }

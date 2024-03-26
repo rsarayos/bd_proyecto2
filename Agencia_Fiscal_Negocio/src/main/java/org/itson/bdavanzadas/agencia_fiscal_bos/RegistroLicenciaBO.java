@@ -66,7 +66,7 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO {
                 logger.log(Level.SEVERE, "Excepcion en validacion");
             }
             return licenciaNueva;
-        } catch (Exception ex) {
+        } catch (PersistenciaException ex) {
             logger.log(Level.SEVERE, "No se puedo agregar la licencia", ex);
             throw new NegociosException("Error al agregar la licencia", ex);
         }

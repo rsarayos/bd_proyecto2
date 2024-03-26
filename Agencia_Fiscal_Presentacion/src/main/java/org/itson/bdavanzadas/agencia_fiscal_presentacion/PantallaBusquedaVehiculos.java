@@ -315,23 +315,13 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
                         "Error", JOptionPane.ERROR_MESSAGE);
                 logger.log(Level.SEVERE, ex.getMessage());
             }
+        } else if (validador.validaNoPlaca(noPlaca)) {
+
         } else {
-            JOptionPane.showMessageDialog(this, "Ingrese un rfc correcto",
+            JOptionPane.showMessageDialog(this, "Ingrese el campo correctamente",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        if (validador.validaNoPlaca(noPlaca)) {
-//            try {
-////                persona = registroPlaca;
-////            } catch (NegociosException ex) {
-//                JOptionPane.showMessageDialog(this, "La placa no pertenece a ningún vehículo",
-//                        "Error", JOptionPane.ERROR_MESSAGE);
-//                logger.log(Level.SEVERE, ex.getMessage());
-//            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Ingrese un número de placa correcto",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 

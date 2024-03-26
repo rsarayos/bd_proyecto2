@@ -1,6 +1,11 @@
 
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
+import java.awt.Frame;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.PlacaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 
 /**
@@ -10,6 +15,7 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 public class PantallaPlacasVehiculo extends javax.swing.JDialog {
 
     private VehiculoNuevoDTO vehiculo;
+    private Frame parent;
     
     /**
      * Creates new form PantallaPlacasVehiculo
@@ -17,9 +23,33 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
     public PantallaPlacasVehiculo(java.awt.Frame parent, boolean modal, VehiculoNuevoDTO vehiculo) {
         super(parent, modal);
         initComponents();
+        this.parent = parent;
         this.vehiculo = vehiculo;
+        llenarTablaPlacas();
     }
 
+    private void llenarTablaPlacas(){
+    DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == getColumnCount() - 1; // Solo la última columna es editable
+            }
+        };
+        modelo.addColumn("NO. PLACA");
+        modelo.addColumn("FECHA TRAMITE");
+        modelo.addColumn("NO. SERIE");
+        modelo.addColumn("ESTADO");
+
+        List<PlacaNuevaDTO> placas = new LinkedList<>();
+        
+        for (PlacaNuevaDTO placa : placas) {
+
+            Object[] fila = {placa.getNumeroPlaca(), placa.getFechaTramite(), placa.getVehiculo().getNumeroSerie(), placa.getEstado()};
+            modelo.addRow(fila);
+        }
+        tblPlacas.setModel(modelo);
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,13 +64,15 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
         lblTitulo = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblVehiculos = new javax.swing.JTable();
+        tblPlacas = new javax.swing.JTable();
         btnAgregarPlaca = new javax.swing.JButton();
         lblInstrucciones1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1102, 600));
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1100, 600));
 
         jPanel2.setBackground(new java.awt.Color(119, 119, 119));
 
@@ -77,8 +109,8 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
             }
         });
 
-        tblVehiculos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        tblVehiculos.setModel(new javax.swing.table.DefaultTableModel(
+        tblPlacas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tblPlacas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -86,7 +118,7 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane1.setViewportView(tblVehiculos);
+        jScrollPane1.setViewportView(tblPlacas);
 
         btnAgregarPlaca.setBackground(new java.awt.Color(159, 34, 65));
         btnAgregarPlaca.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -142,14 +174,15 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -157,7 +190,9 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlacaActionPerformed
-        
+        PantallaPlacas pPlacas = new PantallaPlacas(parent, true, vehiculo);
+        pPlacas.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnAgregarPlacaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -168,6 +203,6 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblInstrucciones1;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTable tblVehiculos;
+    private javax.swing.JTable tblPlacas;
     // End of variables declaration//GEN-END:variables
 }
