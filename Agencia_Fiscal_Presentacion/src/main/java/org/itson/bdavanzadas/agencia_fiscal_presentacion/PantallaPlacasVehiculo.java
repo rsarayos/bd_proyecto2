@@ -2,11 +2,17 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
 import java.awt.Frame;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPlacaBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPlacaBO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PlacaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
+import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
 /**
  *
@@ -15,6 +21,7 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 public class PantallaPlacasVehiculo extends javax.swing.JDialog {
 
     private VehiculoNuevoDTO vehiculo;
+    private IRegistroPlacaBO registroPlaca;
     private Frame parent;
     
     /**
@@ -25,6 +32,7 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
         initComponents();
         this.parent = parent;
         this.vehiculo = vehiculo;
+        this.registroPlaca = new RegistroPlacaBO();
         llenarTablaPlacas();
     }
 
@@ -37,14 +45,22 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
         };
         modelo.addColumn("NO. PLACA");
         modelo.addColumn("FECHA TRAMITE");
-        modelo.addColumn("NO. SERIE");
+        modelo.addColumn("VEHÍCULO");
         modelo.addColumn("ESTADO");
 
         List<PlacaNuevaDTO> placas = new LinkedList<>();
+        try {
+            placas = registroPlaca.buscarPlacasVehiculo(vehiculo);
+        } catch (NegociosException ne) {
+            Logger.getLogger(PantallaPlacas.class.getName()).log(Level.SEVERE, ne.getMessage());
+        }
         
         for (PlacaNuevaDTO placa : placas) {
 
-            Object[] fila = {placa.getNumeroPlaca(), placa.getFechaTramite(), placa.getVehiculo().getNumeroSerie(), placa.getEstado()};
+            String fechaTramite = placa.getFechaTramite().get(Calendar.DAY_OF_MONTH) + "/" + (placa.getFechaTramite().get(Calendar.MONTH) + 1) + "/" + placa.getFechaTramite().get(Calendar.YEAR);
+            String vehiculoBusqueda = placa.getVehiculo().getMarca()+" "+placa.getVehiculo().getLinea()+" "+placa.getVehiculo().getColor()+" "+placa.getVehiculo().getModelo();
+            
+            Object[] fila = {placa.getNumeroPlaca(), fechaTramite, vehiculoBusqueda, (placa.getEstado())? "Activa" : "Desactiva"};
             modelo.addRow(fila);
         }
         tblPlacas.setModel(modelo);
@@ -69,7 +85,6 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
         lblInstrucciones1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1102, 600));
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 600));
@@ -167,18 +182,19 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregarPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnAgregarPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

@@ -72,6 +72,8 @@
                       <Component id="btnAgregar" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
                       <Component id="lblRFC5" min="-2" max="-2" attributes="0"/>
                       <Component id="txtVehiculo" min="-2" pref="440" max="-2" attributes="0"/>
+                      <Component id="lblRFC6" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCosto" min="-2" pref="440" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
               </Group>
@@ -104,15 +106,21 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtContribuyente" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="lblRFC4" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblRFC6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtVehiculo" min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="lblRFC2" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblRFC2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblRFC4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtFechaExpedicion" min="-2" pref="28" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtFechaExpedicion" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="txtCosto" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnCancelar" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
@@ -249,7 +257,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Vehiculo asociado"/>
+            <Property name="text" type="java.lang.String" value="Costo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelar">
@@ -307,6 +315,25 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtVehiculo">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="24" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="77" green="77" red="77" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblRFC6">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="24" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Vehiculo asociado"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtCosto">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">

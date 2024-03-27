@@ -5,12 +5,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPlacaBO;
 import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPlacaBO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PlacaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 import org.itson.bdavanzadas.agencia_fiscal_negocioAux.GenerarNumeroPlaca;
+import org.itson.bdavanzadas.agencia_fiscal_negocioAux.PreciosTramites;
 
 /**
  *
@@ -20,6 +22,7 @@ public class PantallaPlacas extends javax.swing.JDialog {
 
     private VehiculoNuevoDTO vehiculo;
     private IRegistroPlacaBO registroPlaca;
+    private Float costo;
 
     /**
      * Creates new form PantallaPlacas
@@ -47,13 +50,13 @@ public class PantallaPlacas extends javax.swing.JDialog {
             txtTipoVehiculo.setText("Nuevo");
         }
 
-        GenerarNumeroPlaca genNumPlaca = new GenerarNumeroPlaca();
-        String numPlaca = genNumPlaca.generarNumeroDePlaca();
         boolean placaNoReg = false;
-
+        String numPlaca = "";
         // se verifica si la placa no se encuentra registrada
         while (!placaNoReg) {
             PlacaNuevaDTO placaNueva = null;
+            GenerarNumeroPlaca genNumPlaca = new GenerarNumeroPlaca();
+            numPlaca = genNumPlaca.generarNumeroDePlaca();
             try {
                 placaNueva = this.registroPlaca.buscarPlaca(numPlaca);
             } catch (NegociosException ex) {
@@ -63,13 +66,21 @@ public class PantallaPlacas extends javax.swing.JDialog {
                 placaNoReg = true;
             }
         }
-        
+
         txtNoPlaca.setText(numPlaca);
-        
+
         Calendar fechaExpedicion = Calendar.getInstance();
         txtFechaExpedicion.setText(fechaExpedicion.get(Calendar.DAY_OF_MONTH) + "/" + (fechaExpedicion.get(Calendar.MONTH) + 1) + "/" + fechaExpedicion.get(Calendar.YEAR));
-        txtContribuyente.setText(vehiculo.getPersona().getNombres()+" "+vehiculo.getPersona().getApellidoPaterno()+" "+vehiculo.getPersona().getApellidoMaterno());
-        txtVehiculo.setText(vehiculo.getMarca()+" "+vehiculo.getLinea()+" "+vehiculo.getColor()+" "+vehiculo.getModelo());
+        txtContribuyente.setText(vehiculo.getPersona().getNombres() + " " + vehiculo.getPersona().getApellidoPaterno() + " " + vehiculo.getPersona().getApellidoMaterno());
+        txtVehiculo.setText(vehiculo.getMarca() + " " + vehiculo.getLinea() + " " + vehiculo.getColor() + " " + vehiculo.getModelo());
+
+        if (txtTipoVehiculo.getText().equals("Nuevo")) {
+            costo = PreciosTramites.obtenerCostoPlaca(true);
+            txtCosto.setText(Float.toString(costo));
+        } else {
+            costo = PreciosTramites.obtenerCostoPlaca(false);
+            txtCosto.setText(Float.toString(costo));
+        }
     }
 
     /**
@@ -97,6 +108,8 @@ public class PantallaPlacas extends javax.swing.JDialog {
         btnAgregar = new javax.swing.JButton();
         lblRFC5 = new javax.swing.JLabel();
         txtVehiculo = new javax.swing.JTextField();
+        lblRFC6 = new javax.swing.JLabel();
+        txtCosto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -155,7 +168,7 @@ public class PantallaPlacas extends javax.swing.JDialog {
         txtContribuyente.setForeground(new java.awt.Color(119, 119, 119));
 
         lblRFC4.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblRFC4.setText("Vehiculo asociado");
+        lblRFC4.setText("Costo");
 
         btnCancelar.setBackground(new java.awt.Color(159, 34, 65));
         btnCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -188,6 +201,13 @@ public class PantallaPlacas extends javax.swing.JDialog {
         txtVehiculo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtVehiculo.setForeground(new java.awt.Color(119, 119, 119));
 
+        lblRFC6.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblRFC6.setText("Vehiculo asociado");
+
+        txtCosto.setEditable(false);
+        txtCosto.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        txtCosto.setForeground(new java.awt.Color(119, 119, 119));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -215,7 +235,9 @@ public class PantallaPlacas extends javax.swing.JDialog {
                     .addComponent(txtContribuyente, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblRFC5)
-                    .addComponent(txtVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRFC6)
+                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(66, 66, 66))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -243,13 +265,17 @@ public class PantallaPlacas extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtContribuyente, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(lblRFC4)
+                        .addComponent(lblRFC6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(lblRFC2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRFC2)
+                    .addComponent(lblRFC4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFechaExpedicion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFechaExpedicion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(72, 72, 72)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -277,7 +303,17 @@ public class PantallaPlacas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        PlacaNuevaDTO placaNueva = new PlacaNuevaDTO((txtTipoVehiculo.getText().equals("Nuevo")) ? true : false, vehiculo, Calendar.getInstance(), costo, vehiculo.getPersona());
+        try {
+            PlacaNuevaDTO placaCorrecta = registroPlaca.tramitarPlaca(placaNueva);
+            if (placaCorrecta != null) {
+                JOptionPane.showMessageDialog(this, "Trámite de placa exitoso",
+                        "Trámite de placa", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            }
+        } catch (NegociosException ex) {
+            Logger.getLogger(PantallaPlacas.class.getName()).log(Level.SEVERE, ex.getMessage());
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -291,8 +327,10 @@ public class PantallaPlacas extends javax.swing.JDialog {
     private javax.swing.JLabel lblRFC2;
     private javax.swing.JLabel lblRFC4;
     private javax.swing.JLabel lblRFC5;
+    private javax.swing.JLabel lblRFC6;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtContribuyente;
+    private javax.swing.JTextField txtCosto;
     private javax.swing.JTextField txtFechaExpedicion;
     private javax.swing.JTextField txtNoPlaca;
     private javax.swing.JTextField txtTipoVehiculo;

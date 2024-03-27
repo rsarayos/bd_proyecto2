@@ -325,7 +325,7 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
                     && validador.validaModelo(txtModelo.getText())) {
                                 agregarVehiculo();
                                 JOptionPane.showMessageDialog(this, "Se agregó el vehículo correctamente.",
-                                        "Iformación", JOptionPane.INFORMATION_MESSAGE);
+                                        "Información", JOptionPane.INFORMATION_MESSAGE);
                                 PantallaPlacasVehiculo pPlacasVehiculo = new PantallaPlacasVehiculo(parent, true, vehiculoNuevo);
                                 pPlacasVehiculo.setVisible(true);
                                 dispose();
