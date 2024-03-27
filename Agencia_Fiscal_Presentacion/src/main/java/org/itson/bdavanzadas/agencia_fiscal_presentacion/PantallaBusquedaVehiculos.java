@@ -94,7 +94,7 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
             if (isLicenciaActiva()) {
                 PantallaPlacasVehiculo pPlacasVehiculo = new PantallaPlacasVehiculo(parent, true, vehiculo);
                 pPlacasVehiculo.setVisible(true);
-                dispose();
+                
             }
         });
         tblVehiculos.getColumnModel().getColumn(tblVehiculos.getColumnCount() - 1).setCellRenderer(buttonColumn);
@@ -326,11 +326,8 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVehiculoActionPerformed
-
         PantallaAgregarVehiculo pAgregarVehiculo = new PantallaAgregarVehiculo(parent, true);
         pAgregarVehiculo.setVisible(true);
-
-
     }//GEN-LAST:event_btnAgregarVehiculoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

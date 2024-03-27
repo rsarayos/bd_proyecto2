@@ -37,16 +37,13 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
     }
 
     private void llenarTablaPlacas(){
-    DefaultTableModel modelo = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == getColumnCount() - 1; // Solo la última columna es editable
-            }
-        };
+    DefaultTableModel modelo = new DefaultTableModel();
+
         modelo.addColumn("NO. PLACA");
-        modelo.addColumn("FECHA TRAMITE");
+        modelo.addColumn("FECHA TRÁMITE");
         modelo.addColumn("VEHÍCULO");
         modelo.addColumn("ESTADO");
+        modelo.addColumn("FECHA RECEPCIÓN");
 
         List<PlacaNuevaDTO> placas = new LinkedList<>();
         try {
@@ -60,11 +57,18 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
             String fechaTramite = placa.getFechaTramite().get(Calendar.DAY_OF_MONTH) + "/" + (placa.getFechaTramite().get(Calendar.MONTH) + 1) + "/" + placa.getFechaTramite().get(Calendar.YEAR);
             String vehiculoBusqueda = placa.getVehiculo().getMarca()+" "+placa.getVehiculo().getLinea()+" "+placa.getVehiculo().getColor()+" "+placa.getVehiculo().getModelo();
             
-            Object[] fila = {placa.getNumeroPlaca(), fechaTramite, vehiculoBusqueda, (placa.getEstado())? "Activa" : "Desactiva"};
+            String fechaRecepcion;
+            if (placa.getFechaRecepcion() != null) {
+                fechaRecepcion = placa.getFechaRecepcion().get(Calendar.DAY_OF_MONTH) + "/" + (placa.getFechaRecepcion().get(Calendar.MONTH) + 1) + "/" + placa.getFechaRecepcion().get(Calendar.YEAR);
+            }else{
+                fechaRecepcion = "-";
+            }
+            
+            Object[] fila = {placa.getNumeroPlaca(), fechaTramite, vehiculoBusqueda, (placa.getEstado())? "Activa" : "Desactiva", fechaRecepcion};
             modelo.addRow(fila);
         }
         tblPlacas.setModel(modelo);
-        
+    
     }
     /**
      * This method is called from within the constructor to initialize the form.

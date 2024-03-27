@@ -1,5 +1,6 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
+import java.awt.Frame;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class PantallaPlacas extends javax.swing.JDialog {
     private VehiculoNuevoDTO vehiculo;
     private IRegistroPlacaBO registroPlaca;
     private Float costo;
+    private Frame parent;
 
     /**
      * Creates new form PantallaPlacas
@@ -30,6 +32,7 @@ public class PantallaPlacas extends javax.swing.JDialog {
     public PantallaPlacas(java.awt.Frame parent, boolean modal, VehiculoNuevoDTO vehiculo) {
         super(parent, modal);
         initComponents();
+        this.parent = parent;
         this.vehiculo = vehiculo;
         this.registroPlaca = new RegistroPlacaBO();
         llenarDatosPlaca();
@@ -310,6 +313,8 @@ public class PantallaPlacas extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Trámite de placa exitoso",
                         "Trámite de placa", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
+                PantallaPlacasVehiculo pPlacasVehiculo = new PantallaPlacasVehiculo(parent, true, vehiculo);
+                pPlacasVehiculo.setVisible(true);
             }
         } catch (NegociosException ex) {
             Logger.getLogger(PantallaPlacas.class.getName()).log(Level.SEVERE, ex.getMessage());
