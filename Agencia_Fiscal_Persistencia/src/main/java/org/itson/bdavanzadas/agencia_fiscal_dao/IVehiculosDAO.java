@@ -16,6 +16,15 @@ public interface IVehiculosDAO {
     public void agregarVehiculo(Vehiculo vehiculoNuevo) throws PersistenciaException;
 
     /**
+     * Permite buscar un vehículo por su número de serie.
+     * 
+     * @param numSerie Número de serie del vehículo a buscar
+     * @return Vehículo buscado
+     * @throws PersistenciaException Si no se puede consultar el vehículo
+     */
+    public Vehiculo obtenerVehiculo(String numSerie)throws PersistenciaException;
+    
+    /**
      * Permite consultar los vehículos de una persona.
      *
      * @param persona La persona de la que se desean consultar los vehículos

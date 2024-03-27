@@ -49,6 +49,32 @@ public class VehiculosDAO implements IVehiculosDAO {
     }
 
     /**
+     * Permite buscar un vehículo por su número de serie.
+     * 
+     * @param numSerie Número de serie del vehículo a buscar
+     * @return Vehículo buscado
+     * @throws PersistenciaException Si no se puede consultar el vehículo
+     */
+    @Override
+    public Vehiculo obtenerVehiculo(String numSerie) throws PersistenciaException {
+        EntityManager entityManager = conexion.crearConexion();
+
+        try {
+            entityManager.getTransaction().begin();
+            Vehiculo vehiculo = entityManager.find(Vehiculo.class, numSerie);
+            entityManager.getTransaction().commit();
+            logger.log(Level.INFO, "Se buscó el vehiculo correctamente");
+            return vehiculo;
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, e.getMessage());
+            throw new PersistenciaException("No se pudo buscar el vehículo.");
+        } finally {
+            entityManager.close();
+        }
+        
+    }
+
+    /**
      * Permite consultar los vehículos de una persona.
      *
      * @param persona La persona de la que se desean consultar los vehículos
@@ -73,6 +99,5 @@ public class VehiculosDAO implements IVehiculosDAO {
             entityManager.close();
         }
     }
-    
 
 }

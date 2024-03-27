@@ -9,6 +9,8 @@ public interface IGestorVehiculosBO {
     
     public void agregarVehiculo(VehiculoNuevoDTO vehiculoNuevo) throws NegociosException;
     
+    public VehiculoNuevoDTO buscarVehiculo(String numPlaca) throws NegociosException;
+    
     public List<VehiculoNuevoDTO> obtenerVehiculos(PersonaNuevaDTO persona) throws NegociosException;
     
 }

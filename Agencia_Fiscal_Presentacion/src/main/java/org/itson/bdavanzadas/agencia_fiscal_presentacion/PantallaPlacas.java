@@ -306,7 +306,7 @@ public class PantallaPlacas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        PlacaNuevaDTO placaNueva = new PlacaNuevaDTO(txtNoPlaca.getText(),true, vehiculo, Calendar.getInstance(), costo, vehiculo.getPersona());
+        PlacaNuevaDTO placaNueva = new PlacaNuevaDTO(txtNoPlaca.getText(),null,true, vehiculo, Calendar.getInstance(), costo, vehiculo.getPersona());
         try {
             PlacaNuevaDTO placaCorrecta = registroPlaca.tramitarPlaca(placaNueva);
             if (placaCorrecta != null) {

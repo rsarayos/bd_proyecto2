@@ -132,10 +132,10 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO {
                         licObtenida.getCosto(),
                         personaDTO,
                         licObtenida.getEstado());
-                logger.log(Level.INFO, "se obtuvo licencia");
+                logger.log(Level.INFO, "se obtuvo la licencia");
                 return licObt;
             } else {
-                logger.log(Level.INFO, "No se encontro licencia");
+                logger.log(Level.INFO, "No se encontro la licencia");
                 return null;
             }
 

@@ -109,7 +109,7 @@ public class RegistroPlacaBO implements IRegistroPlacaBO {
         try {
             persona = this.personasDAO.obtenerPersonaRFC(vehiculoNuevo.getPersona().getRfc());
         } catch (PersistenciaException ex) {
-            Logger.getLogger(RegistroPlacaBO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistroPlacaBO.class.getName()).log(Level.SEVERE, "Error al buscar persona", ex);
         }
         
         Vehiculo vehiculo = new Vehiculo(
@@ -135,20 +135,20 @@ public class RegistroPlacaBO implements IRegistroPlacaBO {
                     persona.getVehiculos()
             );
         } catch (Exception ex) {
-            Logger.getLogger(RegistroPlacaBO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistroPlacaBO.class.getName()).log(Level.SEVERE, "Error al desencriptar teléfono", ex);
         }
         
         List<Placa> listaPlacas = new LinkedList<>();
         try {
             listaPlacas = this.placaDAO.obtenerPlacasVehiculo(vehiculo);
         } catch (PersistenciaException ex) {
-            Logger.getLogger(RegistroPlacaBO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistroPlacaBO.class.getName()).log(Level.SEVERE, "Error al buscar la placa", ex);
             throw new NegociosException("Error al obtener lista de placas");
         }
         
         List<PlacaNuevaDTO> placas = new LinkedList<>();
         for (Placa placa : listaPlacas) {
-            placas.add(new PlacaNuevaDTO(placa.getNumeroPlaca(), placa.getEstado(), vehiculoNuevo, placa.getFechaTramite(),placa.getCosto(), personaNueva));
+            placas.add(new PlacaNuevaDTO(placa.getNumeroPlaca(),placa.getFechaRecepcion(), placa.getEstado(), vehiculoNuevo, placa.getFechaTramite(),placa.getCosto(), personaNueva));
         }
         return placas;
     }

@@ -1,11 +1,13 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
+import java.awt.Font;
 import java.awt.Frame;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import org.itson.bdavanzadas.agencia_fiscal_bos.GestorVehiculosBO;
 import org.itson.bdavanzadas.agencia_fiscal_bos.IGestorVehiculosBO;
 import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroLicenciaBO;
@@ -94,11 +96,44 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
             if (isLicenciaActiva()) {
                 PantallaPlacasVehiculo pPlacasVehiculo = new PantallaPlacasVehiculo(parent, true, vehiculo);
                 pPlacasVehiculo.setVisible(true);
-                
+
             }
         });
         tblVehiculos.getColumnModel().getColumn(tblVehiculos.getColumnCount() - 1).setCellRenderer(buttonColumn);
         tblVehiculos.getColumnModel().getColumn(tblVehiculos.getColumnCount() - 1).setCellEditor(buttonColumn);
+    }
+
+    private void llenarTablaPlaca(VehiculoNuevoDTO vehiculo) {
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == getColumnCount() - 1; // Solo la última columna es editable
+            }
+        };
+        modelo.addColumn("NO. SERIE");
+        modelo.addColumn("MARCA");
+        modelo.addColumn("LINEA");
+        modelo.addColumn("COLOR");
+        modelo.addColumn("MODELO");
+        modelo.addColumn("");
+
+        Object[] fila = {vehiculo.getNumeroSerie(), vehiculo.getMarca(), vehiculo.getLinea(), vehiculo.getColor(), vehiculo.getModelo(), "SELECCIONAR"};
+        modelo.addRow(fila);
+
+        tblVehiculos.setModel(modelo);
+        ButtonColumn buttonColumn = new ButtonColumn("SELECCIONAR", (e) -> {
+            if (isLicenciaActiva()) {
+                PantallaPlacasVehiculo pPlacasVehiculo = new PantallaPlacasVehiculo(parent, true, vehiculo);
+                pPlacasVehiculo.setVisible(true);
+
+            }
+        });
+        tblVehiculos.getColumnModel().getColumn(tblVehiculos.getColumnCount() - 1).setCellRenderer(buttonColumn);
+        tblVehiculos.getColumnModel().getColumn(tblVehiculos.getColumnCount() - 1).setCellEditor(buttonColumn);
+        tblVehiculos.setDefaultEditor(Object.class, null);
+        tblVehiculos.getTableHeader().setResizingAllowed(false);
+        JTableHeader header = tblVehiculos.getTableHeader();
+        header.setFont(new Font("Arial", Font.BOLD, 12));
     }
 
     /**
@@ -316,7 +351,12 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
                 logger.log(Level.SEVERE, ex.getMessage());
             }
         } else if (validador.validaNoPlaca(noPlaca)) {
-
+            try {
+                VehiculoNuevoDTO vehiculoBuscado = gestorVehiculo.buscarVehiculo(noPlaca);
+                persona = registroPersona.buscarPersona(vehiculoBuscado.getPersona().getRfc());
+                llenarTablaPlaca(vehiculoBuscado);
+            } catch (Exception e) {
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Ingrese el campo correctamente",
                     "Error", JOptionPane.ERROR_MESSAGE);

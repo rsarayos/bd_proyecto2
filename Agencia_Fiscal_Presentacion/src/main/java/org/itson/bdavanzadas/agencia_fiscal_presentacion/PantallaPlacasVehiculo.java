@@ -1,6 +1,7 @@
 
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
+import java.awt.Font;
 import java.awt.Frame;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPlacaBO;
 import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPlacaBO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PlacaNuevaDTO;
@@ -68,7 +70,10 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
             modelo.addRow(fila);
         }
         tblPlacas.setModel(modelo);
-    
+        tblPlacas.setDefaultEditor(Object.class, null);
+        tblPlacas.getTableHeader().setResizingAllowed(false);
+        JTableHeader header = tblPlacas.getTableHeader();
+        header.setFont(new Font("Arial", Font.BOLD, 12));
     }
     /**
      * This method is called from within the constructor to initialize the form.
