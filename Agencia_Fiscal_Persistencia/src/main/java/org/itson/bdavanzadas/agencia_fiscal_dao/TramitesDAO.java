@@ -36,25 +36,6 @@ public class TramitesDAO implements ITramitesDAO {
     @Override
     public List<Tramite> consultarTramites(Persona persona) throws PersistenciaException{
         EntityManager entityManager = conexion.crearConexion();
-//        String jpqlQuery = """
-//                    SELECT 
-//                    CASE 
-//                        WHEN l.id_tramite IS NOT NULL THEN 'Licencia'
-//                        WHEN p.id_tramite IS NOT NULL THEN 'Placa'
-//                    END AS 'tipo',
-//                    t.fecha_tramite,
-//                    t.costo,
-//                    CASE
-//                        WHEN l.id_tramite IS NOT NULL THEN l.estado
-//                        WHEN p.id_tramite IS NOT NULL THEN p.estado
-//                    END AS 'estado'
-//                    FROM Tramites t
-//                    LEFT JOIN licencias l 
-//                    ON t.id_tramite = l.id_tramite
-//                    LEFT JOIN placas p
-//                    ON t.id_tramite = p.id_tramite
-//                    WHERE rfc_persona = :rfc;
-//                    """;
         try {
             CriteriaBuilder builder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
