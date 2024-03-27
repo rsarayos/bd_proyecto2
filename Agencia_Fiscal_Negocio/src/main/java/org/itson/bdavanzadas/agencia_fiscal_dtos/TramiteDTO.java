@@ -8,18 +8,21 @@ public class TramiteDTO {
     private Long id;
     private Calendar fechaTramite;
     private Float costo;
+    private String tipo;
     private PersonaNuevaDTO persona;
     
-    public TramiteDTO(Calendar fechaTramite, Float costo, PersonaNuevaDTO persona){
+    public TramiteDTO(Calendar fechaTramite, Float costo, String tipo, PersonaNuevaDTO persona){
         this.fechaTramite = fechaTramite;
         this.costo = costo;
+        this.tipo = tipo;
         this.persona = persona;
     }
     
-    public TramiteDTO(Long id, Calendar fechaTramite, Float costo, PersonaNuevaDTO persona){
+    public TramiteDTO(Long id, Calendar fechaTramite, Float costo, String tipo, PersonaNuevaDTO persona){
         this.id = id;
         this.fechaTramite = fechaTramite;
         this.costo = costo;
+        this.tipo = tipo;
         this.persona = persona;
     }
 
@@ -33,6 +36,10 @@ public class TramiteDTO {
 
     public Float getCosto() {
         return costo;
+    }
+    
+    public String getTipo(){
+        return tipo;
     }
 
     public PersonaNuevaDTO getPersona() {

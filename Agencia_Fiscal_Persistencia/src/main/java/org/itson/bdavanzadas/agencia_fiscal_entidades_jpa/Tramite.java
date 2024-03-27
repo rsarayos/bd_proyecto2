@@ -119,7 +119,7 @@ public class Tramite implements Serializable {
     public void setCosto(Float costo) {
         this.costo = costo;
     }
-
+    
     /**
      * Obtiene la persona asociada al trámite.
      *

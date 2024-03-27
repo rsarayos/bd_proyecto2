@@ -1,18 +1,16 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
 import java.awt.Frame;
-import java.time.LocalDate;
+import java.text.NumberFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPersonasBO;
-import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonasBO;
-import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroPersonasDTO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.GestorTramitesBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IGestorTramitesBO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.TramiteDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
 public class PantallaConsultasTramites extends javax.swing.JDialog {
@@ -22,12 +20,16 @@ public class PantallaConsultasTramites extends javax.swing.JDialog {
      *
      * @param parent
      * @param modal
+     * @param persona
      */
     public PantallaConsultasTramites(java.awt.Frame parent, boolean modal, PersonaNuevaDTO persona) {
         super(parent, modal);
         initComponents();
         this.parent = parent;
-        this.registroPersonas = new RegistroPersonasBO();
+        this.persona = persona;
+        this.gestorTramites = new GestorTramitesBO();
+        txtNombre.setText(persona.getNombres() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno());
+        consultarTramites(persona);
     }
 
     /**
@@ -56,9 +58,9 @@ public class PantallaConsultasTramites extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(119, 119, 119));
 
-        lblTitulo.setText("MÓDULO DE CONSULTAS");
         lblTitulo.setFont(new java.awt.Font("Arial", 1, 43)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setText("MÓDULO DE CONSULTAS");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -77,45 +79,46 @@ public class PantallaConsultasTramites extends javax.swing.JDialog {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        lblInstrucciones.setText("TRÁMITES REALIZADOS POR EL CONTRIBUYENTE");
         lblInstrucciones.setFont(new java.awt.Font("Arial", 1, 27)); // NOI18N
         lblInstrucciones.setForeground(new java.awt.Color(119, 119, 119));
+        lblInstrucciones.setText("TRÁMITES REALIZADOS POR EL CONTRIBUYENTE");
 
-        btnSalir.setText("SALIR");
         btnSalir.setBackground(new java.awt.Color(159, 34, 65));
-        btnSalir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnSalir.setFocusPainted(false);
         btnSalir.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setText("SALIR");
+        btnSalir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSalir.setFocusPainted(false);
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
 
-        lblNombre.setText("NOMBRE:");
         lblNombre.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblNombre.setText("NOMBRE:");
 
+        txtNombre.setEditable(false);
         txtNombre.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(119, 119, 119));
 
+        tblContribuyentes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         tblContribuyentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "TIPO DE TRÁMITE", "FECHA DE REALIZACIÓN", "COSTO", "ESTADO"
+                "TIPO DE TRÁMITE", "FECHA DE REALIZACIÓN", "COSTO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblContribuyentes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(tblContribuyentes);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -179,7 +182,7 @@ public class PantallaConsultasTramites extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void llenarTabla(List<PersonaNuevaDTO> personas) {
+    private void llenarTabla(List<TramiteDTO> tramites) {
 
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
@@ -191,16 +194,24 @@ public class PantallaConsultasTramites extends javax.swing.JDialog {
         modelo.addColumn("TIPO DE TRÁMITE");
         modelo.addColumn("FECHA DE REALIZACIÓN");
         modelo.addColumn("COSTO");
-        modelo.addColumn("ESTADO");
 
         // Agregar los socios al modelo de la tabla
-        for (PersonaNuevaDTO persona : personas) {
-            String fechaNacimiento = persona.getFechaNacimiento().get(Calendar.DAY_OF_MONTH) + "/" + (persona.getFechaNacimiento().get(Calendar.MONTH) + 1) + "/" + persona.getFechaNacimiento().get(Calendar.YEAR);
-
-            Object[] fila = {persona.getNombres() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno(), fechaNacimiento, persona.getRfc(), "CONSULTAR"};
+        for (TramiteDTO tramite: tramites) {
+            String fechaRealización = tramite.getFechaTramite().get(Calendar.DAY_OF_MONTH) + "/" + (tramite.getFechaTramite().get(Calendar.MONTH) + 1) + "/" + tramite.getFechaTramite().get(Calendar.YEAR);  String tipoTramite = null;
+            Object[] fila = {tramite.getTipo(), fechaRealización, NumberFormat.getCurrencyInstance().format(tramite.getCosto())};
             modelo.addRow(fila);
         }
         tblContribuyentes.setModel(modelo);
+    }
+    
+    private void consultarTramites(PersonaNuevaDTO persona){
+        try {
+            List<TramiteDTO> tramites = gestorTramites.consultarTramites(persona);
+            llenarTabla(tramites);
+        } catch (NegociosException ex) {
+            JOptionPane.showMessageDialog(this, "No se pudieron consultar los trámites.", 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -215,6 +226,7 @@ public class PantallaConsultasTramites extends javax.swing.JDialog {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
     private Frame parent;
-    private IRegistroPersonasBO registroPersonas;
+    private IGestorTramitesBO gestorTramites;
+    private PersonaNuevaDTO persona;
     static final Logger logger = Logger.getLogger(PantallaConsultasTramites.class.getName());
 }

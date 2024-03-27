@@ -1,6 +1,7 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
 import java.awt.Frame;
+import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,10 +80,10 @@ public class PantallaPlacas extends javax.swing.JDialog {
 
         if (txtTipoVehiculo.getText().equals("Nuevo")) {
             costo = PreciosTramites.obtenerCostoPlaca(true);
-            txtCosto.setText(Float.toString(costo));
+            txtCosto.setText(NumberFormat.getCurrencyInstance().format(costo));
         } else {
             costo = PreciosTramites.obtenerCostoPlaca(false);
-            txtCosto.setText(Float.toString(costo));
+            txtCosto.setText(NumberFormat.getCurrencyInstance().format(costo));
         }
     }
 

@@ -57,7 +57,6 @@ public class PreciosTramites {
         if (estado) {
             return COSTO_PLACAS_AUTO_NUEVO;
         }
-
         return COSTO_PLACAS_AUTO_USADO;
     }
 

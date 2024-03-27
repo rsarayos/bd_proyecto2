@@ -151,7 +151,7 @@ public class PantallaContribuyentes extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Se registraron las personas en el sistema.", 
                     "Información", JOptionPane.INFORMATION_MESSAGE);
         } catch (NegociosException ex) {
-            JOptionPane.showMessageDialog(this, "No se pudieron registrar las personas en el sistema.", 
+            JOptionPane.showMessageDialog(this, "Ya se registraron las personas anteriormente.", 
                     "Información", JOptionPane.INFORMATION_MESSAGE);
         }
         dispose();
