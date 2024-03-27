@@ -148,7 +148,7 @@ public class RegistroPlacaBO implements IRegistroPlacaBO {
         
         List<PlacaNuevaDTO> placas = new LinkedList<>();
         for (Placa placa : listaPlacas) {
-            placas.add(new PlacaNuevaDTO(placa.getEstado(), vehiculoNuevo, placa.getFechaTramite(),placa.getCosto(), personaNueva));
+            placas.add(new PlacaNuevaDTO(placa.getNumeroPlaca(), placa.getEstado(), vehiculoNuevo, placa.getFechaTramite(),placa.getCosto(), personaNueva));
         }
         return placas;
     }

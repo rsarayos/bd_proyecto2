@@ -20,7 +20,8 @@ public class PlacaNuevaDTO {
         this.numeroPlaca = numeroPlaca;
     }
     
-    public PlacaNuevaDTO(Boolean estado, VehiculoNuevoDTO vehiculo, Calendar fechaTramite, Float costo, PersonaNuevaDTO persona) {
+    public PlacaNuevaDTO(String numeroPlaca, Boolean estado, VehiculoNuevoDTO vehiculo, Calendar fechaTramite, Float costo, PersonaNuevaDTO persona) {
+        this.numeroPlaca = numeroPlaca;
         this.estado = estado;
         this.vehiculo = vehiculo;
         this.fechaTramite = fechaTramite;

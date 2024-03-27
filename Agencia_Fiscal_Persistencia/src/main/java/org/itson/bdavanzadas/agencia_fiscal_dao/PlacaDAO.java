@@ -58,8 +58,7 @@ public class PlacaDAO implements IPlacaDAO {
 
             criteria.select(root).where(
                     builder.and(
-                            builder.equal(vehiculoJoin.get("numeroSerie"), vehiculo.getNumeroSerie()),
-                            builder.isTrue(root.get("estado"))
+                            builder.equal(vehiculoJoin.get("numeroSerie"), vehiculo.getNumeroSerie())
                     )
             );
 
