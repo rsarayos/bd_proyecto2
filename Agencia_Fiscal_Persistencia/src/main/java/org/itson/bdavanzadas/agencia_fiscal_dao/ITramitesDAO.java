@@ -15,5 +15,7 @@ public interface ITramitesDAO {
      * @throws PersistenciaException Si no se pueden consultar los trámites
      */
     public List<Tramite> consultarTramites(Persona persona) throws PersistenciaException;
+    
+    public List<Tramite> consultarTodosLosTramites() throws PersistenciaException;
 
 }

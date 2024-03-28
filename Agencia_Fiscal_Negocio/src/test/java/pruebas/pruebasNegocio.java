@@ -2,6 +2,10 @@ package pruebas;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.itson.bdavanzadas.agencia_fiscal_bos.GenerarReporteBO;
+import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
 public class pruebasNegocio {
 
@@ -10,13 +14,13 @@ public class pruebasNegocio {
      */
     public static void main(String[] args) {
         
-        Calendar fechaTramite = Calendar.getInstance();
-        fechaTramite.setTime(new Date());
+//        Calendar fechaTramite = Calendar.getInstance();
+//        fechaTramite.setTime(new Date());
         
 //        Calendar fechaVencimiento = Calendar.getInstance();
 //        fechaVencimiento.add(Calendar.YEAR, 1);
 //        
-//        PersonaNuevaDTO personaNueva = new PersonaNuevaDTO("ASDF123456A78");
+        //        PersonaNuevaDTO personaNueva = new PersonaNuevaDTO("ASDF123456A78");
 //        
 //        LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO(fechaVencimiento, 
 //                fechaTramite, 
@@ -48,6 +52,14 @@ public class pruebasNegocio {
 //        } catch (NegociosException ex) {
 //            Logger.getLogger(pruebasNegocio.class.getName()).log(Level.SEVERE, null, ex);
 //        }
+
+        GenerarReporteBO generarReporte = new GenerarReporteBO();
+        
+        try {
+            generarReporte.generarReporte(generarReporte.generarListaReporte());
+        } catch (NegociosException ex) {
+            Logger.getLogger(pruebasNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     

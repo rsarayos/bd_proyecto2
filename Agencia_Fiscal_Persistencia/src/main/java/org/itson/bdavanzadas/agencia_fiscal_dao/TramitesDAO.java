@@ -53,5 +53,27 @@ public class TramitesDAO implements ITramitesDAO {
             entityManager.close();
         }
     }
-    
+
+    @Override
+    public List<Tramite> consultarTodosLosTramites() throws PersistenciaException {
+        EntityManager entityManager = conexion.crearConexion();
+        try {
+            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
+            Root<Tramite> root = criteria.from(Tramite.class);
+            criteria.select(root);
+
+            TypedQuery<Tramite> query = entityManager.createQuery(criteria);
+
+            List<Tramite> tramites = query.getResultList();
+
+            return tramites;
+        } catch (Exception e) {
+            Logger.getLogger(TramitesDAO.class.getName()).log(Level.SEVERE, "Ocurrió un error al consultar los trámites.", e);
+            throw new PersistenciaException("No se pudieron consultar los trámites.", e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
 }
