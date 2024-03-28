@@ -125,31 +125,28 @@ public class GenerarReporteBO implements IGenerarReporteBO{
                 filePath += ".pdf";
             }
 
-            /* read jrxml file and creating jasperdesign object */
             try (InputStream input = new FileInputStream(new File("Tramites.jrxml"))) {
                 JasperDesign jasperDesign = JRXmlLoader.load(input);
                 
-                /* compiling jrxml with help of JasperReport class */
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
-                /* Using jasperReport object to generate PDF */
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
                 
                 try (OutputStream outputStream = new FileOutputStream(new File(filePath))) {
                     JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
                 }
                 
-                /* call jasper engine to display report in jasperviewer window */
+//                // Visualizar pdf
 //                JasperViewer.viewReport(jasperPrint);
                 
             } catch (Exception ex) {
                 logger.log(Level.SEVERE, "Error al generar el reporte");
                 JOptionPane.showMessageDialog(null, "Error al generar el reporte.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            
-            System.out.println("File Generated");
+            logger.log(Level.INFO, "Archivo generado");
+            JOptionPane.showMessageDialog(null, "Archivo guardado", "Info", JOptionPane.INFORMATION_MESSAGE);
         } else if (userSelection == JFileChooser.CANCEL_OPTION) {
-            System.out.println("Save command cancelled by user.");
+            logger.log(Level.INFO, "Usuario cancelo la operacion");
         }
         
     }

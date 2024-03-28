@@ -13,5 +13,4 @@ public interface IGenerarReporteBO {
     public List<ReporteTramiteDTO> generarListaReporte() throws NegociosException;
     public void generarReporte(List<ReporteTramiteDTO> listaTramites) throws NegociosException;
     
-    
 }
