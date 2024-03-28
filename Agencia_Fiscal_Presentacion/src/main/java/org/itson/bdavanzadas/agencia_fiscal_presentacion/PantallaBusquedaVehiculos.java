@@ -355,7 +355,8 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
                 VehiculoNuevoDTO vehiculoBuscado = gestorVehiculo.buscarVehiculo(noPlaca);
                 persona = registroPersona.buscarPersona(vehiculoBuscado.getPersona().getRfc());
                 llenarTablaPlaca(vehiculoBuscado);
-            } catch (Exception e) {
+            } catch (NegociosException ex) {
+                logger.log(Level.SEVERE, ex.getMessage());
             }
         } else {
             JOptionPane.showMessageDialog(this, "Ingrese el campo correctamente",

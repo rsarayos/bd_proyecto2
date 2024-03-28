@@ -201,7 +201,8 @@ public class PantallaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnContribuyentesActionPerformed
 
     private void btnModuloReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModuloReportesActionPerformed
-        // TODO add your handling code here:
+        PantallaReporteBusqueda pReporte = new PantallaReporteBusqueda(this, true);
+        pReporte.setVisible(true);
     }//GEN-LAST:event_btnModuloReportesActionPerformed
 
     private void btnModuloConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModuloConsultasActionPerformed

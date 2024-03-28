@@ -27,6 +27,11 @@ public class RegistroPersonasBO implements IRegistroPersonasBO {
     private IPersonaDAO personaDAO;
     private Encriptar encriptar;
 
+    /**
+     * Constructor por defecto que permite inicializar la conexión con la DAO
+     * utilizada, además inicializa la clase para encriptar y desencriptar el 
+     * teléfono de la persona.
+     */
     public RegistroPersonasBO() {
         conexion = new Conexion();
         personaDAO = new PersonaDAO(conexion);

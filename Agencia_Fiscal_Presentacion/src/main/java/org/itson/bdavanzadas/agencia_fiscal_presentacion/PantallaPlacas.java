@@ -303,7 +303,11 @@ public class PantallaPlacas extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        dispose();
+        int opcion = JOptionPane.showConfirmDialog(this, "Está en medio de un trámite, ¿desea salir en este momento?",
+                "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            dispose();
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -313,9 +317,9 @@ public class PantallaPlacas extends javax.swing.JDialog {
             if (placaCorrecta != null) {
                 JOptionPane.showMessageDialog(this, "Trámite de placa exitoso",
                         "Trámite de placa", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
                 PantallaPlacasVehiculo pPlacasVehiculo = new PantallaPlacasVehiculo(parent, true, vehiculo);
                 pPlacasVehiculo.setVisible(true);
+                dispose();
             }
         } catch (NegociosException ex) {
             Logger.getLogger(PantallaPlacas.class.getName()).log(Level.SEVERE, ex.getMessage());

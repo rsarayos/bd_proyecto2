@@ -30,6 +30,11 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
     private final IPlacaDAO placaDAO;
     private Encriptar encriptar;
 
+    /**
+     * Constructor por defecto que permite inicializar la conexión con las DAOs
+     * utilizadas, además inicializa la clase para encriptar y desencriptar el 
+     * teléfono de la persona.
+     */
     public GestorVehiculosBO() {
         conexion = new Conexion();
         vehiculosDAO = new VehiculosDAO(conexion);
@@ -38,6 +43,13 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
         encriptar = new Encriptar();
     }
 
+    /**
+     * Permite agregar un vehículo nuevo.
+     *
+     * @param vehiculoNuevo Vehículo a agregar.
+     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
+     * agregar el vehículo.
+     */
     @Override
     public void agregarVehiculo(VehiculoNuevoDTO vehiculoNuevo) throws NegociosException {
         try {
@@ -51,6 +63,14 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
         }
     }
 
+    /**
+     * Permite obtener un vehículo según el número de placa proporcionado.
+     *
+     * @param numPlaca Número de placa que será buscado.
+     * @return Vehículo buscado según el número de placa.
+     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
+     * buscar el vehículo.
+     */
     @Override
     public VehiculoNuevoDTO buscarVehiculo(String numPlaca) throws NegociosException {
         Placa placa;
@@ -96,6 +116,14 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
         return vehiculoBuscado;
     }
 
+    /**
+     * Permite obtener una lista de vehículos según la persona proporcionada.
+     *
+     * @param persona Persona con la que se buscarán los vehículos.
+     * @return Lista de vehículos buscados según la persona.
+     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
+     * buscar la lista de vehículos.
+     */
     @Override
     public List<VehiculoNuevoDTO> obtenerVehiculos(PersonaNuevaDTO persona) throws NegociosException {
         try {

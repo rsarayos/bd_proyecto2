@@ -26,12 +26,24 @@ public class GestorTramitesBO implements IGestorTramitesBO {
     private IPersonaDAO personasDAO;
     private ITramitesDAO tramitesDAO;
 
+    /**
+     * Constructor por defecto que permite inicializar la conexión de las DAOs
+     * utilizadas.
+     */
     public GestorTramitesBO() {
         this.conexion = new Conexion();
         personasDAO = new PersonaDAO(conexion);
         tramitesDAO = new TramitesDAO(conexion);
     }
 
+    /**
+     * Permite consultar los trámites realizados por una persona.
+     * 
+     * @param persona Persona de la cual se buscan los trámites
+     * @return Lista de trámites de la persona
+     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
+     * buscar los trámites.
+     */
     @Override
     public List<TramiteDTO> consultarTramites(PersonaNuevaDTO persona) throws NegociosException {
 

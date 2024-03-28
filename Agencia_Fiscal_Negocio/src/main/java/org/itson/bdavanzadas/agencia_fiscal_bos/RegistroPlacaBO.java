@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package org.itson.bdavanzadas.agencia_fiscal_bos;
 
 import java.util.LinkedList;
@@ -23,7 +20,6 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Placa;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
-import org.itson.bdavanzadas.agencia_fiscal_negocioAux.GenerarNumeroPlaca;
 
 /**
  *
@@ -37,6 +33,11 @@ public class RegistroPlacaBO implements IRegistroPlacaBO {
     private Encriptar encriptar;
     static final Logger logger = Logger.getLogger(RegistroPlacaBO.class.getName());
 
+    /**
+     * Constructor por defecto que permite inicializar la conexión con las DAOs
+     * utilizadas, además inicializa la clase para encriptar y desencriptar el 
+     * teléfono de la persona.
+     */
     public RegistroPlacaBO() {
         this.conexion = new Conexion();
         this.placaDAO = new PlacaDAO(conexion);
@@ -45,6 +46,14 @@ public class RegistroPlacaBO implements IRegistroPlacaBO {
         
     }
 
+    /**
+     * Permite tramitar una placa nueva.
+     *
+     * @param placaNueva Datos de la placa nueva
+     * @return Placa agregada.
+     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
+     * tramitar la placa.
+     */
     @Override
     public PlacaNuevaDTO tramitarPlaca(PlacaNuevaDTO placaNueva) throws NegociosException {
         // se verifica si el vehiculo ya tenia una placa previamente
@@ -84,6 +93,14 @@ public class RegistroPlacaBO implements IRegistroPlacaBO {
 
     }
 
+    /**
+     * Permite buscar una placa según el número de placa proporcionado.
+     *
+     * @param numPlaca Número de placa que permite buscar la placa.
+     * @return Placa buscada.
+     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
+     * buscar la placa.
+     */
     @Override
     public PlacaNuevaDTO buscarPlaca(String numPlaca) throws NegociosException {
         Placa placa=null;
@@ -101,23 +118,31 @@ public class RegistroPlacaBO implements IRegistroPlacaBO {
         }
     }
     
+    /**
+     * Permite buscar una lista de placas que tiene el vehículo proporcionado.
+     *
+     * @param vehiculoN Vehículo del cual se buscarán las placas.
+     * @return Lista de placas del vehículo.
+     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
+     * buscar la lista de placas.
+     */
     @Override
-    public List<PlacaNuevaDTO> buscarPlacasVehiculo(VehiculoNuevoDTO vehiculoNuevo) throws NegociosException {
+    public List<PlacaNuevaDTO> buscarPlacasVehiculo(VehiculoNuevoDTO vehiculoN) throws NegociosException {
         
         Persona persona = null;
         
         try {
-            persona = this.personasDAO.obtenerPersonaRFC(vehiculoNuevo.getPersona().getRfc());
+            persona = this.personasDAO.obtenerPersonaRFC(vehiculoN.getPersona().getRfc());
         } catch (PersistenciaException ex) {
             Logger.getLogger(RegistroPlacaBO.class.getName()).log(Level.SEVERE, "Error al buscar persona", ex);
         }
         
         Vehiculo vehiculo = new Vehiculo(
-                vehiculoNuevo.getNumeroSerie(), 
-                vehiculoNuevo.getColor(), 
-                vehiculoNuevo.getModelo(), 
-                vehiculoNuevo.getLinea(), 
-                vehiculoNuevo.getModelo(), 
+                vehiculoN.getNumeroSerie(), 
+                vehiculoN.getColor(), 
+                vehiculoN.getModelo(), 
+                vehiculoN.getLinea(), 
+                vehiculoN.getModelo(), 
                 persona);
         
         String telefonoEnc = new String(persona.getTelefono());
@@ -148,7 +173,7 @@ public class RegistroPlacaBO implements IRegistroPlacaBO {
         
         List<PlacaNuevaDTO> placas = new LinkedList<>();
         for (Placa placa : listaPlacas) {
-            placas.add(new PlacaNuevaDTO(placa.getNumeroPlaca(),placa.getFechaRecepcion(), placa.getEstado(), vehiculoNuevo, placa.getFechaTramite(),placa.getCosto(), personaNueva));
+            placas.add(new PlacaNuevaDTO(placa.getNumeroPlaca(),placa.getFechaRecepcion(), placa.getEstado(), vehiculoN, placa.getFechaTramite(),placa.getCosto(), personaNueva));
         }
         return placas;
     }
