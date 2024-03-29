@@ -329,7 +329,7 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
                         pPlacasVehiculo.setVisible(true);
                         dispose();
                     } else {
-                        JOptionPane.showMessageDialog(this, "El numero de serie registrado ya se encuentra previamente registrado",
+                        JOptionPane.showMessageDialog(this, "El numero de serie ingresado ya se encuentra registrado",
                         "Error", JOptionPane.INFORMATION_MESSAGE);
                     }
                 } catch (NegociosException ex) {
