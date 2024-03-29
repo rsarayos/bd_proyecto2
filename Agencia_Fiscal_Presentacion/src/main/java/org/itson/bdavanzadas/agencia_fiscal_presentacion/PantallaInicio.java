@@ -33,7 +33,7 @@ public class PantallaInicio extends javax.swing.JFrame {
         btnModuloConsultas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1100, 600));
+        setTitle("Menu principal");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));

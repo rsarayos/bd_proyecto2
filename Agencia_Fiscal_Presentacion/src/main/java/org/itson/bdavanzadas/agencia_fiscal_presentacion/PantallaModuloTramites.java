@@ -33,6 +33,7 @@ public class PantallaModuloTramites extends javax.swing.JDialog {
         btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Menu tramites");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
@@ -40,9 +41,9 @@ public class PantallaModuloTramites extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(119, 119, 119));
 
+        lblTitulo.setText("MÓDULO DE TRÁMITES");
         lblTitulo.setFont(new java.awt.Font("Arial", 1, 43)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("MÓDULO DE TRÁMITES");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -61,9 +62,9 @@ public class PantallaModuloTramites extends javax.swing.JDialog {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        lblInstrucciones.setText("SELECCIONE EL MÓDULO DEL TRÁMITE QUE DESEA REALIZAR");
         lblInstrucciones.setFont(new java.awt.Font("Arial", 1, 29)); // NOI18N
         lblInstrucciones.setForeground(new java.awt.Color(119, 119, 119));
-        lblInstrucciones.setText("SELECCIONE EL MÓDULO DEL TRÁMITE QUE DESEA REALIZAR");
 
         btnModuloLicencias.setBackground(new java.awt.Color(159, 34, 65));
         btnModuloLicencias.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -89,8 +90,8 @@ public class PantallaModuloTramites extends javax.swing.JDialog {
             }
         });
 
-        btnAtras.setBackground(new java.awt.Color(223, 223, 223));
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flechaAtras.png"))); // NOI18N
+        btnAtras.setBackground(new java.awt.Color(223, 223, 223));
         btnAtras.setBorderPainted(false);
         btnAtras.setContentAreaFilled(false);
         btnAtras.setFocusPainted(false);

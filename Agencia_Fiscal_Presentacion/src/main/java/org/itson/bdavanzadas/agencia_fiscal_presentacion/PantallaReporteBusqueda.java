@@ -55,6 +55,7 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
         cbxPeriodo = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Reportes");
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
 

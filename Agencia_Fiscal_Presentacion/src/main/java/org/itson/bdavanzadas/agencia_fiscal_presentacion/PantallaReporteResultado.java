@@ -47,6 +47,7 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
         btnGenerarPDF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Resultados reporte");
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
 

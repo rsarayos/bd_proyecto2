@@ -52,6 +52,7 @@ public class PantallaConsultasTramites extends javax.swing.JDialog {
         tblContribuyentes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Resultados consulta");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));

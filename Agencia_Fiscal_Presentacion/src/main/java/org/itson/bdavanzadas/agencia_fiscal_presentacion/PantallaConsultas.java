@@ -55,6 +55,7 @@ public class PantallaConsultas extends javax.swing.JDialog {
         btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Consultas");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));

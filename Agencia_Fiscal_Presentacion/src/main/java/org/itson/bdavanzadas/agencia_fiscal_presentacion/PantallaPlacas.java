@@ -116,6 +116,7 @@ public class PantallaPlacas extends javax.swing.JDialog {
         txtCosto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Tramitar placa");
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
 

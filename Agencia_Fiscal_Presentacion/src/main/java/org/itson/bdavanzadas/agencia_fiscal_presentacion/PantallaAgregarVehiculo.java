@@ -96,6 +96,7 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         lblNombreContribuyente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Agregar vehiculo");
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
 

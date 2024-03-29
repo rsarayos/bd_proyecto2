@@ -130,6 +130,26 @@ public class PersonaNuevaDTO {
     public List<Vehiculo> getVehiculos() {
         return vehiculos;
     }
+    
+    public boolean esMayorDe18() {
+        Calendar fechaActual = Calendar.getInstance();
+        
+        // Obtener la fecha de nacimiento de la persona
+        Calendar fechaNacimiento = this.fechaNacimiento;
+        
+        // Calcular la edad
+        int edad = fechaActual.get(Calendar.YEAR) - fechaNacimiento.get(Calendar.YEAR);
+        
+        // Verificar si la persona tiene menos de 18 años
+        if (fechaActual.get(Calendar.MONTH) < fechaNacimiento.get(Calendar.MONTH)) {
+            edad--;
+        } else if (fechaActual.get(Calendar.MONTH) == fechaNacimiento.get(Calendar.MONTH)
+                && fechaActual.get(Calendar.DAY_OF_MONTH) < fechaNacimiento.get(Calendar.DAY_OF_MONTH)) {
+            edad--;
+        }
+        
+        return edad >= 18;
+    }
 
     public boolean esValido() throws ValidacionDTOException{
         // en este caso todos estan hardcoreados, por lo cual son validos

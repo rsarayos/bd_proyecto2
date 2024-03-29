@@ -55,6 +55,7 @@ public class PantallaBusquedaContribuyente extends javax.swing.JDialog {
         btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Buscar contribuyente");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
@@ -284,9 +285,13 @@ public class PantallaBusquedaContribuyente extends javax.swing.JDialog {
         ButtonColumn buttonColumn = new ButtonColumn("SELECCIONAR", (e) -> {
             int fila = tblContribuyentes.convertRowIndexToModel(tblContribuyentes.getSelectedRow());
             PersonaNuevaDTO persona = personas.get(fila);
-
-            PantallaTiposLicencias pTiposLicencias = new PantallaTiposLicencias(parent, true, persona);
-            pTiposLicencias.setVisible(true);
+            if (persona.esMayorDe18()) {
+                PantallaTiposLicencias pTiposLicencias = new PantallaTiposLicencias(parent, true, persona);
+                pTiposLicencias.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "La persona selecciona es menor de edad, seleccionar otra",
+                    "Info", JOptionPane.INFORMATION_MESSAGE);
+            }
         });
         tblContribuyentes.getColumnModel().getColumn(tblContribuyentes.getColumnCount() - 1).setCellRenderer(buttonColumn);
         tblContribuyentes.getColumnModel().getColumn(tblContribuyentes.getColumnCount() - 1).setCellEditor(buttonColumn);

@@ -94,6 +94,7 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
         lblInstrucciones1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Placas vehiculo");
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 600));

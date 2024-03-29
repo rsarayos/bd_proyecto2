@@ -59,6 +59,7 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
         btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Tramitar licencia");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
@@ -381,15 +382,11 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JLabel lblBienvenida;
     private javax.swing.JLabel lblCosto;
     private javax.swing.JLabel lblDosAnios;
-    private javax.swing.JLabel lblDosAnios1;
-    private javax.swing.JLabel lblDosAnios2;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTresAnios;
     private javax.swing.JLabel lblUnAnio;
