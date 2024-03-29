@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.itson.bdavanzadas.agencia_fiscal_auxiliar;
 
 import java.security.MessageDigest;
@@ -10,10 +6,6 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-/**
- *
- * @author alex_
- */
 public class Encriptar {
     
     // Algoritmo utilizado para la encriptación y desencriptación.

@@ -7,13 +7,9 @@ import javax.swing.JOptionPane;
 import org.itson.bdavanzadas.agencia_fiscal_bos.GeneradorReportesBO;
 import org.itson.bdavanzadas.agencia_fiscal_bos.IGeneradorReportesBO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroReportesDTO;
-import org.itson.bdavanzadas.agencia_fiscal_dtos.ReporteTramiteDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.TramiteReporteDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
-/**
- *
- * @author victo
- */
 public class PantallaReporteBusqueda extends javax.swing.JDialog {
 
     private Frame parent;
@@ -245,10 +241,10 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         FiltroReportesDTO filtro = crearFiltro();
-        List<ReporteTramiteDTO> listaReporte;
+        List<TramiteReporteDTO> listaReporte;
         if (filtro != null) {
             try {
-                listaReporte = generadorReportes.generarListaReporte(filtro);
+                listaReporte = generadorReportes.obtenerTramites(filtro);
                 PantallaReporteResultado pReporteResultado = new PantallaReporteResultado(parent, true, listaReporte);
                 pReporteResultado.setVisible(true);
             } catch (NegociosException ex) {
@@ -268,6 +264,10 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cbxPeriodoActionPerformed
 
+    /**
+     * Permite crear el filtro para la busqueda de trámites.
+     * @return El filtro creado
+     */
     private FiltroReportesDTO crearFiltro() {
         FiltroReportesDTO filtro = new FiltroReportesDTO();
         if (!txtNombre.getText().isBlank()) {

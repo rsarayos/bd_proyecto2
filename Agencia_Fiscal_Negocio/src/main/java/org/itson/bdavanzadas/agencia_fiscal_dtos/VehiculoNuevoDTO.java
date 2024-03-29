@@ -1,7 +1,6 @@
 package org.itson.bdavanzadas.agencia_fiscal_dtos;
 
 import java.util.List;
-import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Placa;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOException;
 

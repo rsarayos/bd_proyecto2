@@ -9,7 +9,7 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
  * Interfaz que define las operaciones para acceder y manipular datos de
  * licencias en la base de datos.
  */
-public interface ILicenciaDAO {
+public interface ILicenciasDAO {
 
     /**
      * Método que permite agregar una licencia a la base de datos.

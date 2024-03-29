@@ -2,10 +2,6 @@ package org.itson.bdavanzadas.agencia_fiscal_negocioAux;
 
 import java.util.Random;
 
-/**
- *
- * @author alex_
- */
 public class GenerarNumeroPlaca {
 
     public GenerarNumeroPlaca() {

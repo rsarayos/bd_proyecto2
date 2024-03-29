@@ -2,10 +2,6 @@ package org.itson.bdavanzadas.agencia_fiscal_dtos;
 
 import java.util.Calendar;
 
-/**
- *
- * @author alex_
- */
 public class PlacaNuevaDTO {
     
     private String numeroPlaca;

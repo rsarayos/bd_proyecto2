@@ -2,14 +2,14 @@ package org.itson.bdavanzadas.agencia_fiscal_dtos;
 
 import java.util.Calendar;
 
-public class ReporteTramiteDTO {
+public class TramiteReporteDTO {
     
     private Calendar fecha;
     private String tipo;
     private String nombre;
     private Float costo;
 
-    public ReporteTramiteDTO(Calendar fecha, String tipo, String nombre, Float costo) {
+    public TramiteReporteDTO(Calendar fecha, String tipo, String nombre, Float costo) {
         this.fecha = fecha;
         this.tipo = tipo;
         this.nombre = nombre;

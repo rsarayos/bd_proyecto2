@@ -16,7 +16,14 @@ public interface ITramitesDAO {
      * @throws PersistenciaException Si no se pueden consultar los trámites
      */
     public List<Tramite> consultarTramitesPersona(Persona persona) throws PersistenciaException;
-    
+
+    /**
+     * Permite consultar trámites que cumplan con el filtro establecido.
+     *
+     * @param filtro El filtro que se aplicará a la consulta de trámites
+     * @return La lista de los trámites consultados
+     * @throws PersistenciaException Si no se pueden consultar los trámites
+     */
     public List<Tramite> consultarTramites(FiltroReportes filtro) throws PersistenciaException;
 
 }

@@ -18,17 +18,17 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
  * relacionadas con la entidad Licencia en la base de datos.
  * 
  */
-public class LicenciaDAO implements ILicenciaDAO {
+public class LicenciasDAO implements ILicenciasDAO {
 
     private final IConexion conexion;
-    static final Logger logger = Logger.getLogger(LicenciaDAO.class.getName());
+    static final Logger logger = Logger.getLogger(LicenciasDAO.class.getName());
 
     /**
      * Constructor de la clase LicenciaDAO que recibe un objeto IConexion.
      *
      * @param conexion Objeto IConexion utilizado para obtener conexiones a la base de datos.
      */
-    public LicenciaDAO(IConexion conexion) {
+    public LicenciasDAO(IConexion conexion) {
         this.conexion = conexion;
     }
 

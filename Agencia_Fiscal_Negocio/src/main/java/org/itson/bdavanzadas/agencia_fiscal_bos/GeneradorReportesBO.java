@@ -31,7 +31,7 @@ import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.ITramitesDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.TramitesDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroReportesDTO;
-import org.itson.bdavanzadas.agencia_fiscal_dtos.ReporteTramiteDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.TramiteReporteDTO;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Licencia;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Placa;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Tramite;
@@ -43,14 +43,24 @@ public class GeneradorReportesBO implements IGeneradorReportesBO {
     private ITramitesDAO tramitesDAO;
     static final Logger logger = Logger.getLogger(GeneradorReportesBO.class.getName());
 
+    /**
+     * Constructor que permite establecer conexión al mecanismo de persistencia.
+     */
     public GeneradorReportesBO() {
         this.conexion = new Conexion();
         tramitesDAO = new TramitesDAO(conexion);
     }
 
+    /**
+     * Permite obtener los trámites deseados para realizar el reporte.
+     *
+     * @param filtro El filtro que se aplicará a la consulta de trámites
+     * @return La lista de los trámites consultados
+     * @throws NegociosException Si no se pueden consultar los trámites
+     */
     @Override
-    public List<ReporteTramiteDTO> generarListaReporte(FiltroReportesDTO filtro) throws NegociosException {
-        List<ReporteTramiteDTO> listTramites = new ArrayList<>();
+    public List<TramiteReporteDTO> obtenerTramites(FiltroReportesDTO filtro) throws NegociosException {
+        List<TramiteReporteDTO> listTramites = new ArrayList<>();
         FiltroReportes filtroReportes = new FiltroReportes();
         filtroReportes.setNombreContribuyente(filtro.getNombreContribuyente());
         filtroReportes.setFechaInicial(filtro.getFechaInicial());
@@ -79,7 +89,7 @@ public class GeneradorReportesBO implements IGeneradorReportesBO {
 
                 Calendar fecha = tm.getFechaTramite();
 
-                ReporteTramiteDTO tramiteReporte = new ReporteTramiteDTO(
+                TramiteReporteDTO tramiteReporte = new TramiteReporteDTO(
                         fecha,
                         tipoTramite,
                         nombreCompletoStr,
@@ -101,8 +111,14 @@ public class GeneradorReportesBO implements IGeneradorReportesBO {
         }
     }
 
+    /**
+     * Permite generar el archivo PDF del reporte.
+     *
+     * @param listaTramites La lista de trámites que contendrá el archivo PDF
+     * @throws NegociosException Si no se puede generar el archivo
+     */
     @Override
-    public void generarReporte(List<ReporteTramiteDTO> listaTramites) throws NegociosException {
+    public void generarReporte(List<TramiteReporteDTO> listaTramites) throws NegociosException {
 
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(listaTramites);
 
@@ -129,7 +145,7 @@ public class GeneradorReportesBO implements IGeneradorReportesBO {
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 
                 try (
-                    OutputStream outputStream = new FileOutputStream(new File(filePath))) {
+                        OutputStream outputStream = new FileOutputStream(new File(filePath))) {
                     JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
                 }
 

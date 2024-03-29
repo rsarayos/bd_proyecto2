@@ -22,10 +22,6 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 import org.itson.bdavanzadas.agencia_fiscal_presentacion.validadores.Validadores;
 
-/**
- *
- * @author victo
- */
 public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
 
     private IRegistroPersonasBO registroPersona;
@@ -39,6 +35,9 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaBusquedaVehiculos
+     *
+     * @param parent
+     * @param modal
      */
     public PantallaBusquedaVehiculos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -51,6 +50,12 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
         this.validador = new Validadores();
     }
 
+    /**
+     * Permite saber si el contribuyente cuenta con una licencia activa o no.
+     *
+     * @return true si el contribuyente tiene una licencia activa, false en caso
+     * contrario
+     */
     private Boolean isLicenciaActiva() {
         List<LicenciaNuevaDTO> licencias = null;
         try {
@@ -69,6 +74,11 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * Permite llenar la tabla con los vehículos consultados.
+     *
+     * @param vehiculos La lista de vehículos consultados
+     */
     private void llenarTablaPersona(List<VehiculoNuevoDTO> vehiculos) {
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
@@ -103,6 +113,11 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
         tblVehiculos.getColumnModel().getColumn(tblVehiculos.getColumnCount() - 1).setCellEditor(buttonColumn);
     }
 
+    /**
+     * Permite llenar la tabla con los vehículos consultados.
+     *
+     * @param vehiculos La lista de vehículos consultados
+     */
     private void llenarTablaPlaca(VehiculoNuevoDTO vehiculo) {
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override

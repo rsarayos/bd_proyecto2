@@ -9,7 +9,7 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
  * Interfaz que define las operaciones para acceder a los datos de
  * personas en la base de datos.
  */
-public interface IPersonaDAO {
+public interface IPersonasDAO {
 
     /**
      * Método que nos permite agregar un grupo de 20 personas nueva

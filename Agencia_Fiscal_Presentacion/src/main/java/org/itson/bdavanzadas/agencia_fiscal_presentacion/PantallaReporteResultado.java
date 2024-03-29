@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.itson.bdavanzadas.agencia_fiscal_bos.GeneradorReportesBO;
 import org.itson.bdavanzadas.agencia_fiscal_bos.IGeneradorReportesBO;
-import org.itson.bdavanzadas.agencia_fiscal_dtos.ReporteTramiteDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.TramiteReporteDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
 public class PantallaReporteResultado extends javax.swing.JDialog {
@@ -20,7 +20,7 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
      * @param modal
      * @param listaReporte
      */
-    public PantallaReporteResultado(java.awt.Frame parent, boolean modal, List<ReporteTramiteDTO> listaReporte) {
+    public PantallaReporteResultado(java.awt.Frame parent, boolean modal, List<TramiteReporteDTO> listaReporte) {
         super(parent, modal);
         initComponents();
         this.listaReporte = listaReporte;
@@ -181,7 +181,7 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnGenerarPDFActionPerformed
 
-    private void llenarTabla(List<ReporteTramiteDTO> listaReporte) {
+    private void llenarTabla(List<TramiteReporteDTO> listaReporte) {
 
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
@@ -196,7 +196,7 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
         modelo.addColumn("COSTO");
 
         // Agregar los socios al modelo de la tabla
-        for (ReporteTramiteDTO tramite: listaReporte) {
+        for (TramiteReporteDTO tramite: listaReporte) {
             String fechaRealización = tramite.getFecha().get(Calendar.DAY_OF_MONTH) + "/" + (tramite.getFecha().get(Calendar.MONTH) + 1) + "/" + tramite.getFecha().get(Calendar.YEAR);  String tipoTramite = null;
             Object[] fila = {tramite.getTipo(), fechaRealización, tramite.getNombre(), NumberFormat.getCurrencyInstance().format(tramite.getCosto())};
             modelo.addRow(fila);
@@ -214,6 +214,6 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tblTramites;
     // End of variables declaration//GEN-END:variables
-    private List<ReporteTramiteDTO> listaReporte;
+    private List<TramiteReporteDTO> listaReporte;
     private IGeneradorReportesBO generadorReportes;
 }

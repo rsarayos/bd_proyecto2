@@ -56,6 +56,13 @@ public class TramitesDAO implements ITramitesDAO {
         }
     }
 
+    /**
+     * Permite consultar trámites que cumplan con el filtro establecido.
+     *
+     * @param filtro El filtro que se aplicará a la consulta de trámites
+     * @return La lista de los trámites consultados
+     * @throws PersistenciaException Si no se pueden consultar los trámites
+     */
     @Override
     public List<Tramite> consultarTramites(FiltroReportes filtro) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();

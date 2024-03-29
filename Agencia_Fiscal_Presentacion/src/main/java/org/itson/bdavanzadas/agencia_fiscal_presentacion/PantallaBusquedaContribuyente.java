@@ -253,6 +253,11 @@ public class PantallaBusquedaContribuyente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    /**
+     * Permite llenar la tabla con la lista de personas obtenida del sistema.
+     *
+     * @param personas La lista de personas obtenida del sistema
+     */
     private void llenarTabla(List<PersonaNuevaDTO> personas) {
 
         DefaultTableModel modelo = new DefaultTableModel() {
@@ -272,7 +277,7 @@ public class PantallaBusquedaContribuyente extends javax.swing.JDialog {
 
             String fechaNacimiento = persona.getFechaNacimiento().get(Calendar.DAY_OF_MONTH) + "/" + (persona.getFechaNacimiento().get(Calendar.MONTH) + 1) + "/" + persona.getFechaNacimiento().get(Calendar.YEAR);
 
-            Object[] fila = {persona.getNombres() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno(), fechaNacimiento, persona.getRfc(), persona.isDiscapacitado()? "Discapacitado":"No discapacitado", "SELECCIONAR"};
+            Object[] fila = {persona.getNombres() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno(), fechaNacimiento, persona.getRfc(), persona.isDiscapacitado() ? "Discapacitado" : "No discapacitado", "SELECCIONAR"};
             modelo.addRow(fila);
         }
         tblContribuyentes.setModel(modelo);

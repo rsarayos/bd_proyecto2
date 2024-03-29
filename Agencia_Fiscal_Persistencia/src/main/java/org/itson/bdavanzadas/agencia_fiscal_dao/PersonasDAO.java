@@ -15,10 +15,10 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
  * Clase que implementa las operaciones para acceder a los datos de personas en
  * la base de datos.
  */
-public class PersonaDAO implements IPersonaDAO {
+public class PersonasDAO implements IPersonasDAO {
 
     private final IConexion conexion;
-    static final Logger logger = Logger.getLogger(PersonaDAO.class.getName());
+    static final Logger logger = Logger.getLogger(PersonasDAO.class.getName());
     private Encriptar encriptar;
 
     /**
@@ -27,7 +27,7 @@ public class PersonaDAO implements IPersonaDAO {
      *
      * @param conexion Conexión con la Entity Manager Factory
      */
-    public PersonaDAO(IConexion conexion) {
+    public PersonasDAO(IConexion conexion) {
         this.conexion = conexion;
         encriptar = new Encriptar();
     }
@@ -67,7 +67,7 @@ public class PersonaDAO implements IPersonaDAO {
             t19 = encriptar.encriptar("6446543210");
             t20 = encriptar.encriptar("6443210987");
         } catch (Exception ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, "Error al encriptar los teléfonos", ex);
+            Logger.getLogger(PersonasDAO.class.getName()).log(Level.SEVERE, "Error al encriptar los teléfonos", ex);
         }
 
         EntityManager entityManager = conexion.crearConexion();

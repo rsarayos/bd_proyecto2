@@ -16,13 +16,8 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.LicenciaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
-import static org.itson.bdavanzadas.agencia_fiscal_presentacion.PantallaBusquedaVehiculos.logger;
 import org.itson.bdavanzadas.agencia_fiscal_presentacion.validadores.Validadores;
 
-/**
- *
- * @author victo
- */
 public class PantallaAgregarVehiculo extends javax.swing.JDialog {
 
     private PersonaNuevaDTO persona;
@@ -36,6 +31,9 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaAgregarVehiculo
+     *
+     * @param parent
+     * @param modal
      */
     public PantallaAgregarVehiculo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -47,6 +45,9 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         this.gestorVehiculo = new GestorVehiculosBO();
     }
 
+    /**
+     * Permite agregar un vehículo nuevo al sistema.
+     */
     private void agregarVehiculo() {
         String noSerie = txtNoSerie.getText();
         String marca = txtMarca.getText();
@@ -55,7 +56,7 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         String modelo = txtModelo.getText();
 
         vehiculoNuevo = new VehiculoNuevoDTO(noSerie, color, modelo, linea, marca, persona);
-        
+
         try {
             gestorVehiculo.agregarVehiculo(vehiculoNuevo);
         } catch (NegociosException ex) {
@@ -324,15 +325,15 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         if (!txtNombrePersona.getText().isBlank()) {
-            if (validador.validaNoSerie(txtNoSerie.getText()) && validador.validaMarca(txtMarca.getText())&& validador.validaLinea(txtLinea.getText())
+            if (validador.validaNoSerie(txtNoSerie.getText()) && validador.validaMarca(txtMarca.getText()) && validador.validaLinea(txtLinea.getText())
                     && validador.validaMarca(txtMarca.getText()) && validador.validaLinea(txtLinea.getText()) && validador.validaColor(txtColor.getText())
                     && validador.validaModelo(txtModelo.getText())) {
-                                agregarVehiculo();
-                                JOptionPane.showMessageDialog(this, "Se agregó el vehículo correctamente.",
-                                        "Información", JOptionPane.INFORMATION_MESSAGE);
-                                PantallaPlacasVehiculo pPlacasVehiculo = new PantallaPlacasVehiculo(parent, true, vehiculoNuevo);
-                                pPlacasVehiculo.setVisible(true);
-                                dispose();
+                agregarVehiculo();
+                JOptionPane.showMessageDialog(this, "Se agregó el vehículo correctamente.",
+                        "Información", JOptionPane.INFORMATION_MESSAGE);
+                PantallaPlacasVehiculo pPlacasVehiculo = new PantallaPlacasVehiculo(parent, true, vehiculoNuevo);
+                pPlacasVehiculo.setVisible(true);
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Asegúrse de ingresar los datos del vehículo correctamente.",
                         "Error", JOptionPane.INFORMATION_MESSAGE);
@@ -359,11 +360,11 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
 
                     if (licencias != null && !licencias.isEmpty()) {
                         LicenciaNuevaDTO ultimaLicencia = licencias.get(licencias.size() - 1);
-                        if(ultimaLicencia.getEstado()){
-                            txtNombrePersona.setText(persona.getNombres()+" "+ persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
-                        }else{
+                        if (ultimaLicencia.getEstado()) {
+                            txtNombrePersona.setText(persona.getNombres() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno());
+                        } else {
                             JOptionPane.showMessageDialog(this, "El contribuyente no cuenta con una licencia activa",
-                                "Error", JOptionPane.ERROR_MESSAGE);
+                                    "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "El contribuyente no cuenta con una licencia",

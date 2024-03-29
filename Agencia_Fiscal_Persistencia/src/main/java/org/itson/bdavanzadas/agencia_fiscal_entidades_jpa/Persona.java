@@ -1,4 +1,3 @@
-
 package org.itson.bdavanzadas.agencia_fiscal_entidades_jpa;
 
 import java.io.Serializable;

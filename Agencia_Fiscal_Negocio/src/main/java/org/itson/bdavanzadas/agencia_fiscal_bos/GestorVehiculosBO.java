@@ -7,11 +7,9 @@ import java.util.logging.Logger;
 import org.itson.bdavanzadas.agencia_fiscal_auxiliar.Encriptar;
 import org.itson.bdavanzadas.agencia_fiscal_dao.Conexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
-import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonaDAO;
-import org.itson.bdavanzadas.agencia_fiscal_dao.IPlacaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IVehiculosDAO;
-import org.itson.bdavanzadas.agencia_fiscal_dao.PersonaDAO;
-import org.itson.bdavanzadas.agencia_fiscal_dao.PlacaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.PersonasDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.PlacasDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.VehiculosDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
@@ -21,25 +19,27 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOException;
+import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonasDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.IPlacasDAO;
 
 public class GestorVehiculosBO implements IGestorVehiculosBO {
 
     private final IConexion conexion;
     private final IVehiculosDAO vehiculosDAO;
-    private final IPersonaDAO personasDAO;
-    private final IPlacaDAO placaDAO;
+    private final IPersonasDAO personasDAO;
+    private final IPlacasDAO placaDAO;
     private Encriptar encriptar;
 
     /**
      * Constructor por defecto que permite inicializar la conexión con las DAOs
-     * utilizadas, además inicializa la clase para encriptar y desencriptar el 
+     * utilizadas, además inicializa la clase para encriptar y desencriptar el
      * teléfono de la persona.
      */
     public GestorVehiculosBO() {
         conexion = new Conexion();
         vehiculosDAO = new VehiculosDAO(conexion);
-        personasDAO = new PersonaDAO(conexion);
-        placaDAO = new PlacaDAO(conexion);
+        personasDAO = new PersonasDAO(conexion);
+        placaDAO = new PlacasDAO(conexion);
         encriptar = new Encriptar();
     }
 
@@ -104,7 +104,7 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
         } catch (Exception ex) {
             Logger.getLogger(RegistroPlacaBO.class.getName()).log(Level.SEVERE, "Error al desencriptar teléfono", ex);
         }
-        
+
         VehiculoNuevoDTO vehiculoBuscado = new VehiculoNuevoDTO(
                 vehiculo.getNumeroSerie(),
                 vehiculo.getColor(),
@@ -112,7 +112,7 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
                 vehiculo.getLinea(),
                 vehiculo.getMarca(),
                 persona);
-        
+
         return vehiculoBuscado;
     }
 

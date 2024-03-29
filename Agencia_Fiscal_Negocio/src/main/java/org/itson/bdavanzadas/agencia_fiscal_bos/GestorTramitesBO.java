@@ -2,13 +2,10 @@ package org.itson.bdavanzadas.agencia_fiscal_bos;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.itson.bdavanzadas.agencia_fiscal_dao.Conexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
-import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonaDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.ITramitesDAO;
-import org.itson.bdavanzadas.agencia_fiscal_dao.PersonaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.PersonasDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.TramitesDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.TramiteDTO;
@@ -19,11 +16,12 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Tramite;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOException;
+import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonasDAO;
 
 public class GestorTramitesBO implements IGestorTramitesBO {
 
     private IConexion conexion;
-    private IPersonaDAO personasDAO;
+    private IPersonasDAO personasDAO;
     private ITramitesDAO tramitesDAO;
 
     /**
@@ -32,7 +30,7 @@ public class GestorTramitesBO implements IGestorTramitesBO {
      */
     public GestorTramitesBO() {
         this.conexion = new Conexion();
-        personasDAO = new PersonaDAO(conexion);
+        personasDAO = new PersonasDAO(conexion);
         tramitesDAO = new TramitesDAO(conexion);
     }
 

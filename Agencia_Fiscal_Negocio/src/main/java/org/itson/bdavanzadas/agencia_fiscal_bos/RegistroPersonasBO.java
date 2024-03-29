@@ -8,23 +8,19 @@ import org.itson.bdavanzadas.agencia_fiscal_auxiliar.Encriptar;
 import org.itson.bdavanzadas.agencia_fiscal_auxiliar.FiltroPersonas;
 import org.itson.bdavanzadas.agencia_fiscal_dao.Conexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
-import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonaDAO;
-import org.itson.bdavanzadas.agencia_fiscal_dao.PersonaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.PersonasDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroPersonasDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
+import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonasDAO;
 
-/**
- *
- * @author victo
- */
 public class RegistroPersonasBO implements IRegistroPersonasBO {
 
     static final Logger logger = Logger.getLogger(RegistroPersonasBO.class.getName());
     private IConexion conexion;
-    private IPersonaDAO personaDAO;
+    private IPersonasDAO personaDAO;
     private Encriptar encriptar;
 
     /**
@@ -34,7 +30,7 @@ public class RegistroPersonasBO implements IRegistroPersonasBO {
      */
     public RegistroPersonasBO() {
         conexion = new Conexion();
-        personaDAO = new PersonaDAO(conexion);
+        personaDAO = new PersonasDAO(conexion);
         encriptar = new Encriptar();
     }
 

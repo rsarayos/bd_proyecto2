@@ -5,10 +5,6 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroPersonasDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
-/**
- *
- * @author victo
- */
 public interface IRegistroPersonasBO {
 
     /**

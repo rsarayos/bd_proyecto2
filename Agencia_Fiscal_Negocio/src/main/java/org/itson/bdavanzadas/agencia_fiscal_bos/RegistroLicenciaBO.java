@@ -6,10 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.itson.bdavanzadas.agencia_fiscal_dao.Conexion;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IConexion;
-import org.itson.bdavanzadas.agencia_fiscal_dao.ILicenciaDAO;
-import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonaDAO;
-import org.itson.bdavanzadas.agencia_fiscal_dao.LicenciaDAO;
-import org.itson.bdavanzadas.agencia_fiscal_dao.PersonaDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.LicenciasDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.PersonasDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.LicenciaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Licencia;
@@ -17,6 +15,8 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOException;
+import org.itson.bdavanzadas.agencia_fiscal_dao.ILicenciasDAO;
+import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonasDAO;
 
 /**
  * La clase RegistroLicenciaBO implementa la interfaz IRegistroLicenciaBO y
@@ -26,8 +26,8 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOExc
 public class RegistroLicenciaBO implements IRegistroLicenciaBO {
 
     private final IConexion conexion;
-    private final ILicenciaDAO licenciaDAO;
-    private final IPersonaDAO personaDAO;
+    private final ILicenciasDAO licenciaDAO;
+    private final IPersonasDAO personaDAO;
     static final Logger logger = Logger.getLogger(RegistroLicenciaBO.class.getName());
 
     /**
@@ -37,8 +37,8 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO {
      */
     public RegistroLicenciaBO() {
         conexion = new Conexion();
-        licenciaDAO = new LicenciaDAO(conexion);
-        personaDAO = new PersonaDAO(conexion);
+        licenciaDAO = new LicenciasDAO(conexion);
+        personaDAO = new PersonasDAO(conexion);
     }
 
     /**
