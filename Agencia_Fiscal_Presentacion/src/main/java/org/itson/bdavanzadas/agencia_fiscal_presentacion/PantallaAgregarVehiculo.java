@@ -20,15 +20,6 @@ import org.itson.bdavanzadas.agencia_fiscal_presentacion.validadores.Validadores
 
 public class PantallaAgregarVehiculo extends javax.swing.JDialog {
 
-    private PersonaNuevaDTO persona;
-    private VehiculoNuevoDTO vehiculoNuevo;
-    private Validadores validador;
-    private IRegistroPersonasBO registroPersona;
-    private IRegistroLicenciaBO registroLicencia;
-    private IGestorVehiculosBO gestorVehiculo;
-    private Frame parent;
-    static final Logger logger = Logger.getLogger(PantallaAgregarVehiculo.class.getName());
-
     /**
      * Creates new form PantallaAgregarVehiculo
      *
@@ -407,4 +398,12 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
     private javax.swing.JTextField txtNombrePersona;
     private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
+    private PersonaNuevaDTO persona;
+    private VehiculoNuevoDTO vehiculoNuevo;
+    private Validadores validador;
+    private IRegistroPersonasBO registroPersona;
+    private IRegistroLicenciaBO registroLicencia;
+    private IGestorVehiculosBO gestorVehiculo;
+    private Frame parent;
+    static final Logger logger = Logger.getLogger(PantallaAgregarVehiculo.class.getName());
 }

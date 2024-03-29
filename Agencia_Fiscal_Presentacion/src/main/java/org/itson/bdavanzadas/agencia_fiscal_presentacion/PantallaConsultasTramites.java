@@ -4,7 +4,6 @@ import java.awt.Frame;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.itson.bdavanzadas.agencia_fiscal_bos.GestorTramitesBO;
@@ -183,6 +182,11 @@ public class PantallaConsultasTramites extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    /**
+     * Permite llenar la tabla con los trámites consultados.
+     *
+     * @param tramites Los trámites consultados
+     */
     private void llenarTabla(List<TramiteDTO> tramites) {
 
         DefaultTableModel modelo = new DefaultTableModel() {
@@ -191,27 +195,32 @@ public class PantallaConsultasTramites extends javax.swing.JDialog {
                 return column == getColumnCount() - 1; // Solo la última columna es editable
             }
         };
-        
+
         modelo.addColumn("TIPO DE TRÁMITE");
         modelo.addColumn("FECHA DE REALIZACIÓN");
         modelo.addColumn("COSTO");
 
         // Agregar los socios al modelo de la tabla
-        for (TramiteDTO tramite: tramites) {
-            String fechaRealización = tramite.getFechaTramite().get(Calendar.DAY_OF_MONTH) + "/" + (tramite.getFechaTramite().get(Calendar.MONTH) + 1) 
+        for (TramiteDTO tramite : tramites) {
+            String fechaRealización = tramite.getFechaTramite().get(Calendar.DAY_OF_MONTH) + "/" + (tramite.getFechaTramite().get(Calendar.MONTH) + 1)
                     + "/" + tramite.getFechaTramite().get(Calendar.YEAR) + ", " + tramite.getFechaTramite().get(Calendar.HOUR_OF_DAY) + ":" + tramite.getFechaTramite().get(Calendar.MINUTE);
             Object[] fila = {tramite.getTipo(), fechaRealización, NumberFormat.getCurrencyInstance().format(tramite.getCosto())};
             modelo.addRow(fila);
         }
         tblContribuyentes.setModel(modelo);
     }
-    
-    private void consultarTramites(PersonaNuevaDTO persona){
+
+    /**
+     * Permite obtener los trámites realizados por una persona.
+     *
+     * @param persona La persona de la cual se quieren obtener los trámites
+     */
+    private void consultarTramites(PersonaNuevaDTO persona) {
         try {
             List<TramiteDTO> tramites = gestorTramites.consultarTramites(persona);
             llenarTabla(tramites);
         } catch (NegociosException ex) {
-            JOptionPane.showMessageDialog(this, "No se pudieron consultar los trámites.", 
+            JOptionPane.showMessageDialog(this, "No se pudieron consultar los trámites.",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -230,5 +239,4 @@ public class PantallaConsultasTramites extends javax.swing.JDialog {
     private Frame parent;
     private IGestorTramitesBO gestorTramites;
     private PersonaNuevaDTO persona;
-    static final Logger logger = Logger.getLogger(PantallaConsultasTramites.class.getName());
 }

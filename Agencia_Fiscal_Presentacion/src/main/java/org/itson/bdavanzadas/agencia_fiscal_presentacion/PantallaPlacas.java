@@ -16,10 +16,6 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosExceptio
 import org.itson.bdavanzadas.agencia_fiscal_negocioAux.GenerarNumeroPlaca;
 import org.itson.bdavanzadas.agencia_fiscal_negocioAux.PreciosTramites;
 
-/**
- *
- * @author victo
- */
 public class PantallaPlacas extends javax.swing.JDialog {
 
     private VehiculoNuevoDTO vehiculo;
@@ -29,6 +25,10 @@ public class PantallaPlacas extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaPlacas
+     *
+     * @param parent
+     * @param modal
+     * @param vehiculo
      */
     public PantallaPlacas(java.awt.Frame parent, boolean modal, VehiculoNuevoDTO vehiculo) {
         super(parent, modal);
@@ -39,6 +39,9 @@ public class PantallaPlacas extends javax.swing.JDialog {
         llenarDatosPlaca();
     }
 
+    /**
+     * Permite mostrar los datos de las placas que se van a registrar.
+     */
     private void llenarDatosPlaca() {
 
         List<PlacaNuevaDTO> placas = new LinkedList<>();
@@ -312,7 +315,7 @@ public class PantallaPlacas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        PlacaNuevaDTO placaNueva = new PlacaNuevaDTO(txtNoPlaca.getText(),null,true, vehiculo, Calendar.getInstance(), costo, vehiculo.getPersona());
+        PlacaNuevaDTO placaNueva = new PlacaNuevaDTO(txtNoPlaca.getText(), null, true, vehiculo, Calendar.getInstance(), costo, vehiculo.getPersona());
         try {
             PlacaNuevaDTO placaCorrecta = registroPlaca.tramitarPlaca(placaNueva);
             if (placaCorrecta != null) {

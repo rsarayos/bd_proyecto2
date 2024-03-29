@@ -9,6 +9,7 @@ public class PantallaContribuyentes extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaAgregarPersonas
+     *
      * @param parent
      * @param modal
      */
@@ -149,10 +150,10 @@ public class PantallaContribuyentes extends javax.swing.JDialog {
         IRegistroPersonasBO registroPersona = new RegistroPersonasBO();
         try {
             registroPersona.agregarPersonas();
-            JOptionPane.showMessageDialog(this, "Se registraron las personas en el sistema.", 
+            JOptionPane.showMessageDialog(this, "Se registraron las personas en el sistema.",
                     "Información", JOptionPane.INFORMATION_MESSAGE);
         } catch (NegociosException ex) {
-            JOptionPane.showMessageDialog(this, "Ya se registraron las personas anteriormente.", 
+            JOptionPane.showMessageDialog(this, "Ya se registraron las personas anteriormente.",
                     "Información", JOptionPane.INFORMATION_MESSAGE);
         }
         dispose();

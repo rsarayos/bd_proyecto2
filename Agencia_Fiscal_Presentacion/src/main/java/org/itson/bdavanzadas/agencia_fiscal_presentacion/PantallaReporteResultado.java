@@ -16,6 +16,7 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaReporteResultado
+     *
      * @param parent
      * @param modal
      * @param listaReporte
@@ -183,6 +184,11 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnGenerarPDFActionPerformed
 
+    /**
+     * Permite mostrar los trámites consultados en la tabla del reporte.
+     *
+     * @param listaReporte Los trámites del reporte
+     */
     private void llenarTabla(List<TramiteReporteDTO> listaReporte) {
 
         DefaultTableModel modelo = new DefaultTableModel() {
@@ -191,24 +197,24 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
                 return column == getColumnCount() - 1; // Solo la última columna es editable
             }
         };
-        
+
         modelo.addColumn("TIPO DE TRÁMITE");
         modelo.addColumn("FECHA DE REALIZACIÓN");
         modelo.addColumn("CONTRIBUYENTE");
         modelo.addColumn("COSTO");
 
         // Agregar los socios al modelo de la tabla
-        for (TramiteReporteDTO tramite: listaReporte) {
+        for (TramiteReporteDTO tramite : listaReporte) {
             Calendar fecha = Calendar.getInstance();
             fecha.setTime(tramite.getFecha());
-            String fechaRealización = fecha.get(Calendar.DAY_OF_MONTH) + "/" + (fecha.get(Calendar.MONTH) + 1) 
+            String fechaRealización = fecha.get(Calendar.DAY_OF_MONTH) + "/" + (fecha.get(Calendar.MONTH) + 1)
                     + "/" + fecha.get(Calendar.YEAR) + ", " + fecha.get(Calendar.HOUR_OF_DAY) + ":" + fecha.get(Calendar.MINUTE);
             Object[] fila = {tramite.getTipo(), fechaRealización, tramite.getNombre(), NumberFormat.getCurrencyInstance().format(tramite.getCosto())};
             modelo.addRow(fila);
         }
         tblTramites.setModel(modelo);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenerarPDF;
     private javax.swing.JButton btnSalir;

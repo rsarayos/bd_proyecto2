@@ -334,6 +334,9 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
         txtCosto.setText(NumberFormat.getCurrencyInstance().format(PreciosTramites.obtenerCostoLicencia(TipoLicencia.TRES_ANIOS, persona.isDiscapacitado())));
     }//GEN-LAST:event_rbtTresAniosActionPerformed
 
+    /**
+     * Permite capturar los datos ingresados y usarlos para registrar una licencia.
+     */
     private void registrarLicencia() {
         // Crea una fecha actual para calcular la fecha de vencimiento de la licencia
         Calendar fechaVencimiento = new GregorianCalendar();
