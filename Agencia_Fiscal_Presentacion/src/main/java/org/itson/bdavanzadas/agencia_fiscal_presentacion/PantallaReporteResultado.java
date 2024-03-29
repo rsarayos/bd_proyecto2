@@ -178,6 +178,7 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
             generadorReportes.generarReporte(listaReporte);
         } catch (NegociosException ex) {
             JOptionPane.showMessageDialog(this, "No se pudo generar el archivo PDF.");
+            Logger.getLogger(GeneradorReportesBO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnGenerarPDFActionPerformed
 
@@ -197,7 +198,9 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
 
         // Agregar los socios al modelo de la tabla
         for (TramiteReporteDTO tramite: listaReporte) {
-            String fechaRealización = tramite.getFecha().get(Calendar.DAY_OF_MONTH) + "/" + (tramite.getFecha().get(Calendar.MONTH) + 1) + "/" + tramite.getFecha().get(Calendar.YEAR);  String tipoTramite = null;
+            Calendar fecha = Calendar.getInstance();
+            fecha.setTime(tramite.getFecha());
+            String fechaRealización = fecha.get(Calendar.DAY_OF_MONTH) + "/" + (fecha.get(Calendar.MONTH) + 1) + "/" + fecha.get(Calendar.YEAR);  String tipoTramite = null;
             Object[] fila = {tramite.getTipo(), fechaRealización, tramite.getNombre(), NumberFormat.getCurrencyInstance().format(tramite.getCosto())};
             modelo.addRow(fila);
         }

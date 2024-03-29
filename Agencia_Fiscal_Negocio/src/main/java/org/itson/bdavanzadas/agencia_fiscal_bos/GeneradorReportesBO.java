@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +88,7 @@ public class GeneradorReportesBO implements IGeneradorReportesBO {
                     tipoTramite = "Placa";
                 }
 
-                Calendar fecha = tm.getFechaTramite();
+                Date fecha = tm.getFechaTramite().getTime();
 
                 TramiteReporteDTO tramiteReporte = new TramiteReporteDTO(
                         fecha,
