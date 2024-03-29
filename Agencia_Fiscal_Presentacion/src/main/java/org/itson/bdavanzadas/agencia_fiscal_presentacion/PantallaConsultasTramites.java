@@ -198,7 +198,8 @@ public class PantallaConsultasTramites extends javax.swing.JDialog {
 
         // Agregar los socios al modelo de la tabla
         for (TramiteDTO tramite: tramites) {
-            String fechaRealización = tramite.getFechaTramite().get(Calendar.DAY_OF_MONTH) + "/" + (tramite.getFechaTramite().get(Calendar.MONTH) + 1) + "/" + tramite.getFechaTramite().get(Calendar.YEAR);  String tipoTramite = null;
+            String fechaRealización = tramite.getFechaTramite().get(Calendar.DAY_OF_MONTH) + "/" + (tramite.getFechaTramite().get(Calendar.MONTH) + 1) 
+                    + "/" + tramite.getFechaTramite().get(Calendar.YEAR) + ", " + tramite.getFechaTramite().get(Calendar.HOUR_OF_DAY) + ":" + tramite.getFechaTramite().get(Calendar.MINUTE);
             Object[] fila = {tramite.getTipo(), fechaRealización, NumberFormat.getCurrencyInstance().format(tramite.getCosto())};
             modelo.addRow(fila);
         }

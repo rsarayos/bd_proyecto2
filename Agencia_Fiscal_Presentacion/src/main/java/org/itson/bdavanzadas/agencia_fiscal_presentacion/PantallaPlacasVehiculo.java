@@ -1,4 +1,3 @@
-
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
 import java.awt.Font;
@@ -25,7 +24,7 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
     private VehiculoNuevoDTO vehiculo;
     private IRegistroPlacaBO registroPlaca;
     private Frame parent;
-    
+
     /**
      * Creates new form PantallaPlacasVehiculo
      */
@@ -38,8 +37,8 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
         llenarTablaPlacas();
     }
 
-    private void llenarTablaPlacas(){
-    DefaultTableModel modelo = new DefaultTableModel();
+    private void llenarTablaPlacas() {
+        DefaultTableModel modelo = new DefaultTableModel();
 
         modelo.addColumn("NO. PLACA");
         modelo.addColumn("FECHA TRÁMITE");
@@ -53,20 +52,21 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
         } catch (NegociosException ne) {
             Logger.getLogger(PantallaPlacas.class.getName()).log(Level.SEVERE, ne.getMessage());
         }
-        
+
         for (PlacaNuevaDTO placa : placas) {
 
-            String fechaTramite = placa.getFechaTramite().get(Calendar.DAY_OF_MONTH) + "/" + (placa.getFechaTramite().get(Calendar.MONTH) + 1) + "/" + placa.getFechaTramite().get(Calendar.YEAR);
-            String vehiculoBusqueda = placa.getVehiculo().getMarca()+" "+placa.getVehiculo().getLinea()+" "+placa.getVehiculo().getColor()+" "+placa.getVehiculo().getModelo();
-            
+            String fechaTramite = placa.getFechaTramite().get(Calendar.DAY_OF_MONTH) + "/" + (placa.getFechaTramite().get(Calendar.MONTH) + 1)
+                    + "/" + placa.getFechaTramite().get(Calendar.YEAR) + ", " + placa.getFechaTramite().get(Calendar.HOUR_OF_DAY) + ":" + placa.getFechaTramite().get(Calendar.MINUTE);
+            String vehiculoBusqueda = placa.getVehiculo().getMarca() + " " + placa.getVehiculo().getLinea() + " " + placa.getVehiculo().getColor() + " " + placa.getVehiculo().getModelo();
+
             String fechaRecepcion;
             if (placa.getFechaRecepcion() != null) {
                 fechaRecepcion = placa.getFechaRecepcion().get(Calendar.DAY_OF_MONTH) + "/" + (placa.getFechaRecepcion().get(Calendar.MONTH) + 1) + "/" + placa.getFechaRecepcion().get(Calendar.YEAR);
-            }else{
+            } else {
                 fechaRecepcion = "-";
             }
-            
-            Object[] fila = {placa.getNumeroPlaca(), fechaTramite, vehiculoBusqueda, (placa.getEstado())? "Activa" : "Desactiva", fechaRecepcion};
+
+            Object[] fila = {placa.getNumeroPlaca(), fechaTramite, vehiculoBusqueda, (placa.getEstado()) ? "Activa" : "Desactiva", fechaRecepcion};
             modelo.addRow(fila);
         }
         tblPlacas.setModel(modelo);
@@ -75,6 +75,7 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
         JTableHeader header = tblPlacas.getTableHeader();
         header.setFont(new Font("Arial", Font.BOLD, 12));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

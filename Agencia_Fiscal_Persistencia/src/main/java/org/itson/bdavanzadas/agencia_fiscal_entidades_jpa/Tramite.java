@@ -34,7 +34,7 @@ public class Tramite implements Serializable {
 
     // Fecha en la que se realizó el trámite
     @Column(name = "fecha_tramite", nullable = false)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar fechaTramite;
 
     // Costo del trámite.

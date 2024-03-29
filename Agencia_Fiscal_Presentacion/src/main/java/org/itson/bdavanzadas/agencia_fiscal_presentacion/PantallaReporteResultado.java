@@ -201,7 +201,8 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
         for (TramiteReporteDTO tramite: listaReporte) {
             Calendar fecha = Calendar.getInstance();
             fecha.setTime(tramite.getFecha());
-            String fechaRealización = fecha.get(Calendar.DAY_OF_MONTH) + "/" + (fecha.get(Calendar.MONTH) + 1) + "/" + fecha.get(Calendar.YEAR);  String tipoTramite = null;
+            String fechaRealización = fecha.get(Calendar.DAY_OF_MONTH) + "/" + (fecha.get(Calendar.MONTH) + 1) 
+                    + "/" + fecha.get(Calendar.YEAR) + ", " + fecha.get(Calendar.HOUR_OF_DAY) + ":" + fecha.get(Calendar.MINUTE);
             Object[] fila = {tramite.getTipo(), fechaRealización, tramite.getNombre(), NumberFormat.getCurrencyInstance().format(tramite.getCosto())};
             modelo.addRow(fila);
         }

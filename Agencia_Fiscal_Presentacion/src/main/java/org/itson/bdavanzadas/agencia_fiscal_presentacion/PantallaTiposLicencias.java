@@ -3,8 +3,6 @@ package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroLicenciaBO;
 import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroLicenciaBO;
