@@ -1,5 +1,6 @@
 package org.itson.bdavanzadas.agencia_fiscal_bos;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -98,13 +99,21 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO {
                         Persona persona = new Persona(personaNueva.getRfc());
                         List<Licencia> licencias = licenciaDAO.obtenerLicencias(persona);
                         for (Licencia lic : licencias) {
+                             boolean vigencia = true;
+                            // Verificar si la licencia está vencida
+                            if (lic.getFechaVencimiento().getTime().before(Calendar.getInstance().getTime())) {
+                                // Actualizar el estado de la licencia
+                                licenciaDAO.modificarVigencia(lic);
+                                vigencia = false;
+                                logger.log(Level.INFO, "Se cambia vigencias");
+                            }
                             licenciasDT.add(new LicenciaNuevaDTO(
                                     lic.getId(),
                                     lic.getFechaVencimiento(),
                                     lic.getFechaTramite(),
                                     lic.getCosto(),
                                     personaNueva,
-                                    lic.getEstado()));
+                                    vigencia));
                         }
 
                     } catch (PersistenciaException ex) {
