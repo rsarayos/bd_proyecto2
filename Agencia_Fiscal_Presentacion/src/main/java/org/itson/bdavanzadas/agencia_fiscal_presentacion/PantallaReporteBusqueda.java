@@ -12,10 +12,9 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosExceptio
 
 public class PantallaReporteBusqueda extends javax.swing.JDialog {
 
-    private Frame parent;
-
     /**
      * Creates new form PantallaReporteBusqueda
+     *
      * @param parent
      * @param modal
      */
@@ -24,8 +23,8 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
         initComponents();
         this.parent = parent;
         this.generadorReportes = new GeneradorReportesBO();
-        dpFechaInicial.setEnabled(false);
-        dpFechaFinal.setEnabled(false);
+        dtpFechaInicial.setEnabled(false);
+        dtpFechaFinal.setEnabled(false);
     }
 
     /**
@@ -47,12 +46,12 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
         lblNombre1 = new javax.swing.JLabel();
         lblFiltrar = new javax.swing.JLabel();
         lblFechaInicial = new javax.swing.JLabel();
-        dpFechaInicial = new com.github.lgooddatepicker.components.DatePicker();
-        dpFechaFinal = new com.github.lgooddatepicker.components.DatePicker();
         btnBuscar = new javax.swing.JButton();
         cbxLicencias = new javax.swing.JCheckBox();
         cbxPlacas = new javax.swing.JCheckBox();
         cbxPeriodo = new javax.swing.JCheckBox();
+        dtpFechaInicial = new com.github.lgooddatepicker.components.DateTimePicker();
+        dtpFechaFinal = new com.github.lgooddatepicker.components.DateTimePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reportes");
@@ -115,10 +114,6 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
         lblFechaInicial.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblFechaInicial.setForeground(new java.awt.Color(119, 119, 119));
 
-        dpFechaInicial.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-
-        dpFechaFinal.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-
         btnBuscar.setText("BUSCAR");
         btnBuscar.setBackground(new java.awt.Color(159, 34, 65));
         btnBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -131,24 +126,29 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
             }
         });
 
-        cbxLicencias.setBackground(new java.awt.Color(223, 223, 223));
-        cbxLicencias.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         cbxLicencias.setText("LICENCIAS");
+        cbxLicencias.setBackground(new java.awt.Color(223, 223, 223));
         cbxLicencias.setFocusPainted(false);
+        cbxLicencias.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        cbxPlacas.setBackground(new java.awt.Color(223, 223, 223));
-        cbxPlacas.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         cbxPlacas.setText("PLACAS");
+        cbxPlacas.setBackground(new java.awt.Color(223, 223, 223));
         cbxPlacas.setFocusPainted(false);
+        cbxPlacas.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        cbxPeriodo.setBackground(new java.awt.Color(223, 223, 223));
-        cbxPeriodo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         cbxPeriodo.setText("PERIODO");
+        cbxPeriodo.setBackground(new java.awt.Color(223, 223, 223));
+        cbxPeriodo.setFocusPainted(false);
+        cbxPeriodo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         cbxPeriodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxPeriodoActionPerformed(evt);
             }
         });
+
+        dtpFechaInicial.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+
+        dtpFechaFinal.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -176,21 +176,21 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(127, 127, 127))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(lblFechaInicial)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dpFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblFechaFinal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dpFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(127, 127, 127)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(127, 127, 127))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(lblFechaInicial)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dtpFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblFechaFinal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dtpFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,13 +208,13 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
                     .addComponent(cbxLicencias)
                     .addComponent(cbxPlacas)
                     .addComponent(cbxPeriodo))
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFechaInicial)
-                    .addComponent(dpFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFechaFinal)
-                    .addComponent(dpFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
+                    .addComponent(dtpFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtpFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -257,16 +257,17 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
 
     private void cbxPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPeriodoActionPerformed
         if (cbxPeriodo.isSelected()) {
-            dpFechaInicial.setEnabled(true);
-            dpFechaFinal.setEnabled(true);
+            dtpFechaInicial.setEnabled(true);
+            dtpFechaFinal.setEnabled(true);
         } else if (!cbxPeriodo.isSelected()) {
-            dpFechaInicial.setEnabled(false);
-            dpFechaFinal.setEnabled(false);           
+            dtpFechaInicial.setEnabled(false);
+            dtpFechaFinal.setEnabled(false);
         }
     }//GEN-LAST:event_cbxPeriodoActionPerformed
 
     /**
      * Permite crear el filtro para la busqueda de trámites.
+     *
      * @return El filtro creado
      */
     private FiltroReportesDTO crearFiltro() {
@@ -276,13 +277,13 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
         }
         if (cbxLicencias.isSelected() && !cbxPlacas.isSelected()) {
             filtro.setTipoTramites("Licencia");
-        } else if (cbxPlacas.isSelected() && !cbxLicencias.isSelected()){
+        } else if (cbxPlacas.isSelected() && !cbxLicencias.isSelected()) {
             filtro.setTipoTramites("Placa");
         }
         if (cbxPeriodo.isSelected()) {
-            if (dpFechaInicial.getDate() != null && dpFechaFinal.getDate() != null) {
-                GregorianCalendar fechaInicial = new GregorianCalendar(dpFechaInicial.getDate().getYear(), dpFechaInicial.getDate().getMonthValue() - 1, dpFechaInicial.getDate().getDayOfMonth());
-                GregorianCalendar fechaFinal = new GregorianCalendar(dpFechaFinal.getDate().getYear(), dpFechaFinal.getDate().getMonthValue() - 1, dpFechaFinal.getDate().getDayOfMonth());
+            if (dtpFechaInicial.getDateTimePermissive() != null && dtpFechaFinal.getDateTimePermissive()!= null) {
+                GregorianCalendar fechaInicial = new GregorianCalendar(dtpFechaInicial.getDateTimePermissive().getYear(), dtpFechaInicial.getDateTimePermissive().getMonthValue() - 1, dtpFechaInicial.getDateTimePermissive().getDayOfMonth(), dtpFechaInicial.getDateTimePermissive().getHour(), dtpFechaInicial.getDateTimePermissive().getMinute());
+                GregorianCalendar fechaFinal = new GregorianCalendar(dtpFechaFinal.getDateTimePermissive().getYear(), dtpFechaFinal.getDateTimePermissive().getMonthValue() - 1, dtpFechaFinal.getDateTimePermissive().getDayOfMonth(), dtpFechaFinal.getDateTimePermissive().getHour(), dtpFechaFinal.getDateTimePermissive().getMinute());
                 if (fechaInicial.before(fechaFinal)) {
                     filtro.setFechaInicial(fechaInicial);
                     filtro.setFechaFinal(fechaFinal);
@@ -304,8 +305,8 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
     private javax.swing.JCheckBox cbxLicencias;
     private javax.swing.JCheckBox cbxPeriodo;
     private javax.swing.JCheckBox cbxPlacas;
-    private com.github.lgooddatepicker.components.DatePicker dpFechaFinal;
-    private com.github.lgooddatepicker.components.DatePicker dpFechaInicial;
+    private com.github.lgooddatepicker.components.DateTimePicker dtpFechaFinal;
+    private com.github.lgooddatepicker.components.DateTimePicker dtpFechaInicial;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFechaFinal;
@@ -317,4 +318,5 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
     private IGeneradorReportesBO generadorReportes;
+    private Frame parent;
 }
