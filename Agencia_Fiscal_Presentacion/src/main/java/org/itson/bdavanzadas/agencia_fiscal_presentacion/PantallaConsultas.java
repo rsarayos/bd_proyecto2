@@ -254,6 +254,11 @@ public class PantallaConsultas extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    /**
+     * Permite llenar la tabla con las personas consultadas.
+     *
+     * @param personas Las personas consultadas
+     */
     private void llenarTabla(List<PersonaNuevaDTO> personas) {
 
         DefaultTableModel modelo = new DefaultTableModel() {

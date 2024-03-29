@@ -24,15 +24,6 @@ import org.itson.bdavanzadas.agencia_fiscal_presentacion.validadores.Validadores
 
 public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
 
-    private IRegistroPersonasBO registroPersona;
-    private IRegistroLicenciaBO registroLicencia;
-    private IRegistroPlacaBO registroPlaca;
-    private IGestorVehiculosBO gestorVehiculo;
-    private PersonaNuevaDTO persona;
-    private Validadores validador;
-    private Frame parent;
-    static final Logger logger = Logger.getLogger(PantallaBusquedaVehiculos.class.getName());
-
     /**
      * Creates new form PantallaBusquedaVehiculos
      *
@@ -75,7 +66,8 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
     }
 
     /**
-     * Permite llenar la tabla con los vehículos consultados.
+     * Permite llenar la tabla con los vehículos consultados mediante el RFC de
+     * la persona.
      *
      * @param vehiculos La lista de vehículos consultados
      */
@@ -114,7 +106,8 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
     }
 
     /**
-     * Permite llenar la tabla con los vehículos consultados.
+     * Permite llenar la tabla con el vehículo consultado mediante el número de
+     * placa.
      *
      * @param vehiculos La lista de vehículos consultados
      */
@@ -403,4 +396,12 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
     private javax.swing.JTextField txtNoPlaca;
     private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
+    private IRegistroPersonasBO registroPersona;
+    private IRegistroLicenciaBO registroLicencia;
+    private IRegistroPlacaBO registroPlaca;
+    private IGestorVehiculosBO gestorVehiculo;
+    private PersonaNuevaDTO persona;
+    private Validadores validador;
+    private Frame parent;
+    static final Logger logger = Logger.getLogger(PantallaBusquedaVehiculos.class.getName());
 }

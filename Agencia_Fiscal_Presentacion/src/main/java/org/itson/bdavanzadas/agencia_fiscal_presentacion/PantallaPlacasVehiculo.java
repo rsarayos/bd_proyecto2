@@ -27,6 +27,10 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaPlacasVehiculo
+     *
+     * @param parent
+     * @param modal
+     * @param vehiculo
      */
     public PantallaPlacasVehiculo(java.awt.Frame parent, boolean modal, VehiculoNuevoDTO vehiculo) {
         super(parent, modal);
@@ -37,6 +41,10 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
         llenarTablaPlacas();
     }
 
+    /**
+     * Permite llenar la tabla de placas con el historial de placas de un
+     * vehículo.
+     */
     private void llenarTablaPlacas() {
         DefaultTableModel modelo = new DefaultTableModel();
 

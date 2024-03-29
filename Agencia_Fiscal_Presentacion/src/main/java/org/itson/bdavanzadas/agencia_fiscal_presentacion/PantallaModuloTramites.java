@@ -6,6 +6,7 @@ public class PantallaModuloTramites extends javax.swing.JDialog {
 
     /**
      * Creates new form DlgModuloTramites
+     *
      * @param parent
      * @param modal
      */
