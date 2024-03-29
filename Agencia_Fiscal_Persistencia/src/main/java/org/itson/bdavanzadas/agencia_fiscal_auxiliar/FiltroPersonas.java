@@ -1,13 +1,7 @@
-
 package org.itson.bdavanzadas.agencia_fiscal_auxiliar;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
-/**
- *
- * @author victo
- */
 public class FiltroPersonas {
     
     private String nombre;

@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.itson.bdavanzadas.agencia_fiscal_bos.GenerarReporteBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.GeneradorReportesBO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
 public class pruebasNegocio {
@@ -53,13 +53,13 @@ public class pruebasNegocio {
 //            Logger.getLogger(pruebasNegocio.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
-        GenerarReporteBO generarReporte = new GenerarReporteBO();
-        
-        try {
-            generarReporte.generarReporte(generarReporte.generarListaReporte());
-        } catch (NegociosException ex) {
-            Logger.getLogger(pruebasNegocio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        GeneradorReportesBO generarReporte = new GeneradorReportesBO();
+//        
+//        try {
+//            generarReporte.generarReporte(generarReporte.generarListaReporte());
+//        } catch (NegociosException ex) {
+//            Logger.getLogger(pruebasNegocio.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
     }
     

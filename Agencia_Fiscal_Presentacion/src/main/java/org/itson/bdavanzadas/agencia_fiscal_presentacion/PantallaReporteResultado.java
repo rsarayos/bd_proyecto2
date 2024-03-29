@@ -1,21 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
-/**
- *
- * @author victo
- */
+import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.itson.bdavanzadas.agencia_fiscal_bos.GeneradorReportesBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IGeneradorReportesBO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.ReporteTramiteDTO;
+import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
+
 public class PantallaReporteResultado extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaReporteResultado
+     * @param parent
+     * @param modal
+     * @param listaReporte
      */
-    public PantallaReporteResultado(java.awt.Frame parent, boolean modal) {
+    public PantallaReporteResultado(java.awt.Frame parent, boolean modal, List<ReporteTramiteDTO> listaReporte) {
         super(parent, modal);
         initComponents();
+        this.listaReporte = listaReporte;
+        this.generadorReportes = new GeneradorReportesBO();
+        llenarTabla(listaReporte);
     }
 
     /**
@@ -33,7 +43,8 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
         lblInstrucciones = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblContribuyentes = new javax.swing.JTable();
+        tblTramites = new javax.swing.JTable();
+        btnGenerarPDF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -78,13 +89,12 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
             }
         });
 
-        tblContribuyentes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        tblContribuyentes.setModel(new javax.swing.table.DefaultTableModel(
+        tblTramites.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "TIPO DE TRÁMITE", "FECHA DE REALIZACIÓN", "NOMBRE", "COSTO"
+                "TIPO DE TRÁMITE", "FECHA DE REALIZACIÓN", "CONTRIBUYENTE", "COSTO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -95,7 +105,20 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblContribuyentes);
+        tblTramites.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jScrollPane1.setViewportView(tblTramites);
+
+        btnGenerarPDF.setBackground(new java.awt.Color(159, 34, 65));
+        btnGenerarPDF.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        btnGenerarPDF.setForeground(new java.awt.Color(255, 255, 255));
+        btnGenerarPDF.setText("GENERAR PDF");
+        btnGenerarPDF.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnGenerarPDF.setFocusPainted(false);
+        btnGenerarPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarPDFActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,10 +134,10 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addGap(84, 84, 84))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGenerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
+                .addGap(84, 84, 84))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,8 +147,10 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
                 .addComponent(lblInstrucciones)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(btnSalir)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
 
@@ -148,13 +173,47 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnGenerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFActionPerformed
+        try {
+            generadorReportes.generarReporte(listaReporte);
+        } catch (NegociosException ex) {
+            JOptionPane.showMessageDialog(this, "No se pudo generar el archivo PDF.");
+        }
+    }//GEN-LAST:event_btnGenerarPDFActionPerformed
+
+    private void llenarTabla(List<ReporteTramiteDTO> listaReporte) {
+
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == getColumnCount() - 1; // Solo la última columna es editable
+            }
+        };
+        
+        modelo.addColumn("TIPO DE TRÁMITE");
+        modelo.addColumn("FECHA DE REALIZACIÓN");
+        modelo.addColumn("CONTRIBUYENTE");
+        modelo.addColumn("COSTO");
+
+        // Agregar los socios al modelo de la tabla
+        for (ReporteTramiteDTO tramite: listaReporte) {
+            String fechaRealización = tramite.getFecha().get(Calendar.DAY_OF_MONTH) + "/" + (tramite.getFecha().get(Calendar.MONTH) + 1) + "/" + tramite.getFecha().get(Calendar.YEAR);  String tipoTramite = null;
+            Object[] fila = {tramite.getTipo(), fechaRealización, tramite.getNombre(), NumberFormat.getCurrencyInstance().format(tramite.getCosto())};
+            modelo.addRow(fila);
+        }
+        tblTramites.setModel(modelo);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGenerarPDF;
     private javax.swing.JButton btnSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblInstrucciones;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTable tblContribuyentes;
+    private javax.swing.JTable tblTramites;
     // End of variables declaration//GEN-END:variables
+    private List<ReporteTramiteDTO> listaReporte;
+    private IGeneradorReportesBO generadorReportes;
 }

@@ -51,7 +51,7 @@ public class GestorTramitesBO implements IGestorTramitesBO {
             persona.esValido();
 
             Persona personaAuxiliar = new Persona(persona.getRfc());
-            List<Tramite> tramitesConsultados = tramitesDAO.consultarTramites(personaAuxiliar);
+            List<Tramite> tramitesConsultados = tramitesDAO.consultarTramitesPersona(personaAuxiliar);
 
             List<TramiteDTO> tramites = new LinkedList<>();
             for (Tramite tramite : tramitesConsultados) {

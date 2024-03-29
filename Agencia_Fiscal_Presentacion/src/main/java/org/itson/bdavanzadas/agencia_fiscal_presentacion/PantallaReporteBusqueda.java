@@ -1,8 +1,14 @@
-
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
 import java.awt.Frame;
-import javax.swing.ButtonGroup;
+import java.util.GregorianCalendar;
+import java.util.List;
+import javax.swing.JOptionPane;
+import org.itson.bdavanzadas.agencia_fiscal_bos.GeneradorReportesBO;
+import org.itson.bdavanzadas.agencia_fiscal_bos.IGeneradorReportesBO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroReportesDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.ReporteTramiteDTO;
+import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
 /**
  *
@@ -11,18 +17,19 @@ import javax.swing.ButtonGroup;
 public class PantallaReporteBusqueda extends javax.swing.JDialog {
 
     private Frame parent;
-    
+
     /**
      * Creates new form PantallaReporteBusqueda
+     * @param parent
+     * @param modal
      */
     public PantallaReporteBusqueda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.parent = parent;
-        ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(rbtPlacas);
-        buttonGroup.add(rbtLicencias);
-
+        this.generadorReportes = new GeneradorReportesBO();
+        dpFechaInicial.setEnabled(false);
+        dpFechaFinal.setEnabled(false);
     }
 
     /**
@@ -39,17 +46,17 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
         lblTitulo = new javax.swing.JLabel();
         lblInstrucciones = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
-        lblNombre = new javax.swing.JLabel();
+        lblFechaFinal = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        rbtLicencias = new javax.swing.JRadioButton();
-        rbtPlacas = new javax.swing.JRadioButton();
-        rbtPeriodo = new javax.swing.JRadioButton();
         lblNombre1 = new javax.swing.JLabel();
-        lblNombre2 = new javax.swing.JLabel();
-        lblNombre3 = new javax.swing.JLabel();
-        dpFechaNacimiento = new com.github.lgooddatepicker.components.DatePicker();
-        dpFechaNacimiento1 = new com.github.lgooddatepicker.components.DatePicker();
+        lblFiltrar = new javax.swing.JLabel();
+        lblFechaInicial = new javax.swing.JLabel();
+        dpFechaInicial = new com.github.lgooddatepicker.components.DatePicker();
+        dpFechaFinal = new com.github.lgooddatepicker.components.DatePicker();
         btnBuscar = new javax.swing.JButton();
+        cbxLicencias = new javax.swing.JCheckBox();
+        cbxPlacas = new javax.swing.JCheckBox();
+        cbxPeriodo = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -57,9 +64,9 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(119, 119, 119));
 
+        lblTitulo.setText("MÓDULO DE REPORTES");
         lblTitulo.setFont(new java.awt.Font("Arial", 1, 43)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("MÓDULO DE REPORTES");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -78,62 +85,71 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
                 .addGap(17, 17, 17))
         );
 
+        lblInstrucciones.setText("INGRESE ALGÚN CAMPO SI DESEA FILTRAR LOS TRÁMITES");
         lblInstrucciones.setFont(new java.awt.Font("Arial", 1, 27)); // NOI18N
         lblInstrucciones.setForeground(new java.awt.Color(119, 119, 119));
-        lblInstrucciones.setText("INGRESE AL MENOS UN CAMPO PARA BUSCAR AL CONTRIBUYENTE");
 
-        btnCancelar.setBackground(new java.awt.Color(159, 34, 65));
-        btnCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("CANCELAR");
+        btnCancelar.setBackground(new java.awt.Color(159, 34, 65));
         btnCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelar.setFocusPainted(false);
+        btnCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
 
-        lblNombre.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        lblNombre.setText("FECHA FINAL");
+        lblFechaFinal.setText("FECHA FINAL DEL PERIODO");
+        lblFechaFinal.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblFechaFinal.setForeground(new java.awt.Color(119, 119, 119));
 
         txtNombre.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(119, 119, 119));
 
-        rbtLicencias.setBackground(new java.awt.Color(223, 223, 223));
-        rbtLicencias.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        rbtLicencias.setText("LICENCIAS");
-
-        rbtPlacas.setBackground(new java.awt.Color(223, 223, 223));
-        rbtPlacas.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        rbtPlacas.setText("PLACAS");
-
-        rbtPeriodo.setBackground(new java.awt.Color(223, 223, 223));
-        rbtPeriodo.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        rbtPeriodo.setText("PERIODO");
-
+        lblNombre1.setText("CONTRIBUYENTE:");
         lblNombre1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblNombre1.setText("NOMBRE:");
 
-        lblNombre2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblNombre2.setText("FILTRAR TRÁMITES POR:");
+        lblFiltrar.setText("FILTRAR TRÁMITES POR:");
+        lblFiltrar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        lblNombre3.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        lblNombre3.setText("FECHA INICIAL");
+        lblFechaInicial.setText("FECHA INICIAL DEL PERIODO");
+        lblFechaInicial.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblFechaInicial.setForeground(new java.awt.Color(119, 119, 119));
 
-        dpFechaNacimiento.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        dpFechaInicial.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        dpFechaNacimiento1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        dpFechaFinal.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        btnBuscar.setBackground(new java.awt.Color(159, 34, 65));
-        btnBuscar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("BUSCAR");
+        btnBuscar.setBackground(new java.awt.Color(159, 34, 65));
         btnBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnBuscar.setFocusPainted(false);
+        btnBuscar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
+            }
+        });
+
+        cbxLicencias.setBackground(new java.awt.Color(223, 223, 223));
+        cbxLicencias.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        cbxLicencias.setText("LICENCIAS");
+        cbxLicencias.setFocusPainted(false);
+
+        cbxPlacas.setBackground(new java.awt.Color(223, 223, 223));
+        cbxPlacas.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        cbxPlacas.setText("PLACAS");
+        cbxPlacas.setFocusPainted(false);
+
+        cbxPeriodo.setBackground(new java.awt.Color(223, 223, 223));
+        cbxPeriodo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        cbxPeriodo.setText("PERIODO");
+        cbxPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxPeriodoActionPerformed(evt);
             }
         });
 
@@ -142,71 +158,70 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblInstrucciones)
+                .addGap(153, 153, 153))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(92, 127, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblFiltrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbxLicencias)
+                        .addGap(50, 50, 50)
+                        .addComponent(cbxPlacas)
+                        .addGap(50, 50, 50)
+                        .addComponent(cbxPeriodo))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblNombre1)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(127, 127, 127))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(169, 169, 169)
-                            .addComponent(lblNombre1)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(92, 92, 92)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblInstrucciones)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(rbtLicencias)
-                                        .addGap(44, 44, 44)
-                                        .addComponent(rbtPlacas, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(44, 44, 44)
-                                        .addComponent(rbtPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(64, 64, 64)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(dpFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblNombre3))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblNombre)
-                                            .addComponent(dpFechaNacimiento1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(lblNombre2)
-                        .addGap(29, 29, 29)))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGap(79, 79, 79)
+                .addComponent(lblFechaInicial)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dpFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblFechaFinal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dpFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(127, 127, 127)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(127, 127, 127))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(36, 36, 36)
                 .addComponent(lblInstrucciones)
-                .addGap(71, 71, 71)
+                .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNombre1))
-                .addGap(71, 71, 71)
-                .addComponent(lblNombre2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombre3)
-                    .addComponent(lblNombre))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbtPlacas)
-                    .addComponent(rbtPeriodo)
-                    .addComponent(rbtLicencias)
-                    .addComponent(dpFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dpFechaNacimiento1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                    .addComponent(lblFiltrar)
+                    .addComponent(cbxLicencias)
+                    .addComponent(cbxPlacas)
+                    .addComponent(cbxPeriodo))
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblFechaInicial)
+                    .addComponent(dpFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFechaFinal)
+                    .addComponent(dpFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -229,26 +244,76 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        PantallaReporteResultado pReporteResultado = new PantallaReporteResultado(parent, true);
-        pReporteResultado.setVisible(true);
+        FiltroReportesDTO filtro = crearFiltro();
+        List<ReporteTramiteDTO> listaReporte;
+        if (filtro != null) {
+            try {
+                listaReporte = generadorReportes.generarListaReporte(filtro);
+                PantallaReporteResultado pReporteResultado = new PantallaReporteResultado(parent, true, listaReporte);
+                pReporteResultado.setVisible(true);
+            } catch (NegociosException ex) {
+                JOptionPane.showMessageDialog(this, "No se pudo generar el reporte.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void cbxPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPeriodoActionPerformed
+        if (cbxPeriodo.isSelected()) {
+            dpFechaInicial.setEnabled(true);
+            dpFechaFinal.setEnabled(true);
+        } else if (!cbxPeriodo.isSelected()) {
+            dpFechaInicial.setEnabled(false);
+            dpFechaFinal.setEnabled(false);           
+        }
+    }//GEN-LAST:event_cbxPeriodoActionPerformed
+
+    private FiltroReportesDTO crearFiltro() {
+        FiltroReportesDTO filtro = new FiltroReportesDTO();
+        if (!txtNombre.getText().isBlank()) {
+            filtro.setNombreContribuyente(txtNombre.getText());
+        }
+        if (cbxLicencias.isSelected() && !cbxPlacas.isSelected()) {
+            filtro.setTipoTramites("Licencia");
+        } else if (cbxPlacas.isSelected() && !cbxLicencias.isSelected()){
+            filtro.setTipoTramites("Placa");
+        }
+        if (cbxPeriodo.isSelected()) {
+            if (dpFechaInicial.getDate() != null && dpFechaFinal.getDate() != null) {
+                GregorianCalendar fechaInicial = new GregorianCalendar(dpFechaInicial.getDate().getYear(), dpFechaInicial.getDate().getMonthValue() - 1, dpFechaInicial.getDate().getDayOfMonth());
+                GregorianCalendar fechaFinal = new GregorianCalendar(dpFechaFinal.getDate().getYear(), dpFechaFinal.getDate().getMonthValue() - 1, dpFechaFinal.getDate().getDayOfMonth());
+                if (fechaInicial.before(fechaFinal)) {
+                    filtro.setFechaInicial(fechaInicial);
+                    filtro.setFechaFinal(fechaFinal);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Asegúrese de ingresar un periodo válido.");
+                    filtro = null;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Asegúrese de ingresar ambas fechas para el periodo.");
+                filtro = null;
+            }
+        }
+        return filtro;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
-    private com.github.lgooddatepicker.components.DatePicker dpFechaNacimiento;
-    private com.github.lgooddatepicker.components.DatePicker dpFechaNacimiento1;
+    private javax.swing.JCheckBox cbxLicencias;
+    private javax.swing.JCheckBox cbxPeriodo;
+    private javax.swing.JCheckBox cbxPlacas;
+    private com.github.lgooddatepicker.components.DatePicker dpFechaFinal;
+    private com.github.lgooddatepicker.components.DatePicker dpFechaInicial;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblFechaFinal;
+    private javax.swing.JLabel lblFechaInicial;
+    private javax.swing.JLabel lblFiltrar;
     private javax.swing.JLabel lblInstrucciones;
-    private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNombre1;
-    private javax.swing.JLabel lblNombre2;
-    private javax.swing.JLabel lblNombre3;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JRadioButton rbtLicencias;
-    private javax.swing.JRadioButton rbtPeriodo;
-    private javax.swing.JRadioButton rbtPlacas;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+    private IGeneradorReportesBO generadorReportes;
 }
