@@ -25,6 +25,16 @@ public interface IGestorVehiculosBO {
      * buscar el vehículo.
      */
     public VehiculoNuevoDTO buscarVehiculo(String numPlaca) throws NegociosException;
+    
+    /**
+     * Permite obtener un vehículo según el número de serie proporcionado.
+     *
+     * @param numSerie Número de serie que será buscado.
+     * @return Vehículo buscado según el número de placa o null si no se encuentra.
+     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
+     * buscar el vehículo.
+     */
+    public VehiculoNuevoDTO buscarVehiculoNS(String numSerie) throws NegociosException;
 
     /**
      * Permite obtener una lista de vehículos según la persona proporcionada.

@@ -14,6 +14,10 @@ public class VehiculoNuevoDTO {
     private PersonaNuevaDTO persona;
     private List<Placa> placas;
 
+    public VehiculoNuevoDTO(String numeroSerie) {
+        this.numeroSerie = numeroSerie;
+    }
+
     public VehiculoNuevoDTO(String numeroSerie, String color, String modelo, String linea, String marca, PersonaNuevaDTO persona) {
         this.numeroSerie = numeroSerie;
         this.color = color;

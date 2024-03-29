@@ -115,6 +115,31 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
 
         return vehiculoBuscado;
     }
+    
+    /**
+     * Permite obtener un vehículo según el número de serie proporcionado.
+     *
+     * @param numSerie Número de serie que será buscado.
+     * @return Vehículo buscado según el número de placa o null si no se encuentra.
+     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
+     * buscar el vehículo.
+     */
+    @Override
+    public VehiculoNuevoDTO buscarVehiculoNS(String numSerie) throws NegociosException {
+        VehiculoNuevoDTO vehiculoNuevo = null;
+        try {
+            Vehiculo vehiculoEncontrado = this.vehiculosDAO.obtenerVehiculo(numSerie);
+            
+            if (vehiculoEncontrado != null) {
+                vehiculoNuevo = new VehiculoNuevoDTO(vehiculoEncontrado.getNumeroSerie());
+            }
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(GestorVehiculosBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return vehiculoNuevo;
+    }
 
     /**
      * Permite obtener una lista de vehículos según la persona proporcionada.

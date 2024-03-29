@@ -320,12 +320,21 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
             if (validador.validaNoSerie(txtNoSerie.getText()) && validador.validaMarca(txtMarca.getText()) && validador.validaLinea(txtLinea.getText())
                     && validador.validaMarca(txtMarca.getText()) && validador.validaLinea(txtLinea.getText()) && validador.validaColor(txtColor.getText())
                     && validador.validaModelo(txtModelo.getText())) {
-                agregarVehiculo();
-                JOptionPane.showMessageDialog(this, "Se agregó el vehículo correctamente.",
-                        "Información", JOptionPane.INFORMATION_MESSAGE);
-                PantallaPlacasVehiculo pPlacasVehiculo = new PantallaPlacasVehiculo(parent, true, vehiculoNuevo);
-                pPlacasVehiculo.setVisible(true);
-                dispose();
+                try {
+                    if (gestorVehiculo.buscarVehiculoNS(txtNoSerie.getText()) == null) {
+                        agregarVehiculo();
+                        JOptionPane.showMessageDialog(this, "Se agregó el vehículo correctamente.",
+                                "Información", JOptionPane.INFORMATION_MESSAGE);
+                        PantallaPlacasVehiculo pPlacasVehiculo = new PantallaPlacasVehiculo(parent, true, vehiculoNuevo);
+                        pPlacasVehiculo.setVisible(true);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "El numero de serie registrado ya se encuentra previamente registrado",
+                        "Error", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (NegociosException ex) {
+                    Logger.getLogger(PantallaAgregarVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Asegúrse de ingresar los datos del vehículo correctamente.",
                         "Error", JOptionPane.INFORMATION_MESSAGE);
