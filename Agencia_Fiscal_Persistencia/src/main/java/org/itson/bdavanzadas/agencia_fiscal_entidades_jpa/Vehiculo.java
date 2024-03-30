@@ -18,6 +18,10 @@ import javax.persistence.Table;
  * Clase que representa un vehículo en el sistema. Un vehículo puede ser
  * asociado a una persona y tiene atributos como número de serie, color, modelo,
  * línea y marca.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 @Entity
 @Table(name = "vehiculos")
@@ -61,6 +65,11 @@ public class Vehiculo implements Serializable {
     public Vehiculo() {
     }
 
+    /**
+     * Constructor que nos permite crear un vehículo con solo su numero de serie
+     *
+     * @param numeroSerie Número de serie del vehículo.
+     */
     public Vehiculo(String numeroSerie) {
         this.numeroSerie = numeroSerie;
     }

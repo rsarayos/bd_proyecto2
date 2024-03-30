@@ -12,6 +12,14 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
+/**
+ * La clase VehiculosDAO implementa la interfaz IVehiculosDAO para proporcionar operaciones CRUD relacionadas con los vehículos.
+ * Esta clase se encarga de agregar, obtener y consultar vehículos en la base de datos.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class VehiculosDAO implements IVehiculosDAO {
 
     private IConexion conexion;
@@ -27,10 +35,7 @@ public class VehiculosDAO implements IVehiculosDAO {
     }
 
     /**
-     * Permite agregar un vehiculo nuevo al sistema.
-     *
-     * @param vehiculoNuevo El vehiculo a agregar
-     * @throws PersistenciaException Si no se puede agregar el vehículo
+     * {@inheritDoc}
      */
     @Override
     public void agregarVehiculo(Vehiculo vehiculoNuevo) throws PersistenciaException {
@@ -49,11 +54,7 @@ public class VehiculosDAO implements IVehiculosDAO {
     }
 
     /**
-     * Permite buscar un vehículo por su número de serie.
-     * 
-     * @param numSerie Número de serie del vehículo a buscar
-     * @return Vehículo buscado
-     * @throws PersistenciaException Si no se puede consultar el vehículo
+     * {@inheritDoc}
      */
     @Override
     public Vehiculo obtenerVehiculo(String numSerie) throws PersistenciaException {
@@ -75,11 +76,7 @@ public class VehiculosDAO implements IVehiculosDAO {
     }
 
     /**
-     * Permite consultar los vehículos de una persona.
-     *
-     * @param persona La persona de la que se desean consultar los vehículos
-     * @return Una lista con los vehículos de la persona
-     * @throws PersistenciaException Si no se pueden consultar los vehículos
+     * {@inheritDoc}
      */
     @Override
     public List<Vehiculo> consultarVehiculos(Persona persona) throws PersistenciaException {

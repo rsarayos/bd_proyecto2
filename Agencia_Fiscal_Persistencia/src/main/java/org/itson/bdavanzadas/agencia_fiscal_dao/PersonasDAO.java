@@ -14,6 +14,10 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 /**
  * Clase que implementa las operaciones para acceder a los datos de personas en
  * la base de datos.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 public class PersonasDAO implements IPersonasDAO {
 
@@ -33,10 +37,7 @@ public class PersonasDAO implements IPersonasDAO {
     }
 
     /**
-     * Método que nos permite agregar un grupo de 20 personas nueva
-     *
-     * @throws PersistenciaException Si ocurre un error al intentar agregar a la
-     * persona.
+     * {@inheritDoc}
      */
     @Override
     public void agregarPersonas() throws PersistenciaException {
@@ -105,12 +106,7 @@ public class PersonasDAO implements IPersonasDAO {
     }
 
     /**
-     * Método que permite buscar un persona según su RFC.
-     *
-     * @param rfc RFC de la persona a buscar.
-     * @return Objeto persona con todos sus atributos.
-     * @throws PersistenciaException Si ocurre un error al intentar agregar a la
-     * persona.
+     * {@inheritDoc}
      */
     @Override
     public Persona obtenerPersonaRFC(String rfc) throws PersistenciaException {
@@ -129,13 +125,7 @@ public class PersonasDAO implements IPersonasDAO {
     }
 
     /**
-     * Método que nos permite buscar un lista de personas que cumplan con el
-     * filtro dato en el parámetro.
-     *
-     * @param filtroPersonas Filtro con los atributos por los que será buscado.
-     * @return Una lista de persona que cumplan con los parámetros del filtro.
-     * @throws PersistenciaException Si ocurre un error al intentar agregar a la
-     * persona.
+     * {@inheritDoc}
      */
     @Override
     public List<Persona> buscarPersona(FiltroPersonas filtroPersonas) throws PersistenciaException {

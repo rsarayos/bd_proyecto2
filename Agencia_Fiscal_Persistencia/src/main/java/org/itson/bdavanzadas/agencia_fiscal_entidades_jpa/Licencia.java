@@ -11,6 +11,10 @@ import javax.persistence.TemporalType;
 /**
  * Clase que representa una licencia en el sistema. Una licencia es un tipo
  * específico de trámite con una fecha de vencimiento adicional.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 @Entity
 @Table(name = "licencias")

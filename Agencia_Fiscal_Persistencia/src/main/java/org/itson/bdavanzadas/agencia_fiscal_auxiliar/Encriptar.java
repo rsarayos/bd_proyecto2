@@ -6,6 +6,14 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ * La clase Encriptar proporciona métodos para encriptar y desencriptar texto utilizando el algoritmo AES.
+ * Utiliza una clave secreta proporcionada para la encriptación y desencriptación.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class Encriptar {
     
     // Algoritmo utilizado para la encriptación y desencriptación.

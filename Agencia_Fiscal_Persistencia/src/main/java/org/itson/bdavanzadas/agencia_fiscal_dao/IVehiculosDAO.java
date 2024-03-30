@@ -5,6 +5,14 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
+/**
+ * La interfaz IVehiculosDAO define el contrato para las operaciones CRUD relacionadas con los vehículos.
+ * Proporciona métodos para agregar, obtener y consultar vehículos en la base de datos.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public interface IVehiculosDAO {
 
     /**

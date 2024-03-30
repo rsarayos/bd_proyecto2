@@ -7,6 +7,10 @@ import javax.persistence.Table;
 /**
  * Clase que representa un automóvil en el sistema.
  * Un automóvil es un tipo específico de vehículo.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 @Entity
 @Table(name = "automoviles")
@@ -32,6 +36,12 @@ public class Automovil extends Vehiculo implements Serializable{
         super(numeroSerie, color, modelo, linea, marca, persona);
     }
 
+    /**
+     * Devuelve una cadena que representa a esta instancia de Automovil,
+     * mostrando sus atributos
+     *
+     * @return Una cadena que representa a esta instancia de Licencia.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

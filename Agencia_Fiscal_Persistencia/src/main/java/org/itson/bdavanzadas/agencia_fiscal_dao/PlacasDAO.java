@@ -16,15 +16,31 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Placa;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
+/**
+ * La clase PlacasDAO implementa la interfaz IPlacasDAO para proporcionar operaciones CRUD relacionadas con las placas de vehículos.
+ * Esta clase se encarga de agregar, obtener y modificar placas en la base de datos.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PlacasDAO implements IPlacasDAO {
     
     private final IConexion conexion;
     static final Logger logger = Logger.getLogger(PlacasDAO.class.getName());
 
+    /**
+     * Constructor de la clase PlacasDAO.
+     *
+     * @param conexion La conexión a la base de datos.
+     */
     public PlacasDAO(IConexion conexion) {
         this.conexion = conexion;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Placa agregarPlaca(Placa placa) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
@@ -43,6 +59,9 @@ public class PlacasDAO implements IPlacasDAO {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Placa> obtenerPlacasVehiculo(Vehiculo vehiculo) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
@@ -69,6 +88,9 @@ public class PlacasDAO implements IPlacasDAO {
         }
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Placa obtenerPlaca(String numPlaca) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
@@ -95,6 +117,9 @@ public class PlacasDAO implements IPlacasDAO {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Placa obtenerPlacaActiva(Vehiculo vehiculo) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();
@@ -126,6 +151,9 @@ public class PlacasDAO implements IPlacasDAO {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Placa modificarVigencia(Placa placa) throws PersistenciaException {
         EntityManager entityManager = conexion.crearConexion();

@@ -6,6 +6,14 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Tramite;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
+/**
+ * La interfaz ITramitesDAO define el contrato para las operaciones de consulta de trámites.
+ * Proporciona métodos para consultar trámites realizados por una persona y trámites filtrados.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public interface ITramitesDAO {
 
     /**

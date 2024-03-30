@@ -17,7 +17,10 @@ import javax.persistence.TemporalType;
  * Clase que representa a una persona en el sistema. Una persona tiene atributos
  * como RFC, nombres, apellidos, fecha de nacimiento, teléfono, CURP, entre
  * otros. Además, puede estar asociada a trámites y vehículos.
- *
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 @Entity
 @Table(name = "personas")
@@ -68,6 +71,11 @@ public class Persona implements Serializable {
     public Persona() {
     }
 
+    /**
+     * Constructor que nos permite crear una persona con solo su RFC.
+     *
+     * @param rfc RFC de la persona.
+     */
     public Persona(String rfc) {
         this.rfc = rfc;
     }

@@ -14,6 +14,14 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Persona;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Tramite;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
+/**
+ * La clase TramitesDAO implementa la interfaz ITramitesDAO para proporcionar operaciones de consulta relacionadas con los trámites.
+ * Esta clase se encarga de consultar trámites realizados por una persona y trámites filtrados.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class TramitesDAO implements ITramitesDAO {
 
     private final IConexion conexion;
@@ -29,11 +37,7 @@ public class TramitesDAO implements ITramitesDAO {
     }
 
     /**
-     * Permite consultar todos los trámites realizados por una persona,
-     *
-     * @param persona La persona de la cual se desean consultar los trámites
-     * @return Una lista con los trámites que ha realizado la persona
-     * @throws PersistenciaException Si no se pueden consultar los trámites
+     * {@inheritDoc}
      */
     @Override
     public List<Tramite> consultarTramitesPersona(Persona persona) throws PersistenciaException {
@@ -57,11 +61,7 @@ public class TramitesDAO implements ITramitesDAO {
     }
 
     /**
-     * Permite consultar trámites que cumplan con el filtro establecido.
-     *
-     * @param filtro El filtro que se aplicará a la consulta de trámites
-     * @return La lista de los trámites consultados
-     * @throws PersistenciaException Si no se pueden consultar los trámites
+     * {@inheritDoc}
      */
     @Override
     public List<Tramite> consultarTramites(FiltroReportes filtro) throws PersistenciaException {

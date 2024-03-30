@@ -19,6 +19,10 @@ import javax.persistence.TemporalType;
 /**
  * Clase que representa un trámite en el sistema. Los trámites pueden estar
  * asociados a una persona y tienen atributos como fecha de trámite y costo.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 @Entity
 @Table(name = "tramites")

@@ -13,6 +13,10 @@ import javax.persistence.TemporalType;
 /**
  * Clase que representa una placa en el sistema. Una placa es un tipo específico
  * de trámite con un número de placa y estado asociados.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 @Entity
 @Table(name = "placas")

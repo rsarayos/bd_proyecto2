@@ -17,6 +17,9 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
  * La clase LicenciaDAO implementa la interfaz ILicenciaDAO y proporciona métodos para realizar operaciones 
  * relacionadas con la entidad Licencia en la base de datos.
  * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 public class LicenciasDAO implements ILicenciasDAO {
 
