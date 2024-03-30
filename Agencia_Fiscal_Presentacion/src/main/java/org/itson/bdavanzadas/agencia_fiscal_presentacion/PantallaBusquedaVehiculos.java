@@ -22,6 +22,13 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 import org.itson.bdavanzadas.agencia_fiscal_presentacion.validadores.Validadores;
 
+/**
+ * Clase que representa la pantalla de búsqueda de vehículos.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
 
     /**
@@ -341,10 +348,20 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción realizada al presionar el botón de cancelar.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Acción realizada al presionar el botón de buscar.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String rfc = txtRFC.getText();
         String noPlaca = txtNoPlaca.getText();
@@ -375,6 +392,11 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    /**
+     * Acción realizada al presionar el botón de agregar vehículo.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnAgregarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarVehiculoActionPerformed
         PantallaAgregarVehiculo pAgregarVehiculo = new PantallaAgregarVehiculo(parent, true);
         pAgregarVehiculo.setVisible(true);

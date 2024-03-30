@@ -16,8 +16,11 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
 /**
- *
- * @author victo
+ * Clase que representa la ventana para mostrar el historial de placas de un vehículo.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 public class PantallaPlacasVehiculo extends javax.swing.JDialog {
 
@@ -28,9 +31,9 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
     /**
      * Creates new form PantallaPlacasVehiculo
      *
-     * @param parent
-     * @param modal
-     * @param vehiculo
+     * @param parent Componente padre de la ventana.
+     * @param modal Indicador de modalidad de la ventana.
+     * @param vehiculo Información del vehículo asociado a las placas.
      */
     public PantallaPlacasVehiculo(java.awt.Frame parent, boolean modal, VehiculoNuevoDTO vehiculo) {
         super(parent, modal);
@@ -42,8 +45,7 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
     }
 
     /**
-     * Permite llenar la tabla de placas con el historial de placas de un
-     * vehículo.
+     * Llena la tabla de placas con el historial de placas de un vehículo.
      */
     private void llenarTablaPlacas() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -220,10 +222,20 @@ public class PantallaPlacasVehiculo extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Cierra la ventana actual.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Abre la ventana para agregar una nueva placa al vehículo.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnAgregarPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlacaActionPerformed
         PantallaPlacas pPlacas = new PantallaPlacas(parent, true, vehiculo);
         pPlacas.setVisible(true);

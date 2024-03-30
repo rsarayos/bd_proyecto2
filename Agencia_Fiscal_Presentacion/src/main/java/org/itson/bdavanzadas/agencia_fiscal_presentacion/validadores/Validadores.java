@@ -3,6 +3,14 @@ package org.itson.bdavanzadas.agencia_fiscal_presentacion.validadores;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * La clase Validadores contiene métodos para validar diferentes tipos de datos,
+ * como números de serie, marcas, líneas, colores, modelos, números de placa y RFCs.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class Validadores {
 
     /**

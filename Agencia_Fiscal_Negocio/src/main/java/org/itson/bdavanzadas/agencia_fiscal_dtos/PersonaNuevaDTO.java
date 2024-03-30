@@ -6,6 +6,14 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Tramite;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Vehiculo;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOException;
 
+/**
+ * La clase PersonaNuevaDTO es un DTO (Data Transfer Object) que representa una nueva persona con todos sus atributos.
+ * Esta clase es utilizada para transferir datos entre el frontend y el backend de la aplicación.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PersonaNuevaDTO {
 
     private String rfc;
@@ -18,6 +26,11 @@ public class PersonaNuevaDTO {
     private List<Tramite> tramites;
     private List<Vehiculo> vehiculos;
 
+    /**
+     * Constructor que inicializa el RFC de la persona.
+     *
+     * @param rfc RFC de la persona.
+     */
     public PersonaNuevaDTO(String rfc) {
         this.rfc = rfc;
     }
@@ -131,6 +144,11 @@ public class PersonaNuevaDTO {
         return vehiculos;
     }
     
+    /**
+     * Verifica si la persona es mayor de 18 años.
+     *
+     * @return true si la persona es mayor de 18 años, false en caso contrario.
+     */
     public boolean esMayorDe18() {
         Calendar fechaActual = Calendar.getInstance();
         
@@ -151,6 +169,12 @@ public class PersonaNuevaDTO {
         return edad >= 18;
     }
 
+    /**
+     * Verifica si el DTO es válido.
+     *
+     * @return true si el DTO es válido, false en caso contrario.
+     * @throws ValidacionDTOException si el DTO no es válido.
+     */
     public boolean esValido() throws ValidacionDTOException{
         // en este caso todos estan hardcoreados, por lo cual son validos
         return true;

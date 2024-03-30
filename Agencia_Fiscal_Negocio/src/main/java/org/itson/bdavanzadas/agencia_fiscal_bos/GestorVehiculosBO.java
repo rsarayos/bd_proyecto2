@@ -22,6 +22,14 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOExc
 import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonasDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IPlacasDAO;
 
+/**
+ * La clase GestorVehiculosBO implementa la interfaz IGestorVehiculosBO y define
+ * la lógica de negocio para la gestión de vehículos y placas asociadas a personas.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class GestorVehiculosBO implements IGestorVehiculosBO {
 
     private final IConexion conexion;
@@ -44,11 +52,7 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
     }
 
     /**
-     * Permite agregar un vehículo nuevo.
-     *
-     * @param vehiculoNuevo Vehículo a agregar.
-     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
-     * agregar el vehículo.
+     * {@inheritDoc}
      */
     @Override
     public void agregarVehiculo(VehiculoNuevoDTO vehiculoNuevo) throws NegociosException {
@@ -64,12 +68,7 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
     }
 
     /**
-     * Permite obtener un vehículo según el número de placa proporcionado.
-     *
-     * @param numPlaca Número de placa que será buscado.
-     * @return Vehículo buscado según el número de placa.
-     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
-     * buscar el vehículo.
+     * {@inheritDoc}
      */
     @Override
     public VehiculoNuevoDTO buscarVehiculo(String numPlaca) throws NegociosException {
@@ -117,12 +116,7 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
     }
     
     /**
-     * Permite obtener un vehículo según el número de serie proporcionado.
-     *
-     * @param numSerie Número de serie que será buscado.
-     * @return Vehículo buscado según el número de placa o null si no se encuentra.
-     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
-     * buscar el vehículo.
+     * {@inheritDoc}
      */
     @Override
     public VehiculoNuevoDTO buscarVehiculoNS(String numSerie) throws NegociosException {
@@ -142,12 +136,7 @@ public class GestorVehiculosBO implements IGestorVehiculosBO {
     }
 
     /**
-     * Permite obtener una lista de vehículos según la persona proporcionada.
-     *
-     * @param persona Persona con la que se buscarán los vehículos.
-     * @return Lista de vehículos buscados según la persona.
-     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
-     * buscar la lista de vehículos.
+     * {@inheritDoc}
      */
     @Override
     public List<VehiculoNuevoDTO> obtenerVehiculos(PersonaNuevaDTO persona) throws NegociosException {

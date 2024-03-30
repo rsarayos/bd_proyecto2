@@ -5,6 +5,14 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroReportesDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.TramiteReporteDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
+/**
+ * La interfaz IGeneradorReportesBO define los métodos necesarios para generar reportes de trámites.
+ * Los trámites se pueden filtrar y posteriormente generar un archivo PDF con la información solicitada.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public interface IGeneradorReportesBO {
 
     /**

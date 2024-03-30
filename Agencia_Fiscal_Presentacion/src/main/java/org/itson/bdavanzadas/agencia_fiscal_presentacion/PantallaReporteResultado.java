@@ -12,14 +12,21 @@ import org.itson.bdavanzadas.agencia_fiscal_bos.IGeneradorReportesBO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.TramiteReporteDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
+/**
+ * Clase que representa la ventana para mostrar los resultados de un reporte de búsqueda de trámites.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PantallaReporteResultado extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaReporteResultado
      *
-     * @param parent
-     * @param modal
-     * @param listaReporte
+     * @param parent Componente padre de la ventana.
+     * @param modal Indicador de modalidad de la ventana.
+     * @param listaReporte Lista de trámites a mostrar en el reporte.
      */
     public PantallaReporteResultado(java.awt.Frame parent, boolean modal, List<TramiteReporteDTO> listaReporte) {
         super(parent, modal);
@@ -171,10 +178,20 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Cierra la ventana actual.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    /**
+     * Genera un archivo PDF con los trámites mostrados en la tabla.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnGenerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFActionPerformed
         try {
             generadorReportes.generarReporte(listaReporte);
@@ -185,9 +202,9 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
     }//GEN-LAST:event_btnGenerarPDFActionPerformed
 
     /**
-     * Permite mostrar los trámites consultados en la tabla del reporte.
+     * Llena la tabla con los trámites obtenidos del reporte.
      *
-     * @param listaReporte Los trámites del reporte
+     * @param listaReporte Lista de trámites a mostrar en la tabla.
      */
     private void llenarTabla(List<TramiteReporteDTO> listaReporte) {
 

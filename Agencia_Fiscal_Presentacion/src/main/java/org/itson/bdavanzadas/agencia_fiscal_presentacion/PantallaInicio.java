@@ -2,10 +2,17 @@ package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
 import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPersonasBO;
 
+/**
+ * Clase que representa la pantalla de inicio de la aplicación.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PantallaInicio extends javax.swing.JFrame {
 
     /**
-     * Creates new form PantallaInicio
+     * Constructor de la clase PantallaInicio.
      */
     public PantallaInicio() {
         initComponents();
@@ -190,21 +197,41 @@ public class PantallaInicio extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción realizada al presionar el botón del módulo de trámites.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnModuloTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModuloTramitesActionPerformed
         PantallaModuloTramites pModuloTramites = new PantallaModuloTramites(this, true);
         pModuloTramites.setVisible(true);
     }//GEN-LAST:event_btnModuloTramitesActionPerformed
 
+    /**
+     * Acción realizada al presionar el botón de contribuyentes.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnContribuyentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContribuyentesActionPerformed
         PantallaContribuyentes pAgregarPersonas = new PantallaContribuyentes(this, true);
         pAgregarPersonas.setVisible(true);
     }//GEN-LAST:event_btnContribuyentesActionPerformed
 
+    /**
+     * Acción realizada al presionar el botón del módulo de reportes.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnModuloReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModuloReportesActionPerformed
         PantallaReporteBusqueda pReporte = new PantallaReporteBusqueda(this, true);
         pReporte.setVisible(true);
     }//GEN-LAST:event_btnModuloReportesActionPerformed
 
+    /**
+     * Acción realizada al presionar el botón del módulo de consultas.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnModuloConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModuloConsultasActionPerformed
         PantallaConsultas pConsultas = new PantallaConsultas(this, true);
         pConsultas.setVisible(true);

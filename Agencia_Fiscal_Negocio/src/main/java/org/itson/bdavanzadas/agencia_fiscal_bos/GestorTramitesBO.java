@@ -18,6 +18,14 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosExceptio
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOException;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonasDAO;
 
+/**
+ * La clase GestorTramitesBO implementa la interfaz IGestorTramitesBO y define
+ * la lógica de negocio para la gestión de trámites relacionados con personas.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class GestorTramitesBO implements IGestorTramitesBO {
 
     private IConexion conexion;
@@ -35,12 +43,7 @@ public class GestorTramitesBO implements IGestorTramitesBO {
     }
 
     /**
-     * Permite consultar los trámites realizados por una persona.
-     * 
-     * @param persona Persona de la cual se buscan los trámites
-     * @return Lista de trámites de la persona
-     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
-     * buscar los trámites.
+     * {@inheritDoc}
      */
     @Override
     public List<TramiteDTO> consultarTramites(PersonaNuevaDTO persona) throws NegociosException {

@@ -21,6 +21,14 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosExceptio
 import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonasDAO;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IPlacasDAO;
 
+/**
+ * La clase RegistroPlacaBO implementa la interfaz IRegistroPlacaBO y define
+ * la lógica de negocio para el trámite, búsqueda y consulta de placas en el sistema.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class RegistroPlacaBO implements IRegistroPlacaBO {
 
     private final IConexion conexion;
@@ -43,12 +51,7 @@ public class RegistroPlacaBO implements IRegistroPlacaBO {
     }
 
     /**
-     * Permite tramitar una placa nueva.
-     *
-     * @param placaNueva Datos de la placa nueva
-     * @return Placa agregada.
-     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
-     * tramitar la placa.
+     * {@inheritDoc}
      */
     @Override
     public PlacaNuevaDTO tramitarPlaca(PlacaNuevaDTO placaNueva) throws NegociosException {
@@ -90,12 +93,7 @@ public class RegistroPlacaBO implements IRegistroPlacaBO {
     }
 
     /**
-     * Permite buscar una placa según el número de placa proporcionado.
-     *
-     * @param numPlaca Número de placa que permite buscar la placa.
-     * @return Placa buscada.
-     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
-     * buscar la placa.
+     * {@inheritDoc}
      */
     @Override
     public PlacaNuevaDTO buscarPlaca(String numPlaca) throws NegociosException {
@@ -115,12 +113,7 @@ public class RegistroPlacaBO implements IRegistroPlacaBO {
     }
     
     /**
-     * Permite buscar una lista de placas que tiene el vehículo proporcionado.
-     *
-     * @param vehiculoN Vehículo del cual se buscarán las placas.
-     * @return Lista de placas del vehículo.
-     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
-     * buscar la lista de placas.
+     * {@inheritDoc}
      */
     @Override
     public List<PlacaNuevaDTO> buscarPlacasVehiculo(VehiculoNuevoDTO vehiculoN) throws NegociosException {

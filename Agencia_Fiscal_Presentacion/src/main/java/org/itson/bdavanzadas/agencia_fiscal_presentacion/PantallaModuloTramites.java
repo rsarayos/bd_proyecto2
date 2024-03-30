@@ -2,13 +2,20 @@ package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
 import java.awt.Frame;
 
+/**
+ * Clase que representa el módulo de trámites en la aplicación.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PantallaModuloTramites extends javax.swing.JDialog {
 
     /**
-     * Creates new form DlgModuloTramites
+     * Constructor de la clase PantallaModuloTramites.
      *
-     * @param parent
-     * @param modal
+     * @param parent Componente padre de la ventana.
+     * @param modal Indicador de modalidad de la ventana.
      */
     public PantallaModuloTramites(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -151,10 +158,20 @@ public class PantallaModuloTramites extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Cierra la ventana actual.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    /**
+     * Abre el módulo de licencias.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnModuloLicenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModuloLicenciasActionPerformed
         setVisible(false);
         PantallaBusquedaContribuyente pModuloLicencias = new PantallaBusquedaContribuyente(parent, true);
@@ -162,6 +179,11 @@ public class PantallaModuloTramites extends javax.swing.JDialog {
         setVisible(true);
     }//GEN-LAST:event_btnModuloLicenciasActionPerformed
 
+    /**
+     * Abre el módulo de placas.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnModuloPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModuloPlacasActionPerformed
         setVisible(false);
         PantallaBusquedaVehiculos pModuloPlacas = new PantallaBusquedaVehiculos(parent, true);

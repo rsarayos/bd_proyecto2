@@ -10,13 +10,20 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroReportesDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.TramiteReporteDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
+/**
+ * Clase que representa la ventana para generar reportes de búsqueda de trámites.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PantallaReporteBusqueda extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaReporteBusqueda
      *
-     * @param parent
-     * @param modal
+     * @param parent Componente padre de la ventana.
+     * @param modal Indicador de modalidad de la ventana.
      */
     public PantallaReporteBusqueda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -236,10 +243,20 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Cierra la ventana actual.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Realiza la búsqueda de trámites según el filtro seleccionado y muestra los resultados en una nueva ventana.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         FiltroReportesDTO filtro = crearFiltro();
         List<TramiteReporteDTO> listaReporte;
@@ -255,6 +272,11 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    /**
+     * Habilita o deshabilita los campos de selección de fecha dependiendo del estado del checkbox de periodo.
+     *
+     * @param evt Evento de cambio de estado del checkbox.
+     */
     private void cbxPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPeriodoActionPerformed
         if (cbxPeriodo.isSelected()) {
             dtpFechaInicial.setEnabled(true);
@@ -266,9 +288,9 @@ public class PantallaReporteBusqueda extends javax.swing.JDialog {
     }//GEN-LAST:event_cbxPeriodoActionPerformed
 
     /**
-     * Permite crear el filtro para la busqueda de trámites.
+     * Crea un filtro basado en los campos de búsqueda proporcionados por el usuario.
      *
-     * @return El filtro creado
+     * @return El filtro creado para la búsqueda de trámites.
      */
     private FiltroReportesDTO crearFiltro() {
         FiltroReportesDTO filtro = new FiltroReportesDTO();

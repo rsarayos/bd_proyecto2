@@ -15,13 +15,20 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroPersonasDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
+/**
+ * Clase que representa la pantalla de consultas de personas.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PantallaConsultas extends javax.swing.JDialog {
 
     /**
-     * Creates new form PantallaModuloLicencias
+     * Constructor de la clase PantallaConsultas.
      *
-     * @param parent
-     * @param modal
+     * @param parent Componente padre de la pantalla.
+     * @param modal  Indica si la pantalla es modal o no.
      */
     public PantallaConsultas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -223,10 +230,20 @@ public class PantallaConsultas extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción realizada al presionar el botón de cancelar.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Acción realizada al presionar el botón de buscar.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // Se crea el filtro para la consulta de personas
         if (!txtNombre.getText().isBlank() || !txtRFC.getText().isBlank() || dpFechaNacimiento.getDate() != null) {

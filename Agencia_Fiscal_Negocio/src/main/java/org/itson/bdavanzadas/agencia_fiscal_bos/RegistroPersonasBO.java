@@ -16,6 +16,14 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonasDAO;
 
+/**
+ * La clase RegistroPersonasBO implementa la interfaz IRegistroPersonasBO y define
+ * la lógica de negocio para el registro, búsqueda y consulta de personas en el sistema.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class RegistroPersonasBO implements IRegistroPersonasBO {
 
     static final Logger logger = Logger.getLogger(RegistroPersonasBO.class.getName());
@@ -46,11 +54,7 @@ public class RegistroPersonasBO implements IRegistroPersonasBO {
     }
 
     /**
-     * Permite agregar personas utilizando un objeto de acceso a datos de
-     * persona.
-     *
-     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
-     * agregar una persona.
+     * {@inheritDoc}
      */
     @Override
     public void agregarPersonas() throws NegociosException {
@@ -62,13 +66,7 @@ public class RegistroPersonasBO implements IRegistroPersonasBO {
     }
 
     /**
-     * Permite buscar una persona por su rfc utilizando un objeto de acceso a
-     * datos de persona.
-     *
-     * @param rfc RFC de la persona a buscar
-     * @return Objeto con la persona buscada con el RFC
-     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
-     * buscar una persona.
+     * {@inheritDoc}
      */
     @Override
     public PersonaNuevaDTO buscarPersona(String rfc) throws NegociosException {
@@ -98,13 +96,7 @@ public class RegistroPersonasBO implements IRegistroPersonasBO {
     }
 
     /**
-     * Método que nos permite consultar las personas según el filtro enviado.
-     *
-     * @param filtroPersonas Parámetros que ayudarán al filtrado de las
-     * personas.
-     * @return Una lista de personas con los filtros aplicados.
-     * @throws NegociosException Es lanzanda en caso de que ocurra un error al
-     * consultar a las personas.
+     * {@inheritDoc}
      */
     @Override
     public List<PersonaNuevaDTO> consultarPersonas(FiltroPersonasDTO filtroPersonas) throws NegociosException {

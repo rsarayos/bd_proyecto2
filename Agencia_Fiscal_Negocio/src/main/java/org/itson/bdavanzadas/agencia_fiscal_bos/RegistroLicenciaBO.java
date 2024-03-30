@@ -22,7 +22,10 @@ import org.itson.bdavanzadas.agencia_fiscal_dao.IPersonasDAO;
 /**
  * La clase RegistroLicenciaBO implementa la interfaz IRegistroLicenciaBO y
  * proporciona métodos para realizar operaciones con Licencia.
- *
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 public class RegistroLicenciaBO implements IRegistroLicenciaBO {
 
@@ -43,13 +46,7 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO {
     }
 
     /**
-     * Método para registrar una nueva licencia.
-     *
-     * @param licenciaNueva Objeto de tipo LicenciaNuevaDTO que contiene los
-     * datos de la nueva licencia.
-     * @return El objeto de tipo LicenciaNuevaDTO que ha sido registrado.
-     * @throws NegociosException Si ocurre un error durante el proceso de
-     * registro de la licencia.
+     * {@inheritDoc}
      */
     @Override
     public LicenciaNuevaDTO registrarLicencia(LicenciaNuevaDTO licenciaNueva) throws NegociosException {
@@ -80,14 +77,7 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO {
     }
 
     /**
-     * Método para obtener todas las licencias asociadas a una persona.
-     *
-     * @param personaNueva Objeto de tipo PersonaNuevaDTO para el cual se desean
-     * obtener las licencias.
-     * @return Una lista de objetos de tipo LicenciaNuevaDTO asociados a la
-     * persona.
-     * @throws NegociosException Si ocurre un error durante la obtención de las
-     * licencias.
+     * {@inheritDoc}
      */
     @Override
     public List<LicenciaNuevaDTO> obtenerLicencias(PersonaNuevaDTO personaNueva) throws NegociosException {
@@ -131,13 +121,7 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO {
     }
 
     /**
-     * Método para obtener una licencia por su identificador único.
-     *
-     * @param licenciaNueva Identificador único de la licencia.
-     * @return El objeto de tipo LicenciaNuevaDTO correspondiente al
-     * identificador proporcionado.
-     * @throws NegociosException Si ocurre un error durante la obtención de la
-     * licencia.
+     * {@inheritDoc}
      */
     @Override
     public LicenciaNuevaDTO obtenerLicencia(LicenciaNuevaDTO licenciaNueva) throws NegociosException {
@@ -174,12 +158,7 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO {
     }
 
     /**
-     * Método para tramitar una licencia usando la licencia anterior.
-     *
-     * @param licenciaNueva Licencia anterior.
-     * @return Licencia nueva.
-     * @throws NegociosException Si ocurre un error durante la obtención de la
-     * licencia.
+     * {@inheritDoc}
      */
     @Override
     public LicenciaNuevaDTO tramitarLicencia(LicenciaNuevaDTO licenciaNueva) throws NegociosException {

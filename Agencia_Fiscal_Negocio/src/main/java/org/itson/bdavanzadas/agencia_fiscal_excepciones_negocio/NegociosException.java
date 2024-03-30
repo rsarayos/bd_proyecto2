@@ -2,6 +2,10 @@ package org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio;
 
 /**
  * Clase de excepción personalizada para manejar errores relacionados con operaciones de negocio.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 public class NegociosException extends Exception{
 

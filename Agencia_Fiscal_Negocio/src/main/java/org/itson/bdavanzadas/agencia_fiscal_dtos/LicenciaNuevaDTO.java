@@ -6,6 +6,10 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.ValidacionDTOExc
 /**
  * Clase que representa un objeto DTO (Data Transfer Object) para la creación de una nueva licencia.
  * Este objeto contiene los datos necesarios para crear una licencia nueva.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 public class LicenciaNuevaDTO {
     
@@ -33,6 +37,16 @@ public class LicenciaNuevaDTO {
         this.estado = estado;
     }
 
+    /**
+     * Constructor para inicializar un objeto LicenciaNuevaDTO con todos los datos.
+     *
+     * @param id de la licencia.
+     * @param fechaVencimiento La fecha de vencimiento de la licencia.
+     * @param fechaTramite La fecha en que se tramita la licencia.
+     * @param costo El costo de la licencia.
+     * @param persona La persona a la que se otorga la licencia.
+     * @param estado El estado de la licencia.
+     */
     public LicenciaNuevaDTO(Long id, Calendar fechaVencimiento, Calendar fechaTramite, Float costo, PersonaNuevaDTO persona, Boolean estado) {
         this.id = id;
         this.fechaVencimiento = fechaVencimiento;
@@ -42,10 +56,20 @@ public class LicenciaNuevaDTO {
         this.estado = estado;
     }
 
+    /**
+     * Método para asignar el id de la licencia.
+     *
+     * @param id de la licencia.
+     */
     public void setId(Long id) {
         this.id = id;
     }
     
+    /**
+     * Método para obtener el id de la licencia.
+     *
+     * @return el id de la licencia.
+     */
     public Long getId() {
         return id;
     }

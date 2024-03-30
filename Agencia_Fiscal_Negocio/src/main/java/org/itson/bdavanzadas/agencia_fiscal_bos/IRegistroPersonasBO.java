@@ -5,6 +5,14 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.FiltroPersonasDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
+/**
+ * La interfaz IRegistroPersonasBO define los métodos necesarios para gestionar el registro de personas.
+ * Permite agregar, buscar y consultar personas.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public interface IRegistroPersonasBO {
 
     /**

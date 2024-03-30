@@ -5,6 +5,14 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
+/**
+ * La interfaz IGestorVehiculosBO define los métodos necesarios para gestionar los vehículos.
+ * Permite agregar, buscar y obtener vehículos.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public interface IGestorVehiculosBO {
 
     /**

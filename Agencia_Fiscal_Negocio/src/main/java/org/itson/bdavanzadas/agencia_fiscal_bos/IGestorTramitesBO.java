@@ -5,6 +5,14 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.TramiteDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
+/**
+ * La interfaz IGestorTramitesBO define los métodos necesarios para gestionar los trámites realizados por una persona.
+ * Permite consultar los trámites de una persona específica.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public interface IGestorTramitesBO {
 
     /**

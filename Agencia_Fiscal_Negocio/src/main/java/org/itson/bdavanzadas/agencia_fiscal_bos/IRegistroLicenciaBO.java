@@ -8,6 +8,10 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosExceptio
 /**
  * Interfaz que define las operaciones de negocio para el registro y gestión de
  * licencias.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 public interface IRegistroLicenciaBO {
 

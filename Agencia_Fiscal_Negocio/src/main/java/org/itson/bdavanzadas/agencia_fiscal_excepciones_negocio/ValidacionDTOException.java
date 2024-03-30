@@ -2,6 +2,10 @@ package org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio;
 
 /**
  * Clase de excepción personalizada para manejar errores de validación en objetos DTO (Data Transfer Object).
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 public class ValidacionDTOException extends Exception{
  

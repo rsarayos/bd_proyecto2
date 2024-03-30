@@ -18,13 +18,20 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 import org.itson.bdavanzadas.agencia_fiscal_presentacion.validadores.Validadores;
 
+/**
+ * Clase que representa la pantalla para agregar un vehículo al sistema.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PantallaAgregarVehiculo extends javax.swing.JDialog {
 
     /**
-     * Creates new form PantallaAgregarVehiculo
+     * Constructor de la clase PantallaAgregarVehiculo.
      *
-     * @param parent
-     * @param modal
+     * @param parent Componente padre de la pantalla.
+     * @param modal  Indica si la pantalla es modal o no.
      */
     public PantallaAgregarVehiculo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -37,7 +44,7 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
     }
 
     /**
-     * Permite agregar un vehículo nuevo al sistema.
+     * Método para agregar un vehículo al sistema.
      */
     private void agregarVehiculo() {
         String noSerie = txtNoSerie.getText();
@@ -307,6 +314,11 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción realizada al presionar el botón de cancelar.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this, "Está en medio de un proceso, ¿desea salir en este momento?",
                 "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -315,6 +327,11 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Acción realizada al presionar el botón de agregar.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         if (!txtNombrePersona.getText().isBlank()) {
             if (validador.validaNoSerie(txtNoSerie.getText()) && validador.validaMarca(txtMarca.getText()) && validador.validaLinea(txtLinea.getText())
@@ -345,6 +362,11 @@ public class PantallaAgregarVehiculo extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    /**
+     * Acción realizada al presionar el botón de buscar.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String rfc = txtRFC.getText();
 

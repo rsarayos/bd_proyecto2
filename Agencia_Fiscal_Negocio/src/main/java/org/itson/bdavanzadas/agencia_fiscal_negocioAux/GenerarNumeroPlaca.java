@@ -2,11 +2,26 @@ package org.itson.bdavanzadas.agencia_fiscal_negocioAux;
 
 import java.util.Random;
 
+/**
+ * La clase GenerarNumeroPlaca proporciona un método para generar un número de placa aleatorio.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class GenerarNumeroPlaca {
 
+    /**
+     * Constructor por defecto de la clase GenerarNumeroPlaca.
+     */
     public GenerarNumeroPlaca() {
     }
     
+    /**
+     * Genera un número de placa aleatorio compuesto por tres letras y tres dígitos separados por un guion.
+     *
+     * @return Un número de placa aleatorio.
+     */
     public String generarNumeroDePlaca() {
         StringBuilder placa = new StringBuilder();
 

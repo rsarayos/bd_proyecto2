@@ -12,14 +12,21 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosExceptio
 import org.itson.bdavanzadas.agencia_fiscal_negocioAux.PreciosTramites;
 import org.itson.bdavanzadas.agencia_fiscal_negocioAux.TipoLicencia;
 
+/**
+ * Clase que representa la ventana para seleccionar el tipo de licencia a registrar.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PantallaTiposLicencias extends javax.swing.JDialog {
 
     /**
      * Creates new form PantallaTiposLicencias
      *
-     * @param parent
-     * @param modal
-     * @param persona
+     * @param parent Componente padre de la ventana.
+     * @param modal Indicador de modalidad de la ventana.
+     * @param persona Datos de la persona para la cual se registrará la licencia.
      */
     public PantallaTiposLicencias(java.awt.Frame parent, boolean modal, PersonaNuevaDTO persona) {
         super(parent, modal);
@@ -302,6 +309,11 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Muestra un mensaje de advertencia al usuario si está en medio de un trámite y desea salir.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this, "Está en medio de un trámite, ¿desea salir en este momento?",
                 "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -310,6 +322,11 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Registra una licencia con el tipo seleccionado y muestra un mensaje de confirmación.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         if (!txtCosto.getText().isBlank()) {
             registrarLicencia();
@@ -322,20 +339,35 @@ public class PantallaTiposLicencias extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    /**
+     * Establece el costo de la licencia de un año y lo muestra en el campo correspondiente.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void rbtUnAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtUnAnioActionPerformed
         txtCosto.setText(NumberFormat.getCurrencyInstance().format(PreciosTramites.obtenerCostoLicencia(TipoLicencia.UN_ANIO, persona.isDiscapacitado())));
     }//GEN-LAST:event_rbtUnAnioActionPerformed
 
+    /**
+     * Establece el costo de la licencia de dos años y lo muestra en el campo correspondiente.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void rbtDosAniosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtDosAniosActionPerformed
         txtCosto.setText(NumberFormat.getCurrencyInstance().format(PreciosTramites.obtenerCostoLicencia(TipoLicencia.DOS_ANIOS, persona.isDiscapacitado())));
     }//GEN-LAST:event_rbtDosAniosActionPerformed
 
+    /**
+     * Establece el costo de la licencia de tres años y lo muestra en el campo correspondiente.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void rbtTresAniosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtTresAniosActionPerformed
         txtCosto.setText(NumberFormat.getCurrencyInstance().format(PreciosTramites.obtenerCostoLicencia(TipoLicencia.TRES_ANIOS, persona.isDiscapacitado())));
     }//GEN-LAST:event_rbtTresAniosActionPerformed
 
     /**
-     * Permite capturar los datos ingresados y usarlos para registrar una licencia.
+     * Captura los datos ingresados y los utiliza para registrar una nueva licencia.
      */
     private void registrarLicencia() {
         // Crea una fecha actual para calcular la fecha de vencimiento de la licencia

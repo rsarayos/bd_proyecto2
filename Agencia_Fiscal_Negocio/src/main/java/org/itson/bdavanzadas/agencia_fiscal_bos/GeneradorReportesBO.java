@@ -38,6 +38,14 @@ import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Placa;
 import org.itson.bdavanzadas.agencia_fiscal_entidades_jpa.Tramite;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones.PersistenciaException;
 
+/**
+ * La clase GeneradorReportesBO implementa la interfaz IGeneradorReportesBO y define
+ * la lógica de negocio para la generación de reportes de trámites.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class GeneradorReportesBO implements IGeneradorReportesBO {
 
     private IConexion conexion;
@@ -53,11 +61,7 @@ public class GeneradorReportesBO implements IGeneradorReportesBO {
     }
 
     /**
-     * Permite obtener los trámites deseados para realizar el reporte.
-     *
-     * @param filtro El filtro que se aplicará a la consulta de trámites
-     * @return La lista de los trámites consultados
-     * @throws NegociosException Si no se pueden consultar los trámites
+     * {@inheritDoc}
      */
     @Override
     public List<TramiteReporteDTO> obtenerTramites(FiltroReportesDTO filtro) throws NegociosException {
@@ -113,50 +117,58 @@ public class GeneradorReportesBO implements IGeneradorReportesBO {
     }
 
     /**
-     * Permite generar el archivo PDF del reporte.
-     *
-     * @param listaTramites La lista de trámites que contendrá el archivo PDF
-     * @throws NegociosException Si no se puede generar el archivo
+     * {@inheritDoc}
      */
     @Override
     public void generarReporte(List<TramiteReporteDTO> listaTramites) throws NegociosException {
-
+        // Crear un JRBeanCollectionDataSource con la lista de TramiteReporteDTO
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(listaTramites);
-
+        // Parámetros para el reporte
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("CollectionBeanParam", itemsJRBean);
 
+        // Configuración del JFileChooser para seleccionar la ubicación y nombre del archivo
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Guardar Reporte");
         fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos PDF", "pdf"));
 
+        // Mostrar el diálogo para guardar el archivo
         int userSelection = fileChooser.showSaveDialog(null);
 
+        // Si el usuario selecciona guardar
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToSave = fileChooser.getSelectedFile();
             String filePath = fileToSave.getAbsolutePath();
 
+            // Asegurar que la extensión del archivo sea .pdf
             if (!filePath.endsWith(".pdf")) {
                 filePath += ".pdf";
             }
 
+            // Cargar el diseño del reporte desde el archivo "Tramites.jrxml"
             try (InputStream input = new FileInputStream(new File("Tramites.jrxml"))) {
                 JasperDesign jasperDesign = JRXmlLoader.load(input);
+                // Compilar el reporte
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+                // Llenar el reporte con los datos y parámetros proporcionados
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 
+                // Exportar el reporte a un archivo PDF
                 try (
                         OutputStream outputStream = new FileOutputStream(new File(filePath))) {
                     JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
                 }
 
             } catch (Exception ex) {
+                // Log y excepción en caso de error
                 logger.log(Level.SEVERE, "Error al generar el reporte");
                 throw new NegociosException("No se pudo generar el archivo PDF.");
             }
+            // Log y mensaje de éxito
             logger.log(Level.INFO, "Archivo generado");
             JOptionPane.showMessageDialog(null, "Archivo guardado", "Info", JOptionPane.INFORMATION_MESSAGE);
         } else if (userSelection == JFileChooser.CANCEL_OPTION) {
+            // Si el usuario cancela la operación
             logger.log(Level.INFO, "Usuario cancelo la operacion");
         }
     }

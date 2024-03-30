@@ -5,6 +5,14 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.PlacaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
+/**
+ * La interfaz IRegistroPlacaBO define los métodos necesarios para gestionar el registro de placas.
+ * Permite tramitar, buscar y consultar placas.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public interface IRegistroPlacaBO {
     
     /**

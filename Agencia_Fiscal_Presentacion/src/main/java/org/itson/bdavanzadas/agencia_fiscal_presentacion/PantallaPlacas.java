@@ -16,6 +16,13 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosExceptio
 import org.itson.bdavanzadas.agencia_fiscal_negocioAux.GenerarNumeroPlaca;
 import org.itson.bdavanzadas.agencia_fiscal_negocioAux.PreciosTramites;
 
+/**
+ * Clase que representa la ventana para registrar placas de vehículos.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PantallaPlacas extends javax.swing.JDialog {
 
     private VehiculoNuevoDTO vehiculo;
@@ -26,9 +33,9 @@ public class PantallaPlacas extends javax.swing.JDialog {
     /**
      * Creates new form PantallaPlacas
      *
-     * @param parent
-     * @param modal
-     * @param vehiculo
+     * @param parent Componente padre de la ventana.
+     * @param modal Indicador de modalidad de la ventana.
+     * @param vehiculo Información del vehículo asociado a la placa.
      */
     public PantallaPlacas(java.awt.Frame parent, boolean modal, VehiculoNuevoDTO vehiculo) {
         super(parent, modal);
@@ -40,7 +47,7 @@ public class PantallaPlacas extends javax.swing.JDialog {
     }
 
     /**
-     * Permite mostrar los datos de las placas que se van a registrar.
+     * Muestra los datos de las placas que se van a registrar.
      */
     private void llenarDatosPlaca() {
 
@@ -306,6 +313,11 @@ public class PantallaPlacas extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Cierra la ventana actual.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this, "Está en medio de un trámite, ¿desea salir en este momento?",
                 "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -314,6 +326,11 @@ public class PantallaPlacas extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Agrega una nueva placa al sistema.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         PlacaNuevaDTO placaNueva = new PlacaNuevaDTO(txtNoPlaca.getText(), null, true, vehiculo, Calendar.getInstance(), costo, vehiculo.getPersona());
         try {

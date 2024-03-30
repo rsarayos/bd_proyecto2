@@ -12,14 +12,21 @@ import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.TramiteDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
+/**
+ * Clase que representa la pantalla de consultas de trámites de una persona.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PantallaConsultasTramites extends javax.swing.JDialog {
 
     /**
-     * Creates new form PantallaModuloLicencias
+     * Constructor de la clase PantallaConsultasTramites.
      *
-     * @param parent
-     * @param modal
-     * @param persona
+     * @param parent  Componente padre de la pantalla.
+     * @param modal   Indica si la pantalla es modal o no.
+     * @param persona Persona para la cual se consultan los trámites.
      */
     public PantallaConsultasTramites(java.awt.Frame parent, boolean modal, PersonaNuevaDTO persona) {
         super(parent, modal);
@@ -178,6 +185,11 @@ public class PantallaConsultasTramites extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción realizada al presionar el botón de salir.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed

@@ -5,13 +5,20 @@ import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPersonasBO;
 import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonasBO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 
+/**
+ * Clase que representa la pantalla para agregar contribuyentes.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
+ */
 public class PantallaContribuyentes extends javax.swing.JDialog {
 
     /**
-     * Creates new form PantallaAgregarPersonas
+     * Constructor de la clase PantallaContribuyentes.
      *
-     * @param parent
-     * @param modal
+     * @param parent Componente padre de la pantalla.
+     * @param modal  Indica si la pantalla es modal o no.
      */
     public PantallaContribuyentes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -146,6 +153,11 @@ public class PantallaContribuyentes extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción realizada al presionar el botón de agregar.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         IRegistroPersonasBO registroPersona = new RegistroPersonasBO();
         try {
@@ -159,6 +171,11 @@ public class PantallaContribuyentes extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    /**
+     * Acción realizada al presionar el botón de salir.
+     *
+     * @param evt Evento de acción del botón.
+     */
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed

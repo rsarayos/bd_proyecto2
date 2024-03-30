@@ -2,6 +2,10 @@ package org.itson.bdavanzadas.agencia_fiscal_negocioAux;
 
 /**
  * Clase que define los precios asociados a diferentes tramites del sistema.
+ * 
+ * @author Víctor Humberto Encinas Guzmán
+ * @author Alejandro Sauceda Rayos
+ * @author Ricardo Alán Gutiérrez Garcés
  */
 public class PreciosTramites {
     
