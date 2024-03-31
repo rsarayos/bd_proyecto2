@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -98,7 +99,7 @@ public class GeneradorReportesBO implements IGeneradorReportesBO {
                         fecha,
                         tipoTramite,
                         nombreCompletoStr,
-                        tm.getCosto());
+                        NumberFormat.getCurrencyInstance().format(tm.getCosto()));
 
                 if (filtro.getTipoTramites() != null) {
                     if (tramiteReporte.getTipo().equalsIgnoreCase(filtro.getTipoTramites())) {

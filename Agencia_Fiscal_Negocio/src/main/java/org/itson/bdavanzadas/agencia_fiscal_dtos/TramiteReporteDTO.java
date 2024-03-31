@@ -17,7 +17,7 @@ public class TramiteReporteDTO {
     private Date fecha;
     private String tipo;
     private String nombre;
-    private Float costo;
+    private String costo;
 
     /**
      * Constructor que permite crear un objeto DTO de trámite simplificado para reportes.
@@ -27,7 +27,7 @@ public class TramiteReporteDTO {
      * @param nombre Nombre del contribuyente asociado al trámite.
      * @param costo Costo del trámite.
      */
-    public TramiteReporteDTO(Date fecha, String tipo, String nombre, Float costo) {
+    public TramiteReporteDTO(Date fecha, String tipo, String nombre, String costo) {
         this.fecha = fecha;
         this.tipo = tipo;
         this.nombre = nombre;
@@ -66,7 +66,7 @@ public class TramiteReporteDTO {
      *
      * @return Costo del trámite.
      */
-    public Float getCosto() {
+    public String getCosto() {
         return costo;
     }
     

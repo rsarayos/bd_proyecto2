@@ -27,7 +27,7 @@
 		<field name="fecha" class="java.util.Date"/>
 		<field name="tipo" class="java.lang.String"/>
 		<field name="nombre" class="java.lang.String"/>
-		<field name="costo" class="java.lang.Float"/>
+		<field name="costo" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="CollectionBeanParam" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<queryString>

@@ -226,7 +226,7 @@ public class PantallaReporteResultado extends javax.swing.JDialog {
             fecha.setTime(tramite.getFecha());
             String fechaRealización = fecha.get(Calendar.DAY_OF_MONTH) + "/" + (fecha.get(Calendar.MONTH) + 1)
                     + "/" + fecha.get(Calendar.YEAR) + ", " + fecha.get(Calendar.HOUR_OF_DAY) + ":" + fecha.get(Calendar.MINUTE);
-            Object[] fila = {tramite.getTipo(), fechaRealización, tramite.getNombre(), NumberFormat.getCurrencyInstance().format(tramite.getCosto())};
+            Object[] fila = {tramite.getTipo(), fechaRealización, tramite.getNombre(), tramite.getCosto()};
             modelo.addRow(fila);
         }
         tblTramites.setModel(modelo);
