@@ -18,6 +18,7 @@ import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonasBO;
 import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPlacaBO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.LicenciaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.PersonaNuevaDTO;
+import org.itson.bdavanzadas.agencia_fiscal_dtos.PlacaNuevaDTO;
 import org.itson.bdavanzadas.agencia_fiscal_dtos.VehiculoNuevoDTO;
 import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosException;
 import org.itson.bdavanzadas.agencia_fiscal_presentacion.validadores.Validadores;
@@ -369,8 +370,13 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
         if (validador.validaRfc(rfc)) {
             try {
                 persona = registroPersona.buscarPersona(rfc);
-                List<VehiculoNuevoDTO> vehiculos = gestorVehiculo.obtenerVehiculos(persona);
-                llenarTablaPersona(vehiculos);
+                if (persona != null) {
+                    List<VehiculoNuevoDTO> vehiculos = gestorVehiculo.obtenerVehiculos(persona);
+                    llenarTablaPersona(vehiculos);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontro ningun contribuyente con el RFC",
+                            "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                }
             } catch (NegociosException ex) {
                 JOptionPane.showMessageDialog(this, "El RFC no pertenece a ninguna persona",
                         "Error", JOptionPane.ERROR_MESSAGE);
@@ -378,9 +384,15 @@ public class PantallaBusquedaVehiculos extends javax.swing.JDialog {
             }
         } else if (validador.validaNoPlaca(noPlaca)) {
             try {
-                VehiculoNuevoDTO vehiculoBuscado = gestorVehiculo.buscarVehiculo(noPlaca);
-                persona = registroPersona.buscarPersona(vehiculoBuscado.getPersona().getRfc());
-                llenarTablaPlaca(vehiculoBuscado);
+                PlacaNuevaDTO placa = registroPlaca.buscarPlaca(noPlaca);
+                if (placa != null) {
+                    VehiculoNuevoDTO vehiculoBuscado = gestorVehiculo.buscarVehiculo(noPlaca);
+                    persona = registroPersona.buscarPersona(vehiculoBuscado.getPersona().getRfc());
+                    llenarTablaPlaca(vehiculoBuscado);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontro ninguna placa con el numero",
+                            "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                }
             } catch (NegociosException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
             }

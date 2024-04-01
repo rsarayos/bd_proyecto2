@@ -73,20 +73,23 @@ public class RegistroPersonasBO implements IRegistroPersonasBO {
         try {
             Persona persona = this.personaDAO.obtenerPersonaRFC(rfc);
 
-            String telefonoEnc = new String(persona.getTelefono());
+            if (persona != null) {
 
-            PersonaNuevaDTO personaNueva = new PersonaNuevaDTO(
-                    persona.getRfc(),
-                    persona.getNombres(),
-                    persona.getApellidoPaterno(),
-                    persona.getApellidoMaterno(),
-                    persona.getFechaNacimiento(),
-                    encriptar.desencriptar(telefonoEnc),
-                    persona.getIsDiscapacitado(),
-                    persona.getTramites(),
-                    persona.getVehiculos()
-            );
-            return personaNueva;
+                String telefonoEnc = new String(persona.getTelefono());
+
+                PersonaNuevaDTO personaNueva = new PersonaNuevaDTO(
+                        persona.getRfc(),
+                        persona.getNombres(),
+                        persona.getApellidoPaterno(),
+                        persona.getApellidoMaterno(),
+                        persona.getFechaNacimiento(),
+                        encriptar.desencriptar(telefonoEnc),
+                        persona.getIsDiscapacitado(),
+                        persona.getTramites(),
+                        persona.getVehiculos()
+                );
+                return personaNueva;
+            }
         } catch (PersistenciaException pex) {
             throw new NegociosException(pex.getMessage());
         } catch (Exception ex) {

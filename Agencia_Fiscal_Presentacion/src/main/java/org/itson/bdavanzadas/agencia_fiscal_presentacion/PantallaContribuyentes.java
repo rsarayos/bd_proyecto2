@@ -1,5 +1,7 @@
 package org.itson.bdavanzadas.agencia_fiscal_presentacion;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.itson.bdavanzadas.agencia_fiscal_bos.IRegistroPersonasBO;
 import org.itson.bdavanzadas.agencia_fiscal_bos.RegistroPersonasBO;
@@ -13,6 +15,8 @@ import org.itson.bdavanzadas.agencia_fiscal_excepciones_negocio.NegociosExceptio
  * @author Ricardo Alán Gutiérrez Garcés
  */
 public class PantallaContribuyentes extends javax.swing.JDialog {
+    
+    RegistroPersonasBO registro;
 
     /**
      * Constructor de la clase PantallaContribuyentes.
@@ -23,6 +27,7 @@ public class PantallaContribuyentes extends javax.swing.JDialog {
     public PantallaContribuyentes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        registro = new RegistroPersonasBO();
     }
 
     /**
@@ -161,12 +166,16 @@ public class PantallaContribuyentes extends javax.swing.JDialog {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         IRegistroPersonasBO registroPersona = new RegistroPersonasBO();
         try {
-            registroPersona.agregarPersonas();
-            JOptionPane.showMessageDialog(this, "Se registraron las personas en el sistema.",
-                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            if (registro.buscarPersona("GAHG890414H56") == null) {
+                registroPersona.agregarPersonas();
+                JOptionPane.showMessageDialog(this, "Se registraron las personas en el sistema.",
+                        "Información", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Ya se registraron las personas anteriormente.",
+                        "Información", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (NegociosException ex) {
-            JOptionPane.showMessageDialog(this, "Ya se registraron las personas anteriormente.",
-                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(PantallaContribuyentes.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
